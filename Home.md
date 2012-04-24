@@ -1,15 +1,15 @@
-Insight.Database is a fast, lightweight, and dare we say awesome micro-orm for .NET.
+Insight.Database is a fast, lightweight, (and dare we say awesome) micro-orm for .NET.
 
 ## Getting Started ##
 * [[Installing Insight]]
 * [[Opening Connections]]
-
 * [[Executing SQL Commands]]
+* [[Auto-Open]]
 * [[Querying for Objects]]
-* [[Converting Data to Objects]]
-* [[Dynamic Objects]]
-* [[Async Commands and Queries]]
-* [[Bulk Copy with Objects]]
+* Dynamic Objects
+* Lists of Objects as Parameters
+* Async Commands and Queries
+* Bulk Copy with Objects
 
 ## Important Stuff ##
 * [[Insight and Data Providers]]
@@ -22,3 +22,5 @@ Insight.Database is a fast, lightweight, and dare we say awesome micro-orm for .
 * [[Creating Commands]] - how to create a command manually for reuse
 * [[Manual Transformations]] - how to do your own transformations from data to objects
 * [[Streaming Results Efficiently]] - how to minimize memory usage by operating on objects as they are streamed in
+* Object Hierarchies
+* Multiple Result Sets

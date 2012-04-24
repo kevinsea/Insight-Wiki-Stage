@@ -43,14 +43,11 @@ Within the read action, you can do calculations, take summaries, or perform othe
 
 If you would rather act on the reader yourself and manage the lifetime of the connection, you can use the GetReader method:
 
-		static void ManualTransform_GetReader()
+		using (SqlConnection connection = Database.Open())
+		using (IDataReader reader = connection.GetReader("FindBeer", new { Name = "IPA" }))
 		{
-			using (SqlConnection connection = Database.Open())
-			using (IDataReader reader = connection.GetReader("FindBeer", new { Name = "IPA" }))
+			while (reader.Read())
 			{
-				while (reader.Read())
-				{
-					// do stuff with the reader here
-				}
+				// do stuff with the reader here
 			}
 		}
