@@ -6,21 +6,23 @@ Insight.Database is a fast, lightweight, (and dare we say awesome) micro-orm for
 * [[Executing SQL Commands]]
 * [[Auto-Open]]
 * [[Querying for Objects]]
-* Dynamic Objects
-* Lists of Objects as Parameters
-* Async Commands and Queries
-* Bulk Copy with Objects
+* [[Dynamic Objects]]
+* [[Lists of Objects as Parameters]]
+* [[Multiple Result Sets]]
+* [[Async Commands and Queries]]
+* [[Bulk Copy with Objects]]
 
 ## Important Stuff ##
 * [[Insight and Data Providers]]
-* [[Query Parameter Mapping]] - how Insight maps objects to query parameters
-* [[Mapping Results To Objects]] - how Insight maps results to objects
+* Query Parameter Mapping - how Insight maps objects to query parameters
+* Mapping Results To Objects - how Insight maps results to objects
 * [[Common Method Parameters]] - the extra, hidden default parameters for most of the Insight extension methods
 * [[Stored Procedures vs SQL Text]] - discusses the differences between using Stored Procedures and SQL Text with Insight
 
 ## Advanced Stuff ##
 * [[Creating Commands]] - how to create a command manually for reuse
 * [[Manual Transformations]] - how to do your own transformations from data to objects
-* [[Streaming Results Efficiently]] - how to minimize memory usage by operating on objects as they are streamed in
-* Object Hierarchies
-* Multiple Result Sets
+* Streaming Results Efficiently - how to minimize memory usage by operating on objects as they are streamed in
+* [[Object Hierarchies]]
+* [[FastExpando and the Borg Method]]
+* [[FastExpando and Mutations]]

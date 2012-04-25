@@ -19,7 +19,7 @@ This also works with SQL text:
 
 		List<Beer> beer = Database.Connection().QuerySql<Beer>("SELECT * FROM Beer WHERE Name = @Name", new { Name = "IPA" });
 
-If you already have an IDataReader (from any source!), you can use the ToList extension to convert the reader to objects:;
+If you already have an IDataReader (from any source!), you can use the ToList extension to convert the reader to objects:
 
 		using (SqlConnection connection = Database.Open())
 		using (IDataReader reader = connection.GetReader("FindBeer", new { Name = "IPA" }))
