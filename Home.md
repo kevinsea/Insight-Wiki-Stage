@@ -26,7 +26,7 @@ If you are thinking that you need something that is simple and just works for al
 ## Advanced & Other Stuff ##
 * [[Creating Commands]] - how to create a command manually for reuse
 * [[Manual Transformations]] - how to do your own transformations from data to objects
-* Streaming Results Efficiently - how to minimize memory usage by operating on objects as they are streamed in
+* [[Streaming Results Efficiently]] - how to minimize memory usage by operating on objects as they are streamed in
 * [[Object Hierarchies]] - how to deserialize an object hierarchy from a record set
 * [[FastExpando and the Borg Method]] - using FastExpando to assimilate objects and clean up some icky parameter code
 * [[FastExpando and Mutations]] - using FastExpando to clean up mappings between icky database and clean code
