@@ -9,3 +9,4 @@ The following features require SQL Server as the data provider:
 
 * Stored Procedure parameter detection (see [[Stored Procedures vs SQL Text]])
 * ConnectionStringSettings extensions (see [[Opening Connections]])
+* Xml Parameters and Results (see [[Xml Parameters and Results]])
