@@ -32,7 +32,7 @@ This also works with AsyncExecuteSql.
 ## AsyncQuery ##
 Querying for objects works the same way, except the result of the task is a List<T> or List<FastExpando>.
 
-	Task<List<Beer>> task = Database.Connection().AsyncQuery<Beer>("FindBeer", new { Name = "IPA" });
+	Task<IList<Beer>> task = Database.Connection().AsyncQuery<Beer>("FindBeer", new { Name = "IPA" });
 
 	// do stuff
 
@@ -45,6 +45,6 @@ Querying for objects works the same way, except the result of the task is a List
 If you have a Task<IDataReader>, you can also call the extension method ToList<T> to convert the recordset to a list of objects upon the completion of the task.
 
 	Task<IDataReader> task = null;	// got this somehow
-	Task<List<Beer>> beerTask = task.ToList<Beer>();
+	Task<IList<Beer>> beerTask = task.ToList<Beer>();
 
 This lets you use the object mapping engine, but manage the rest of the connection and query lifecycle yourself.

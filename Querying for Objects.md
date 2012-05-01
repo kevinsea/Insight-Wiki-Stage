@@ -9,7 +9,7 @@ Insight can automatically convert query results to objects. Just use the Query e
 			public decimal? OriginalGravity { get; internal set; }
 		}
 
-		List<Beer> beer = Database.Connection().Query<Beer>("FindBeer", new { Name = "IPA" });
+		IList<Beer> beer = Database.Connection().Query<Beer>("FindBeer", new { Name = "IPA" });
 
 Look, ma! No mapping files!
 
@@ -17,14 +17,14 @@ The generic type argument specifies the expected return type. Insight automatica
 
 This also works with SQL text:
 
-		List<Beer> beer = Database.Connection().QuerySql<Beer>("SELECT * FROM Beer WHERE Name = @Name", new { Name = "IPA" });
+		IList<Beer> beer = Database.Connection().QuerySql<Beer>("SELECT * FROM Beer WHERE Name = @Name", new { Name = "IPA" });
 
 If you already have an IDataReader (from any source!), you can use the ToList extension to convert the reader to objects:
 
 		using (SqlConnection connection = Database.Open())
 		using (IDataReader reader = connection.GetReader("FindBeer", new { Name = "IPA" }))
 		{
-			List<Beer> beer = reader.ToList<Beer>();
+			IList<Beer> beer = reader.ToList<Beer>();
 		}
 
 Or AsEnumerable<T>:

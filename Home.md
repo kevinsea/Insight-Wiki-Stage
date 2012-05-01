@@ -14,7 +14,11 @@ If you are thinking that you need something that is simple and just works for al
 * [[Async Commands and Queries]]
 * [[Bulk Copy with Objects]]
 * [[Xml Parameters and Results]]
+* [[Overriding Mapping with ColumnAttribute]]
 * [[Design Goals]]
+
+## Revision History ##
+* [[Change Log]]
 
 ## Important Stuff ##
 * [[Insight and Data Providers]] - limitations due to certain data providers not named SQL Server
