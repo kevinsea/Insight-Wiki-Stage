@@ -11,8 +11,8 @@ We recommend using Stored Procedures for a few reasons:
 
 That being said, most of the Insight extension method have two forms: XXX and XXXSql. The XXXSql version defaults the command type to CommandType.Text. The methods that support this are:
 
-* AsyncExecute / AsyncExecuteSql
-* AsyncQuery / AsyncQuerySql
+* ExecuteAsync / ExecuteSqlAsync
+* QueryAsync / QuerySqlAsync
 * Execute / ExecuteSql
 * ExecuteScalar / ExecuteScalarSql
 * GetReader / GetReaderSql

@@ -8,6 +8,7 @@ If you are thinking that you need something that is simple and just works for al
 * [[Executing SQL Commands]]
 * [[Auto-Open]]
 * [[Querying for Objects]]
+* [[Dynamic Database Calls]
 * [[Dynamic Objects]]
 * [[Lists of Objects as Parameters]]
 * [[Multiple Result Sets]]

@@ -18,8 +18,8 @@ This makes it easy to use the Insight extension methods within existing code.
 
 The methods that support this are:
 
-* AsyncExecute/AsyncExecuteSql
-* AsyncQuery/AsyncQuerySql
+* ExecuteAsync/ExecuteSqlAsync
+* QueryAsync/QuerySqlAsync
 * BulkCopy
 * Execute/ExecuteSql
 * ExecuteScalar/ExecuteScalarSql
