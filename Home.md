@@ -2,13 +2,15 @@ Insight.Database is a fast, lightweight, (and dare we say awesome) micro-orm for
 
 If you are thinking that you need something that is simple and just works for almost any use case that you can think of, Insight probably does it.
 
+v1.1 is now in NuGet! See the [[Change Log]] for what's new!
+
 ## Getting Started ##
 * [[Installing Insight]]
 * [[Opening Connections]]
 * [[Executing SQL Commands]]
 * [[Auto-Open]]
 * [[Querying for Objects]]
-* [[Dynamic Database Calls]
+* [[Dynamic Database Calls]]
 * [[Dynamic Objects]]
 * [[Lists of Objects as Parameters]]
 * [[Multiple Result Sets]]
