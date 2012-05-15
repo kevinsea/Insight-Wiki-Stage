@@ -1,7 +1,11 @@
 # Change Log #
 
-## v1.1 ##
-Coming soon to a NuGet repository near you!
+## v1.1.2 ##
+
+* Passing a single object to [[Dynamic Database Calls]] now results in the object's properties being mapped to parameters, just like with Execute and Query methods.
+
+## v1.1.1 ##
+Now in NuGet!
 
 v1.1 contains a few breaking changes. **bold** changes require code changes. *Italic* changes just require recompilation. (We might just call this v2.0 before pushing it to NuGet.)
 
