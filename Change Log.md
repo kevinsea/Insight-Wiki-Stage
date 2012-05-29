@@ -1,5 +1,9 @@
 # Change Log #
 
+## v1.1.4 ##
+
+* Added caching to ObjectListDbReader to improve performance and eliminate an annoying exception that pops up while debugging.
+
 ## v1.1.2 ##
 
 * Passing a single object to [[Dynamic Database Calls]] now results in the object's properties being mapped to parameters, just like with Execute and Query methods.

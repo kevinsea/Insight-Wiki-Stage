@@ -4,6 +4,8 @@ If you are thinking that you need something that is simple and just works for al
 
 v1.1 is now in NuGet! See the [[Change Log]] for what's new!
 
+Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) latest updates on this library or [code.jonwagner.com](http://code.jonwagner.com) for more detailed writeups.
+
 ## Getting Started ##
 * [[Installing Insight]]
 * [[Opening Connections]]
@@ -19,6 +21,7 @@ v1.1 is now in NuGet! See the [[Change Log]] for what's new!
 * [[Xml Parameters and Results]]
 * [[Overriding Mapping with ColumnAttribute]]
 * [[Design Goals]]
+* [[Insight v Dapper]]
 
 ## Revision History ##
 * [[Change Log]]
