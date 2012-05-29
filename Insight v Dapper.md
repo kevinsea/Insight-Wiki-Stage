@@ -20,7 +20,7 @@ Insight SQL Text Code
 
 	var users = c.QuerySql<User>("SELECT * FROM Users WHERE Id = @Id", new { Id = 1 });
 
-Dapper Stored Procedure Code
+Dapper SQL Text Code
 
 	var users = c.Query<User>("SELECT * FROM Users WHERE Id = @Id", new { Id = 1 });
 
@@ -161,7 +161,7 @@ Dapper Object Hierarchy
 
 Like Dapper, Insight also allows you to manually specify the relationship between the returned objects:
 
-	var data = c.QuerySql<Post, User>(sql, callback: (post, user) => post.Owner = user);
+	var data = c.QuerySql<Post, User>(sql, callback: (post, user) => { post.Owner = user; });
 
 Dapper could probably adopt these rules by default.
 
