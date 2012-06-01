@@ -197,3 +197,8 @@ This is the same code that allows objects to be efficiently streamed to table-va
 
 The Dapper core code is very tightly optimized IL. I think I was only able to hand-optimize one instruction out of it for Insight. :)
 
+## Identity Inserts ##
+
+Dapper now supports an Insert method which automatically retrieves identity values from INSERT statements and assigns them to your objects.
+
+Not yet implemented in Insight yet, but on the TODO list.
