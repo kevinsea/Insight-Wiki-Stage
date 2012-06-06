@@ -20,6 +20,9 @@ Otherwise, Insight uses reflection to find all of the public, internal, and priv
 ## Create a Mapping from Property to Parameter ##
 The mapping is performed from an exact case-insensitive string match for the property to the parameter.
 
+## Special Case: Single Enumerable ##
+If you pass an IEnumerable<T> in as the parameter object, Insight will assume that you want to turn it into a table-valued parameter. So it will look at the parameter list to find a TVP, and map the enumerable to that parameter. See [[Identity Inserts]] for an example.
+
 ## IL Generation ##
 Insight uses dynamic IL method generation to efficiently access private properties and fields, and to provide the fastest performance.
 

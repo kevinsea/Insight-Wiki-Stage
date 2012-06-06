@@ -2,9 +2,9 @@ Insight.Database is a fast, lightweight, (and dare we say awesome) micro-orm for
 
 If you are thinking that you need something that is simple and just works for almost any use case that you can think of, Insight probably does it.
 
-v1.1 is now in NuGet! See the [[Change Log]] for what's new!
+v1.1.5 is now in NuGet! See the [[Change Log]] for what's new!
 
-Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) latest updates on this library or [code.jonwagner.com](http://code.jonwagner.com) for more detailed writeups.
+Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updates on this library or [code.jonwagner.com](http://code.jonwagner.com) for more detailed writeups.
 
 ## Getting Started ##
 * [[Installing Insight]]
@@ -16,6 +16,7 @@ Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) latest updates o
 * [[Dynamic Objects]]
 * [[Lists of Objects as Parameters]]
 * [[Multiple Result Sets]]
+* [[Identity Inserts]]
 * [[Async Commands and Queries]]
 * [[Bulk Copy with Objects]]
 * [[Xml Parameters and Results]]

@@ -37,6 +37,11 @@ With Insight, we can just call it like this:
 	IEnumerable<String> names = new List<String>() { "Sly Fox IPA", "Hoppapotamus" };
 	var beer = Database.Connection().Query("GetBeer", new { Name = names });
 
+Or like this...Insight assumes that if you pass an enumerable as the parameter, then it should convert it to a table-valued parameter and send it to the stored procedure.
+
+	var beer = Database.Connection().Query("GetBeer", names);
+
+
 Insight will automatically convert `IEnumerable<ValueType>` to the first column of a table-valued parameter.
 
 ## Sending a List of Objects to a Stored Procedure ##

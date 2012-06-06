@@ -199,6 +199,13 @@ The Dapper core code is very tightly optimized IL. I think I was only able to ha
 
 ## Identity Inserts ##
 
+Insight v1.1.5 now supports [[Identity Inserts]]. If your stored procedure or SQL text returns the identities of the inserted records, Insight can automatically Merge the identities into your existing objects. Use the InsertXXX methods to do it automatically or the Merge method to access the low-level functionality.
+
+* Insight requires you to write your own SQL. You should be using Stored Procedures! :)
+* Insight Insert supports sending up a TVP/IEnumerable of records, inserting them, then sending back the identities from the OUTPUT clause of your SQL statement, and mapping the identities back to the list of objects.
+
 Dapper now supports an Insert method which automatically retrieves identity values from INSERT statements and assigns them to your objects.
 
-Not yet implemented in Insight yet, but on the TODO list.
+* Dapper will automatically generate the SQL needed to do the insert and return the identities.
+* I'm not sure how easy it is to send up a batch of objects with identity inserts and merge the IDs.
+

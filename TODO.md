@@ -2,5 +2,8 @@
 
 A list of things that we want to add to Insight.Database:
 
-- Async Open - currently Insight implements Async Query/Result, but blocks on opening connections. Upgrade Auto-Open/Async to asynchrnously open the connection.
-- Assign identities on INSERT - when inserting records with an identity column, automatically return the identity values on the inserted records and assign them to your objects.
+- .NET 4.5 Async support - .NET 4.5 contains more Async methods.
+	- Split NuGet package into 4.0 and 4.5 libraries
+	- Implement a .NET 4.5 Test project
+	- Implement OpenAsync on connections
+	- Evaluate impact of other Async methods on code
