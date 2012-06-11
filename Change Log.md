@@ -1,5 +1,12 @@
 # Change Log #
 
+For breaking changes: **bold** changes require code changes. *Italic* changes just require recompilation.
+
+## v1.2 ##
+
+* Added `ReliableConnection`, which automatically retries database queries when a transient exception is encountered.
+* *Added Async support for ReliableConnection, which required that the Async extensions be switched from SqlConnection to IDbConnection. This is better anyway, since additional connection types will eventually support async commands.*
+
 ## v1.1.5 ##
 
 * Added compatibility with [MiniProfiler](http://miniprofiler.com/), so that when you wrap your SqlConnection in a ProfiledDbConnection, we can still detect stored procedure parameters.
@@ -19,7 +26,7 @@
 ## v1.1.1 ##
 Now in NuGet!
 
-v1.1 contains a few breaking changes. **bold** changes require code changes. *Italic* changes just require recompilation. (We might just call this v2.0 before pushing it to NuGet.)
+v1.1 contains a few breaking changes. 
 
 * Added support for ColumnAttribute-based mapping.
 * Added support for [[Dynamic Database Calls]] with a handy `connection.ProcName(params)` syntax.

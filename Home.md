@@ -22,6 +22,7 @@ Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updat
 * [[Xml Parameters and Results]]
 * [[Overriding Mapping with ColumnAttribute]]
 * [[Design Goals]]
+* [[ReliableConnection and Cloud Databases]]
 * [[Insight v Dapper]]
 
 ## Revision History ##
