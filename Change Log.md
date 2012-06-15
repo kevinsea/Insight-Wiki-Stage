@@ -2,7 +2,15 @@
 
 For breaking changes: **bold** changes require code changes. *Italic* changes just require recompilation.
 
-## v1.2 ##
+## v1.2.2 ##
+
+* NuGet package now ships .NET 4.0 and .NET 4.5 assemblies.
+* .NET 4.5 assembly now does fully asynchronous opens. No code changes on your part.
+* .NET 4.5 assembly automatically uses .NET 4.5 async SQL tasks. No code changes on your part.
+
+See the bottom of [[Async Commands and Queries]] for some async notes.
+
+## v1.2.1 ##
 
 * Added `ReliableConnection`, which automatically retries database queries when a transient exception is encountered.
 * *Added Async support for ReliableConnection, which required that the Async extensions be switched from SqlConnection to IDbConnection. This is better anyway, since additional connection types will eventually support async commands.*

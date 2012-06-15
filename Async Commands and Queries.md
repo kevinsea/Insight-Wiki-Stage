@@ -48,3 +48,8 @@ If you have a Task<IDataReader>, you can also call the extension method ToList<T
 	Task<IList<Beer>> beerTask = task.ToList<Beer>();
 
 This lets you use the object mapping engine, but manage the rest of the connection and query lifecycle yourself.
+
+## Some Async Notes ##
+
+* .NET 4.5 now supports OpenAsync on SqlConnections. Insight will use this in async mode when it is available. If OpenAsync is not available on the given type of connection, it falls back to a task that blocks on the open call.
+* Insight does not use Async mode for deriving the stored procedure parameters. Parameter derivation only should occur once per query, so it's a blocking operation. We didn't want to add a whole bunch of task infrastructure for that one-time startup scenario.
