@@ -2,6 +2,11 @@
 
 For breaking changes: **bold** changes require code changes. *Italic* changes just require recompilation.
 
+## v1.2.3 ##
+
+* Added some explicit `using`s around IDataReader for code explicityness.
+* Fixed returning single column of byte[].
+
 ## v1.2.2 ##
 
 * NuGet package now ships .NET 4.0 and .NET 4.5 assemblies.
