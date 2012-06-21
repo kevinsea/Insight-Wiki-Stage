@@ -2,6 +2,13 @@
 
 For breaking changes: **bold** changes require code changes. *Italic* changes just require recompilation.
 
+## v1.2.4 ##
+
+* ReliableConnection and ReliableCommand are now Derived from DbConnection and DbCommand for better support of async in .NET 4.5.
+* Added more exception handling for RetryStrategy.ExecuteWithRetryAsync.
+* Added Visual Studio [[Code Snippets]] for repository generation.
+* Field/Property binding is not case-insensitive.
+
 ## v1.2.3 ##
 
 * Added some explicit `using`s around IDataReader for code explicityness.
