@@ -2,6 +2,11 @@
 
 For breaking changes: **bold** changes require code changes. *Italic* changes just require recompilation.
 
+## v1.2.5. ##
+
+* Added even more methods to the repository [[Code Snippets]] to be compatible with Insight.Database.Schema AutoProcs.
+* Updated sample code to match latest Insight.Database.Schema AutoProcs.
+
 ## v1.2.4 ##
 
 * ReliableConnection and ReliableCommand are now Derived from DbConnection and DbCommand for better support of async in .NET 4.5.
