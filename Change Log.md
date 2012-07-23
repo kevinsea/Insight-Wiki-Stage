@@ -1,5 +1,9 @@
 # Change Log #
 
+## v1.2.6 ##
+
+* Support for converting different underlying types between Enums and DB. Now you can use tinyint in the database, and long for your Enums.
+
 For breaking changes: **bold** changes require code changes. *Italic* changes just require recompilation.
 
 ## v1.2.5. ##
