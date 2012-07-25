@@ -1,5 +1,10 @@
 # Change Log #
 
+## v1.2.7 ##
+
+* Much better support when coercing types between SQL and CLR. Now can convert decimal -> int, int64 -> enum32, etc.
+* Fixed issued #5 related to SCOPE_IDENTITY() returning numeric (i.e. decimal) and needing to coerce it to an int CLR field.
+
 ## v1.2.6 ##
 
 * Support for converting different underlying types between Enums and DB. Now you can use tinyint in the database, and long for your Enums.
