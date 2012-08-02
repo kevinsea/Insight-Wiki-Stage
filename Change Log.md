@@ -1,5 +1,9 @@
 # Change Log #
 
+## v1.2.8 (unreleased) ##
+
+* Added ForEach and MultiResults code snippets. Reinstall your snippets to get them.
+
 ## v1.2.7 ##
 
 * Much better support when coercing types between SQL and CLR. Now can convert decimal -> int, int64 -> enum32, etc.

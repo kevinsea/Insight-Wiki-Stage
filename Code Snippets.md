@@ -18,3 +18,8 @@ To use the snippet:
 1. Visual Studio will generate the template and allow you to modify class names and types within it.
 
 Since the interface and class are partial, you can extend the IRepository and Repository classes in separate partial class files. This will allow you to regenerate the repository snippet as we update the implementations to handle additional types of standard queries.
+
+## Other Snippets ##
+
+* InsightForEach - generates a ForEach structure.
+* InsightMultiResults - generates a structure to process multiple result sets.
