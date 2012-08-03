@@ -37,4 +37,10 @@ You can create multiple RetryStrategies and pass them into your ReliableConnecti
 	var strategy = new RetryStrategy();
 	var connection = new ReliableConnection<SqlConnection>(connectionString, strategy);
 
-For more advanced retry strategies, you could implement your own IRetryStrategy, but it's pretty complicated.
+For more advanced retry strategies, you could implement your own IRetryStrategy, but it's pretty complicated. 
+
+## Integration with the Microsoft Enterprise Library Transient Fault Handling Application Block ##
+
+The Microsoft Enterprise Library team has a good Application Block that has a lot of options and works across SQL Azure, Azure Service Bus, Azure Storage and Azure Caching. This gives you consistent retry logic across the different types of resources.
+
+You can integrate the Application Block by adding an adapter between IRetryStrategy and the Application Block RetryManager class.

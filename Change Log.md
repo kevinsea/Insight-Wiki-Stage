@@ -1,8 +1,9 @@
 # Change Log #
 
-## v1.2.8 (unreleased) ##
+## v1.2.8 ##
 
 * Added ForEach and MultiResults code snippets. Reinstall your snippets to get them.
+* FIX: ExecuteAsync was failing on DeriveParameters with a Closed connection.
 
 ## v1.2.7 ##
 
