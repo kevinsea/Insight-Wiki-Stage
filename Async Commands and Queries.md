@@ -11,7 +11,7 @@ Insight allows you to call the following methods in asynchronous mode:
 ## Before You Begin ##
 First, make sure you are using a data provider that supports asynchronous calls. Then, make sure that your connection string contains:
 
-	AsynchronousProcessing=true
+	Asynchronous Processing=true
 
 ## Async Execute ##
 You can execute a command and get a task back that represents the completion of the call:
