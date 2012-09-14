@@ -1,5 +1,13 @@
 # Change Log #
 
+## v1.2.10 #
+
+* Fixed support for time columns and TimeSpan values.
+
+## v1.2.9 ##
+
+* Fixed Execute stored proc with Table-Valued Parameter through a ReliableConnection.
+
 ## v1.2.8 ##
 
 * Added ForEach and MultiResults code snippets. Reinstall your snippets to get them.
