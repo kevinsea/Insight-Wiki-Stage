@@ -1,5 +1,9 @@
 # Change Log #
 
+## v1.2.11 (unreleased) ##
+
+* Made sure code snippets are included in the NuGet package.
+
 ## v1.2.10 #
 
 * Fixed support for time columns and TimeSpan values.
