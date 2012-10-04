@@ -12,6 +12,7 @@ Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updat
 * [[Executing SQL Commands]]
 * [[Auto-Open]]
 * [[Querying for Objects]]
+* [[Output Parameters]]
 * [[Dynamic Database Calls]]
 * [[Dynamic Objects]]
 * [[Lists of Objects as Parameters]]

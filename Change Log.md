@@ -1,8 +1,13 @@
 # Change Log #
 
-## v1.2.11 (unreleased) ##
+## v1.2.12 ##
+
+* Added OutputParameters<T>() to return a new object constructed from output parameters.
+
+## v1.2.11 ##
 
 * Made sure code snippets are included in the NuGet package.
+* Added support for [[Output Parameters]].
 
 ## v1.2.10 #
 
