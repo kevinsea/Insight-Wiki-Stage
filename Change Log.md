@@ -1,5 +1,9 @@
 # Change Log #
 
+## v1.2.13 ##
+
+* Fixed issue #10 - autoopen with procs that take lists of objects.
+
 ## v1.2.12 ##
 
 * Added OutputParameters<T>() to return a new object constructed from output parameters.
