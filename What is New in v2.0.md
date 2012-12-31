@@ -2,7 +2,7 @@
 
 ## Asynchronous Commands and Queries ##
 
-See [[Asynchronous Commands and Queries]] for details on these changes:
+See [[Async Commands and Queries]] for details on these changes:
 
 * **ExecuteScalarAsync** - was added to return scalar values.
 * **MergeAsync** - was added to allow you to manually merge results into existing objects.
