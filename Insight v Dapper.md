@@ -172,6 +172,7 @@ This concept was borrowed from [Simple.Data](https://github.com/markrendle/Simpl
 Insight Dynamic Query Invocation
 
 	var users = c.Dynamic<User>().GetUser(id: 1);
+	var users = c.Dynamic().GetUser(id: 1, type: typeof(User));
 
 ## Bulk Copy Support ##
 
@@ -195,11 +196,11 @@ This is the same code that allows objects to be efficiently streamed to table-va
 
 ## IL Code ##
 
-The Dapper core code is very tightly optimized IL. I think I was only able to hand-optimize one instruction out of it for Insight. :)
+Both engines generate efficient IL for mapping your objects.
 
 ## Identity Inserts ##
 
-Insight v1.1.5 now supports [[Identity Inserts]]. If your stored procedure or SQL text returns the identities of the inserted records, Insight can automatically Merge the identities into your existing objects. Use the InsertXXX methods to do it automatically or the Merge method to access the low-level functionality.
+Insight supports [[Identity Inserts]]. If your stored procedure or SQL text returns the identities of the inserted records, Insight can automatically Merge the identities into your existing objects. Use the InsertXXX methods to do it automatically or the Merge method to access the low-level functionality.
 
 * Insight requires you to write your own SQL. You should be using Stored Procedures! :)
 * Insight Insert supports sending up a TVP/IEnumerable of records, inserting them, then sending back the identities from the OUTPUT clause of your SQL statement, and mapping the identities back to the list of objects.

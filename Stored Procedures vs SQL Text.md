@@ -9,14 +9,7 @@ We recommend using Stored Procedures for a few reasons:
 * You can see exactly how your database is accessed by looking at the stored procedures.
 * Insight gets better schema information from SQL Server when you use stored procedures, so there is a little less type conversion than when you use SQL text.
 
-That being said, most of the Insight extension method have two forms: XXX and XXXSql. The XXXSql version defaults the command type to CommandType.Text. The methods that support this are:
-
-* ExecuteAsync / ExecuteSqlAsync
-* QueryAsync / QuerySqlAsync
-* Execute / ExecuteSql
-* ExecuteScalar / ExecuteScalarSql
-* GetReader / GetReaderSql
-* Query / QuerySql
+That being said, most of the Insight extension method have two forms: XXX and XXXSql. The XXXSql version defaults the command type to CommandType.Text. 
 
 If a method doesn't have an XXXSql version, but does have a commandType parameter, simply pass in CommandType.Text for that parameter and it will work with your SQL Text.
 

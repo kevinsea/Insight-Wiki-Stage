@@ -10,18 +10,16 @@ This call will leave the connection open between statements:
 
 			using (SqlConnection connection = Database.Open())
 			{
-				List<Beer> beer = connection().Query<Beer>("FindBeer", new { Name = "IPA" });
-				connection().Execute("DeleteBeer", beer.First());
+				List<Beer> beer = connection.Query<Beer>("FindBeer", new { Name = "IPA" });
+				connection.Execute("DeleteBeer", beer.First());
 			}
 
-This makes it easy to use the Insight extension methods within existing code.
+This makes it easy to use the Insight extension methods within existing code, or to optimize your connections by keeping it open for multiple queries.
 
-The methods that support this are:
+All of the Insight methods that execute a query support this method. However, methods that let you access the data reader directly do not support Auto-Open/Close:
 
-* ExecuteAsync/ExecuteSqlAsync
-* QueryAsync/QuerySqlAsync
-* BulkCopy
-* Execute/ExecuteSql
-* ExecuteScalar/ExecuteScalarSql
-* ForEach
-* Query/QuerySql
+The methods that **do not** support this are:
+
+* CreateCommand
+* GetReader
+

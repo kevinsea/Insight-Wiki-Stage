@@ -8,8 +8,6 @@ This is a common case. You want to query for a list of objects by ID. When using
 	IEnumerable<String> names = new List<String>() { "Sly Fox IPA", "Hoppapotamus" };
 	var beer = Database.Connection().QuerySql("SELECT * FROM Beer WHERE Name IN (@Name)", new { Name = names });
 
-** NOTE: do not put parentheses around your parameter @Name **
-
 Insight will convert this to:
 
 	SELECT * FROM BEER WHERE Name IN (@Name1, @Name2)

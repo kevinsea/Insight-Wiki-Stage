@@ -1,5 +1,14 @@
 # Change Log #
 
+## v2.0 ##
+
+* v2.0 is almost a total rewrite of the library, and it's everything you wanted for the holidays. See [[What is New in v2.0]].
+
+## v1.2.14 (Unreleased) ##
+
+* Added ExecuteScalarAsync.
+* Fixed Issue #11 - not having EXECUTE access to a user-defined type caused the parameter to go missing with no error.
+
 ## v1.2.13 ##
 
 * Fixed issue #10 - autoopen with procs that take lists of objects.

@@ -1,13 +1,6 @@
 # FastExpando and Mutations #
 
-Sometimes you have an ugly database that you aren't allowed to modify. It may be ugly, AND you aren't allowed to create new views or stored procedures to make it look nice. But you want your code to look nice, right?
-
-You have two choices:
-
-1. Make a class, bind the data to private members and expose pretty properties.
-1. You don't want a class, so use FastExpando.
-
-The FastExpando supports two methods to help your code look nicer - Mutate and Transform. Both of them accept a map (a dictionary of string to string), and convert the field names into new field names.
+The FastExpando supports two methods to help your code look nicer - Mutate and Transform. Both of them accept a map (a dictionary of string to string), and convert the field names into new field names. This is handy when you have icky column names coming back from the database, and you want to make them pretty before returning them to your object code.
 
 * `expando.Mutate(map)` - modifies the current `expando` in-place
 * `dynamic newexpando = expando.Transform(map)` - transforms an expando into a new expando

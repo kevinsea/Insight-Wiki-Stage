@@ -58,6 +58,8 @@ Now you can send up a whole list of beer at once via the InsertListXXX methods:
 
 	// case[0].ID and case[1].ID will be assigned with the new identities
 
+Insert is equivalent to calling GetReader then Merge to put the results back onto your parameter objects. There are other uses for this pattern, so you don't have to use it just for SQL INSERT statements.
+
 The Insert Methods are:
 
 * Insert - insert a single record and map the results back into it

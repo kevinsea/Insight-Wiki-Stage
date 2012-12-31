@@ -1,17 +1,43 @@
 # Multiple Result Sets #
 
-If you have a query that returns multiple result sets, you will need to do a little bit of work.
+Insight supports returning multiple result sets through the QueryResults extension methods. QueryResults parses multiple result sets and returns a `Results<T1, T2...>` object.
 
-1. Use GetReader to get a reader from the database.
-2. Use ToList or AsEnumerable to get the list of objects from the reader.
+Suppose you have the following stored procedure:
 
-**example:**
+	CREATE PROC MultipleResults AS
+		SELECT TOP 10 * FROM Ales
+		SELECT TOP 10 * FROM Lagers
 
-	using (SqlConnection connection = Database.Open())
-	using (var reader = connection.GetReaderSql("SELECT * FROM Beer SELECT * FROM Glasses", Parameters.Empty))
+You can get the results into one object with QueryResults:
+
+	var results = Database.Connection().QueryResults<Ale, Lager>("MultipleResults", Parameters.Empty);
+
+	IList<Ale> ales = results.Set1;
+	IList<Later> lager = results.Set2;
+
+QueryResults currently supports up to 5 result sets in the QueryResults overrides.
+
+## Custom Result Objects ##
+
+You can also use QueryResults with your own result classes, as long as they derive from `Results<T>`. Just pass your custom class in as the first and only generic parameter.
+
+A handy use case for this is when you have a standard pattern for returning data, such as totals or record counts. Suppose you have the following stored procedure:
+
+	-- NOTE: for illustration purposes. This could certainly be more efficient.
+	CREATE PROC SearchBeer @Name varchar(128) AS
+		SELECT * FROM Beer WHERE Name LIKE @Name
+		SELECT COUNT(*) FROM Beer WHERE Name LIKE @Name
+
+You could define your own results class where Set2 is an int and interpreted another way:
+
+	class PageableResults<T> : Results<T, int>
 	{
-		var beer = reader.ToList<Beer>();
-		var glasses = reader.ToList<Glass>();
+		public int TotalRecords { get { return Set2.FirstOrDefault(); } }
 	}
 
-Note that ToList (and AsEnumerable) automatically advance to the next recordset after consuming the objects.
+Then you can use this class when returning results from the procedure:
+
+	var pageResults = Database.Connection().QueryResults<PageableResults<Beer>>("SearchBeer", "IPA");
+	Console.WriteLine ("{0} total records", pageResults.TotalRecords);
+
+NOTE: this also works with [[Dynamic Database Calls]] if you use the returnType parameter.
