@@ -9,6 +9,7 @@ See [[Async Commands and Queries]] for details on these changes:
 * **QueryResultsAsync** - was added to query multiple recordsets.
 * **ToListAsync** - was renamed from `ToList`
 * **Full Async Mode** - In .NET 4.5, Insight uses `DbDataReader.ReadAsync` and `MoveNextAsync` when available, to reduce blocking when reading additional records from the stream.
+* **CancellationToken Support** - Async methods now support passing in a cancellationToken.
 
 ## Mapping Overrides ##
 
@@ -49,3 +50,5 @@ See [[Dynamic Database Calls]] for details on these changes:
 * **SequentialAccess Mode** - when Insight knows that it is going to parse a query (such as with Query, Insert, or other methods), it runs the query with CommandBehavior.SequentialAccess. The deserialization logic was rewritten to guarantee that it always reads the data in sequential order. Since we never rewind the data, this allows .NET to not cache row data, speeding up query reading and reducing memory footprint.
 * **Optimized QueryIdentity and SchemaIdentity** - much of the runtime cost of Insight is matching a query to a parameter method or matching a recordset to a deserializer. This code was tuned using RedGate's Performance Profiler to optimize this path.
 * **Optimized Object Graph Deserializer** - through some good refactoring, deserializing object graphs is now a little faster.
+* **Async Uses ConfigureAwait** - async mode uses ConfigureAwait to have better performing continuations.
+* **Removed SchemaTable Requirement** - most queries can be mapped without having to access the expensive SchemaTable.
