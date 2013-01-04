@@ -30,6 +30,12 @@ See [[Multiple Result Sets]] for details on these changes:
 
 * **QueryResults Methods and Results Classes** - were added so you can very easily parse multiple result sets without any additional code.
 
+## Output Parameters ##
+
+See [[Output Parameters]] for details on these changes:
+
+* **QueryResults Returns OutputParameters** - if you use QueryResults instead of Query, you can access the output parameters through the Output property of the results.
+
 ## Dynamic Connections ##
 
 See [[Dynamic Database Calls]] for details on these changes:

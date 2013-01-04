@@ -83,3 +83,15 @@ There are three versions of the OutputParameters extension method:
 * OutputParameters() - returns a dynamic object that you can use to access the parameters with a dot syntax.
 * OutputParameters<T>(T o) - copies the output parameters into the fields/set properties on the given object. This performs the same types of conversions that ToList<T> does (string to XML, XML to object, etc.)
 * OutputParameters<T>() - returns a new instance of type T with the output parameters filled in.
+
+## Attempt #6 - v2.0 with QueryResults ##
+
+In v2.0, we added QueryResults, that returns a results object that wraps multiple result sets. When we evaluated how that fits with OutputParameters, we realized that it fits perfectly. Outputs is just another set of results. That's why the base Results class has an Outputs property that you can access to get the output parameters of results. It's lazy-loaded, so if you don't use it, nobody takes the performance hit.
+
+So now you can do:
+
+	var results = connection.QueryResults<T>("MyProc", inputParameters);
+	var outputs = results.Outputs;
+	var p = outputs.P;
+
+Outputs is declared as dynamic, so you can easily access any of the output parameters.
