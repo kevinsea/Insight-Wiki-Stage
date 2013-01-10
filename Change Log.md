@@ -1,6 +1,12 @@
 # Change Log #
 
-## v2.0 ##
+## v2.0.2 ##
+
+* Fixed issue #13 - dynamic calls no longer hide SqlExceptions.
+* Fixed issue #14 - nullable parameters were not mapped properly.
+* Fixed issue #15 - single-column result sets did not deserialize nullables properly.
+
+## v2.0.1 ##
 
 * v2.0 is almost a total rewrite of the library, and it's everything you wanted for the holidays. See [[What is New in v2.0]].
 
