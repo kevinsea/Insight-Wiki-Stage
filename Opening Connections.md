@@ -25,7 +25,7 @@ Some notes:
 Opens the connection and returns it so you can chain your methods.
 This is handy in a `using` statement when you want to create a connection and open it.
 
-	using (SqlConnection c = new SqlConnection(connectionString).OpenConnection())
+	using (var c = new SqlConnection(connectionString).OpenConnection())
 	{
 		// do stuff...
 		c.QuerySql("SELECT * FROM Beer", Parameters.Empty);
@@ -37,7 +37,7 @@ Or start using the connection immediately...
 	c.OpenConnection().ExecuteSql("DELETE FROM Beer", Parameters.Empty); // nooooooo....
 
 ## ConnectionStringSettings.Connection ##
-Converts a ConnectionStringSettings object to a SqlConnection. *NOTE: This currently assumes that you want a SqlConnection.*
+Converts a ConnectionStringSettings object to a SqlConnection.
 
 	ConnectionStringSettings database = ConfigurationManager.ConnectionStrings["MyDatabase"];
 
@@ -45,18 +45,18 @@ Converts a ConnectionStringSettings object to a SqlConnection. *NOTE: This curre
 	database.Connection().QuerySql("SELECT * FROM Beer", Parameters.Empty);
 
 ## ConnectionStringSettings.Open ##
-Converts a ConnectionStringSettings object to a SqlConnection and opens it. *NOTE: This currently assumes that you want a SqlConnection.*
+Converts a ConnectionStringSettings object to a SqlConnection and opens it.
 
 	ConnectionStringSettings database = ConfigurationManager.ConnectionStrings["MyDatabase"];
 
 	// get an open connection from the ConnectionStringSettings
-	using (SqlConnection c = database.Open())
+	using (var c = database.Open())
 	{
 		c.QuerySql("SELECT * FROM Beer", Parameters.Empty);
 	}
 
-## SqlConnectionStringBuilder.Connection ##
-Converts a SqlConnectionStringBuilder to a SqlConnection.
+## DbConnectionStringBuilder.Connection ##
+Converts a DbConnectionStringBuilder to a DbConnection. The type of connection is detected from the type of the builder.
 
 	SqlConnectionStringBuilder database = new SqlConnectionStringBuilder(connectionString);
 	// make other changes here
@@ -64,14 +64,29 @@ Converts a SqlConnectionStringBuilder to a SqlConnection.
 	// run a query right off the connection (this performs an auto-open/close)
 	database.Connection().QuerySql("SELECT * FROM Beer", Parameters.Empty);
 
-## SqlConnectionStringBuilder.Open ##
-Converts a SqlConnectionStringBuilder to a SqlConnection and opens it.
+## DbConnectionStringBuilder.Open / OpenAsync ##
+Converts a DbConnectionStringBuilder to a DbConnection and opens it. The type of connection is detected from the type of the builder.
 
 	SqlConnectionStringBuilder database = new SqlConnectionStringBuilder(connectionString);
 	// make other changes here
 
 	// manage the lifetime ourselves
-	using (SqlConnection c = database.Open())
+	using (var c = database.Open())
 	{
 		c.QuerySql("SELECT * FROM Beer", Parameters.Empty);
+	}
+
+## DbConnectionStringBuilder.OpenWithTransaction / OpenWithTransactionAsync ##
+Converts a DbConnectionStringBuilder to a DbConnection, opens it and begins a new transaction. The transaction should be committed before disposal. Note that in this case, Insight will automatically propagate the transaction to all calls made to the connection.
+
+	SqlConnectionStringBuilder database = new SqlConnectionStringBuilder(connectionString);
+	// make other changes here
+
+	// manage the lifetime ourselves
+	using (var c = database.OpenWithTransaction())
+	{
+		c.QuerySql("SELECT * FROM Beer", Parameters.Empty);
+
+		// don't forget to commit it
+		c.Commit();
 	}

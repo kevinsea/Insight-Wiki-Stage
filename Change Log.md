@@ -1,5 +1,13 @@
 # Change Log #
 
+## v2.0.3 (Coming soon) ##
+
+* Opening connections through DbConnectionStringBuilder or ConnectionStringSettings now return the proper connectiont type (not just SqlConnection).
+* **Extension methods for ConnectionStringSettings now return a DbConnection rather than a SqlConnection.** You may get compiler errors if you use these methods. You can cast the return type to SqlConnection or use var as appropriate.
+* For ease of use with the above change, the BulkCopy extension method now accepts any type of DbConnection, but will throw if it's not a SqlConnection.
+* Added extension methods for OpenAsync, OpenWithTransaction, and OpenWithTransactionAsync. **See [[Transactions]] for great new syntax.**
+
+
 ## v2.0.2 ##
 
 * Fixed issue #13 - dynamic calls no longer hide SqlExceptions.
