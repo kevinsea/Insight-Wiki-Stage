@@ -34,22 +34,27 @@ If you don't want to pass in the parameter as an input, you can declare the para
 
 	CREATE PROCEDURE AddOne_WithOutputParameter @p int = NULL OUTPUT
 
-## Accessing Output Parameters with Insight ##
+## Accessing Output Parameters with QueryResults ##
 
-As of v1.2.12, Insight now properly defines parameters when calling stored procedures with output parameters or return values. You can access the output parameters and return values through the command object.
+If you use QueryResults/QueryResultsSql to execute your query, the results object automatically contains an Outputs property that contains the output parameters. It's a dynamic, so you can just access the properties directly.
+
+	var results = connection.QueryResults<T>("MyProc", inputParameters);
+	var outputs = results.Outputs;
+	var p = outputs.P;
+
+
+## Accessing Output Parameters on an IDbCommand ##
+
+You can also access the output parameters and return values through the command object.
 
 	var command = connection.CreateCommand("AddOne_WithOutputParameter");
 	var results = connection.Query<SomeObject>(command);
 	
-	int p = command.Parameters["@p"].Value;
-
-For convenience, Insight now defines some extension methods to make it easy to work with the output parameters.
-
 	// OutputParameters() - returns a dynamic object containing all of the output parameters
 	dynamic output = command.OutputParameters();
 	int p = output.p;
 
-You can also put the output parameters back into any existing object that has set properties or fields.
+If you use this method, you can also put the output parameters back into any existing object that has set properties or fields.
 
 	class Foo
 	{
@@ -72,4 +77,4 @@ There are three versions of the OutputParameters extension method:
 
 ## Design Considerations for Output Parameters ##
 
-We were hoping to make this even easier to use, but there are a bunch of language issues that make it difficult to make it any easier. See [[Design Considerations for Output Parameters]].
+If you want to see how we got to this design, see [[Design Considerations for Output Parameters]].
