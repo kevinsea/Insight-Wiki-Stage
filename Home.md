@@ -1,6 +1,6 @@
 Insight.Database is a fast, lightweight, (and dare we say awesome) micro-orm for .NET.
 
-If you are thinking that you need something that is simple and just works for almost any use case that you can think of, Insight probably does it.
+Insight.Database lets you call your database with almost no code, and makes it easy to send objects to your database and get them back.
 
 v2.0 is now in NuGet! See the [[Change Log]] for what's new!
 
@@ -12,6 +12,7 @@ Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updat
 - It's **fast**.
 - It supports structured, production quality coding.
 - It **also** supports ad-hoc, one-off, typeless, get-it-done coding.
+- Put your database behind an interface with no effort.
 - Objects are mapped automatically, but still give you control if you need it.
 - Async queries are first-class operations.
 - Deserializing multiple recordsets are first-class operations.
@@ -30,6 +31,7 @@ Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updat
 * [[Auto-Open]] - be done with `using` statements and lifetime management.
 * [[Opening Connections]] - in case you want to manually open connections.
 * [[Executing SQL Commands]] - just the basics.
+* [[Auto Interface Implementation]] - just about the coolest thing ever.
 * [[Querying for Objects]] - getting objects back with no work.
 * [[Common Method Parameters]] - the parameters for most of the extension methods.
 * [[Lists of Objects as Parameters]] - sending a bunch of objects to a database has never been easier.

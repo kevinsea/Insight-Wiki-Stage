@@ -41,3 +41,24 @@ Notes:
 
 1. Don't even think of trying to write this without .NET 4.5. Cleaning up the connection would be a nightmare.
 2. Note that we await the result of each database call so they are executed in order, but asynchronously. I haven't tried executing them in parallel with MARS enabled.
+
+## Using OpenWithTransactionAs ##
+
+If you use Insight for [[Auto Interface Implementation]], you should make your interface extend IDbConnection and IDbTransaction. Then you get type safety on your interface:
+
+	public interface IBeerRepository : IDbConnection, IDbTransaction
+	{
+		void InsertBeer(Beer beer);
+		Task InsertBeerAsync(Beer beer);
+	}
+
+	public async Task InsertWithTransaction()
+	{
+		using (var c = await connectionString.OpenWithTransactionAsAsync<IBeerRepository>())
+		{
+			await c.InsertBeerAsync(beer);
+			await c.InsertBeerAsync(beer);
+			c.Commit();
+		}
+	}
+

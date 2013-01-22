@@ -77,6 +77,44 @@ Or...
 	Database.Dynamic().InsertBeer(beer);
 	// yes, we convert beer to parameters for you. You're welcome.
 
+## Automatically Implement Interfaces with Stored Proc Calls
+
+Create your database
+
+	CREATE TABLE Beer ([ID] [int], [Type] varchar(128), [Description] varchar(128)) GO
+	CREATE PROC InsertBeer @type varchar(128), @description varchar(128) AS
+		INSERT INTO Beer (Type, Description) OUTPUT inserted.ID
+			VALUES (@type, @description)
+			GO
+	CREATE PROC GetBeerByType @type [varchar] AS SELECT * FROM Beer WHERE Type = @type GO
+
+Create your class
+
+	public class Beer
+	{
+		public int ID { get; private set; }
+		public string Type { get; set; }
+		public string Description { get; set; }
+	}
+
+Create an interface that matches your stored procs:
+
+	public interface IBeerRepository
+	{
+		void InsertBeer(Beer beer);
+		IList<Beer> GetBeerByType(string type);
+	}
+
+Call the database through your interface with type safety and the performance of IL:
+
+	ConnectionStringBuilder builder = "blah blah";
+
+	// insight will connect your interface to the stored proc automatically
+	var repo = builder.OpenAs<IBeerRepository>();
+	repo.Insert(new Beer() { Type = "ipa", Description = "Sly Fox 113" });
+	IList<Beer> beer = repo.GetBeerByType("ipa");
+
+
 ## Multi-Class Result Sets ##
 Returning a hierarchy of objects? Got that too. Simply pass a list of types into the Query method and we will figure out the rest.
 

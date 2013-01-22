@@ -1,5 +1,17 @@
 # What's New in v2.0 #
 
+## Automatic Interface Implementation (v2.1) ##
+
+See [[Auto Interface Implementation]] for details on these changes:
+
+* **As** - extension methods added. Give Insight an interface and it will automatically bind it to your stored procedures for you.
+
+## Simplified Transaction Syntax ##
+
+See [[Transactions]] for details on these changes:
+
+* **OpenWithTransaction** - extension methods added to open a connection with an automatically started transaction.
+
 ## Asynchronous Commands and Queries ##
 
 See [[Async Commands and Queries]] for details on these changes:
@@ -52,3 +64,7 @@ See [[Dynamic Database Calls]] for details on these changes:
 * **Optimized Object Graph Deserializer** - through some good refactoring, deserializing object graphs is now a little faster.
 * **Async Uses ConfigureAwait** - async mode uses ConfigureAwait to have better performing continuations.
 * **Removed SchemaTable Requirement** - most queries can be mapped without having to access the expensive SchemaTable.
+
+## Other Stuff ##
+
+* **Single** - extension methods added to return a single object from a result set.
