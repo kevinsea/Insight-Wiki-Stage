@@ -2,7 +2,7 @@ Insight.Database is a fast, lightweight, (and dare we say awesome) micro-orm for
 
 Insight.Database lets you call your database with almost no code, and makes it easy to send objects to your database and get them back.
 
-v2.0 is now in NuGet! See the [[Change Log]] for what's new!
+v2.1 is now in NuGet! See the [[Change Log]] for what's new!
 
 Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updates on this library or [code.jonwagner.com](http://code.jonwagner.com) for more detailed writeups.
 

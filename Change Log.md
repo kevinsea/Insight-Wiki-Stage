@@ -1,6 +1,6 @@
 # Change Log #
 
-## v2.1 (coming soon) ##
+## v2.1 ##
 
 * **Insight now supports [[Auto Interface Implementation]]. I've been wanting this for 8 years!**
 * Opening connections through DbConnectionStringBuilder or ConnectionStringSettings now return the proper connection type (not just SqlConnection).
@@ -8,6 +8,7 @@
 * For ease of use with the above change, the BulkCopy extension method now accepts any type of DbConnection, but will throw if it's not a SqlConnection.
 * Added extension methods for OpenAsync, OpenWithTransaction, and OpenWithTransactionAsync. **See [[Transactions]] for great new syntax.**
 * Added extension methods for Single and SingleAsync.
+* Added support for deserializing structs.
 
 ## v2.0.2 ##
 
