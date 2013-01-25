@@ -1,5 +1,7 @@
 # Auto Interface Implementation #
 
+(Why would you do this? Read: [Insight.Database: The Anti-Anti-ORM for .NET](http://code.jonwagner.com/2013/01/24/insight-database-the-anti-anti-orm-for-net/))
+
 A best practice for coding is to create interface boundaries between parts of your systems. One place to put an interface boundary is between your business logic and the database. We encourage you to use stored procedures to achieve this, but up until now, you would still write the code to call into the database. 
 
 Not any more! Insight will now generate the code to call the database for you. Write your procedures:
