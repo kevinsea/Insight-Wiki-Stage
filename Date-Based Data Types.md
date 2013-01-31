@@ -34,15 +34,15 @@ Insight.Database automatically converts between .NET TimeSpan and the following 
 
 Converting a .NET TimeSpan to a SQL datetime:
 
-	01.02:03:04 => 1900-01-01.02:03:04
+	01.02:03:04 => 1900-01-02.02:03:04
 
 Converting a SQL datetime to a .NET TimeSpan:
 
-	1970-8-7 02:00:00 => (70 years, 8 months, 7 days, 2 hours)
+	1970-8-7 02:00:00 => (70 years, 8 months, 6 days, 2 hours)
 
 ## Recommendations for storing long TimeSpans in SQL ##
 
-Read: [Working with Time Spans and Durations in SQL Server](http://www.sqlteam.com/article/working-with-time-spans-and-durations-in-sql-server])
+Read: [Working with Time Spans and Durations in SQL Server](http://www.sqlteam.com/article/working-with-time-spans-and-durations-in-sql-server)
 
 Since datetime is based on "days since 1/1/1900", SQL allows you to convert from ints to datetime.
 
