@@ -1,6 +1,11 @@
 # Change Log #
 
-## v2.1 ##
+## v2.1.2 ##
+
+* Better type conversions for reading values from objects for list parameters and bulkcopy.
+* Better type conversion between .NET TimeSpan and SQL time. See [[Date-Based Data Types]].
+
+## v2.1.1 ##
 
 * **Insight now supports [[Auto Interface Implementation]]. I've been wanting this for 8 years!**
 * Opening connections through DbConnectionStringBuilder or ConnectionStringSettings now return the proper connection type (not just SqlConnection).

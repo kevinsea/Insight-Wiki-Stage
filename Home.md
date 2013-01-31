@@ -47,6 +47,7 @@ Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updat
 * [[Output Parameters]] - how to access Output Parameters from a stored procedure.
 * [[Manual Transformations]] - how to do your own transformations from data to objects.
 * [[Enums and Mapping]] - the rules for mapping enums to/from your database.
+* [[Date-Based Data Types]] - how date-based types are handled.
 
 ## Dynamic Objects and Queries ##
 * [[Dynamic Database Calls]] - make your SQL procs just look like methods on your Connection.
