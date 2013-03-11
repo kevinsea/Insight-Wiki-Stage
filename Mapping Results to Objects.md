@@ -18,4 +18,4 @@ This information is cached for subsequent mapping operations.
 ## Build a Mapping Between Database and Object ##
 Insight maps the database fields to object members using a case-insensitive exact match.
 
-The mapper can also handle special types (see [[Xml Parameters and Results]]) as well as object hierarchies (see [[Object Hierarchies]]).
+The mapper can also handle special types (see [[Xml Parameters and Results]]) as well as object graphs (see [[Object Graphs]]).
