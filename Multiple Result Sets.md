@@ -17,6 +17,19 @@ You can get the results into one object with QueryResults:
 
 QueryResults currently supports up to 5 result sets in the QueryResults overrides.
 
+## Multiple Result Sets Plus Dynamic Objects ##
+
+If you want to return multiple result sets, and one of them should contain dynamic objects, you need to ask for a FastExpando. For example:
+
+	var results = Database.Connection().QueryResults<FastExpando, FastExpando>("MultipleResults", Parameters.Empty);
+
+	foreach (dynamic ale in results.Set1)
+		Console.WriteLine (ale.Name);
+	foreach (dynamic lager in results.Set2)
+		Console.WriteLine (lager.Name);
+
+Unfortunately, you can't use QueryResults<dynamic> because the compiler converts that to QueryResults<object> and we don't know that you want a dynamic object.
+
 ## Custom Result Objects ##
 
 You can also use QueryResults with your own result classes, as long as they derive from `Results<T>`. Just pass your custom class in as the first and only generic parameter.
