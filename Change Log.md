@@ -3,6 +3,7 @@
 ## v2.1.3 ##
 
 * Generic methods now accept `<dynamic>`, such as `QueryResults<dynamic, dynamic>` or `ToList<dynamic>`. One thing to note: `Query<object>` will now give you a FastExpando, but it's still an object...
+* Better error message if an exception occurs during deserialization type conversion.
 
 ## v2.1.2 ##
 
