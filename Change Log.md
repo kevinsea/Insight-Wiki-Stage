@@ -1,5 +1,9 @@
 # Change Log #
 
+## v2.1.3 ##
+
+* Generic methods now accept `<dynamic>`, such as `QueryResults<dynamic, dynamic>` or `ToList<dynamic>`. One thing to note: `Query<object>` will now give you a FastExpando, but it's still an object...
+
 ## v2.1.2 ##
 
 * Better type conversions for reading values from objects for list parameters and bulkcopy.
