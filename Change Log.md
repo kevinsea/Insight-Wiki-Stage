@@ -1,5 +1,11 @@
 # Change Log #
 
+## v2.1.4 ##
+
+* Better automatic conversions from T => string. e.g. Guid => string.
+* Removed dependency on FxCop for code analysis. Now using Visual Studio Code Analysis.
+* Added more reliability around exception handling and disposing connections.
+
 ## v2.1.3 ##
 
 * Generic methods now accept `<dynamic>`, such as `QueryResults<dynamic, dynamic>` or `ToList<dynamic>`. One thing to note: `Query<object>` will now give you a FastExpando, but it's still an object...
