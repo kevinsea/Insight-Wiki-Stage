@@ -5,6 +5,7 @@
 * Better automatic conversions from T => string. e.g. Guid => string.
 * Removed dependency on FxCop for code analysis. Now using Visual Studio Code Analysis.
 * Added more reliability around exception handling and disposing connections.
+* Updated build process to have fewer required dependencies.
 
 ## v2.1.3 ##
 
