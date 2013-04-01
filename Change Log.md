@@ -1,5 +1,9 @@
 # Change Log #
 
+## v2.1.5 ##
+
+* Fixed issue #21 - ObjectReader can now read byte[] and send to binary[]
+
 ## v2.1.4 ##
 
 * Better automatic conversions from T => string. e.g. Guid => string.
