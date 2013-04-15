@@ -1,5 +1,12 @@
 # Change Log #
 
+## v2.2.0 ##
+
+* **Fixed Issue #22 - Missing Table Parameters to a stored procedure now throw an InvalidOperationException.** 
+* If you are calling stored procedures and omitting table parameters, relying on the default behavior of SQL server to provide an empty table, please review your code before installing this version. Insight will now throw an InvalidOperationException, to warn you that you are missing a table parameter. (Without this, it's easy to mask a bunch of bugs.) Instead you can pass in an empty list or the new Parameters.EmptyList property:
+	* connection.Query("MyProc", new { Table = Parameters.EmptyList }	
+	* connection.MyDynamicProc(table: Parameters.EmptyList)
+
 ## v2.1.5 ##
 
 * Fixed issue #21 - ObjectReader can now read byte[] and send to binary[]
