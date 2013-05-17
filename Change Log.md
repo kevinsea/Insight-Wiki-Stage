@@ -1,5 +1,9 @@
 # Change Log #
 
+## v2.2.2 ##
+
+* Implemented Issue #23 - additional options for configuring SqlBulkCopy.
+
 ## v2.2.1 ##
 
 * Fixed duplicate XML encoding when converting a string field to an xml column in a table-valued parameter.
