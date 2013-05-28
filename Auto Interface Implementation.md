@@ -100,7 +100,7 @@ If you need to change the mapping between your interface method and the stored p
 
 	public interface IBeerRepository
 	{
-		[Sql("MyOtherInsertProc")]
+		[Sql("MyOtherInsertProc", CommandType.StoredProcedure)]
 		void InsertBeer(Beer beer);
 	}
 
