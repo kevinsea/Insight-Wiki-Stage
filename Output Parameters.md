@@ -34,6 +34,26 @@ If you don't want to pass in the parameter as an input, you can declare the para
 
 	CREATE PROCEDURE AddOne_WithOutputParameter @p int = NULL OUTPUT
 
+## Putting Output Parameters back into an Object ##
+
+The simplest way to get back output parameters is to put them back in an output parameters object:
+
+	class OutputParameters
+	{
+		int p;
+	}
+
+	var outputs = new OutputParameters();
+	connection.Execute("MyProc", outputParameters: outputs);
+	var p = outputs.P;
+
+You can use the same object for input and output parameters. Insight will overlay the output parameters on top of the object you pass in for the outputParameters.
+
+	var foo = new { inputs = 1, outputs = 1 };
+	connection.Execute("MyProc", parameters: foo, outputParameters: foo);
+	var p = foo.outputs;
+
+
 ## Accessing Output Parameters with QueryResults ##
 
 If you use QueryResults/QueryResultsSql to execute your query, the results object automatically contains an Outputs property that contains the output parameters. It's a dynamic, so you can just access the properties directly.
@@ -74,7 +94,3 @@ There are three versions of the OutputParameters extension method:
 * OutputParameters() - returns a dynamic object that you can use to access the parameters with a dot syntax.
 * OutputParameters<T>(T o) - copies the output parameters into the fields/set properties on the given object. This performs the same types of conversions that ToList<T> does (string to XML, XML to object, etc.)
 * OutputParameters<T>() - returns a new instance of type T with the output parameters filled in.
-
-## Design Considerations for Output Parameters ##
-
-If you want to see how we got to this design, see [[Design Considerations for Output Parameters]].

@@ -58,6 +58,23 @@ Parameters are mapped the same way that they would be sent to the appropriate ex
 
 See [[Query Parameter Mapping]] for details on parameter mapping.
 
+## Output Parameters ##
+
+You can now get output parameters back from your Stored Procedure. Just use a ref or out parameter for your method:
+
+	public interface IBeerRepository
+	{
+		void UpdateBeer(string type, decimal price, out int recordsAffected);
+	}
+
+Some limitations on Output Parameters:
+
+* ref and out parameters cannot be used on Asynchronous methods. There is no good way to get the output parameters without destroying the recordset before it can be read.
+* Methods can only use ref/out when the parameters can be easily mapped to parameters. This will mostly affect insert/update methods:
+	* InsertBeer(List<Beer> beers, out int count) is ok. 
+	* InsertBeer(Beer beer, out int count) is not, because you pass in beer and count as parameters, the beer object cannot be exploded into individual parameters.
+	* InsertBeer(int id, string beer, out int count) is ok, because Insight can map the function parameters to the proc parameters.
+
 ## Result Mapping ##
 
 See [[Mapping Results To Objects]] for details on how results are mapped back to objects.

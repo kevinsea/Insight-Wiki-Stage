@@ -1,5 +1,11 @@
 # Change Log #
 
+## v2.3.0 ##
+
+* New outputParameter option for connection extension methods. See [[Output Parameters]].
+	* **This causes the extension methods to be incompatible with versions before v2.3. A recompile takes care of this.**
+* Implemented Issue #25 - support for output parameters on [[Auto-Interface Implementation]].
+
 ## v2.2.2 ##
 
 * Implemented Issue #23 - additional options for configuring SqlBulkCopy.
@@ -10,7 +16,7 @@
 
 ## v2.2.0 ##
 
-* **Fixed Issue #22 - Missing Table Parameters to a stored procedure now throw an InvalidOperationException.** 
+* **Fixed Issue #22 - Missing Table Parameters to a stored procedure now throws an InvalidOperationException.** 
 * If you are calling stored procedures and omitting table parameters, relying on the default behavior of SQL server to provide an empty table, please review your code before installing this version. Insight will now throw an InvalidOperationException, to warn you that you are missing a table parameter. (Without this, it's easy to mask a bunch of bugs.) Instead you can pass in an empty list or the new Parameters.EmptyList property:
 	* connection.Query("MyProc", new { Table = Parameters.EmptyList }	
 	* connection.MyDynamicProc(table: Parameters.EmptyList)
