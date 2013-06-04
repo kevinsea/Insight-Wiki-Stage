@@ -5,6 +5,7 @@
 * New outputParameter option for connection extension methods. See [[Output Parameters]].
 	* **This causes the extension methods to be incompatible with versions before v2.3. A recompile takes care of this.**
 * Implemented Issue #25 - support for output parameters on [[Auto-Interface Implementation]].
+* Added support for SqlGeometry type. (Issue #26)
 
 ## v2.2.2 ##
 
