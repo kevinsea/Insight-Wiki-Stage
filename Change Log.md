@@ -1,5 +1,9 @@
 # Change Log #
 
+## v2.3.1 (unreleased) ##
+
+* Updated support for all SQL Server User-Defined Types. (Re: Issue #26)
+
 ## v2.3.0 ##
 
 * New outputParameter option for connection extension methods. See [[Output Parameters]].
