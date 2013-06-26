@@ -1,7 +1,9 @@
 # Change Log #
 
-## v2.3.1 (unreleased) ##
+## v2.3.1 ##
 
+* Fixed Issue #31 - support for table types in schemas with dotted names.
+* Fixed Issue #30 - support for case-sensitive databases.
 * Updated support for all SQL Server User-Defined Types. (Re: Issue #26)
 
 ## v2.3.0 ##
