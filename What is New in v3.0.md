@@ -11,4 +11,5 @@ Since .NET ships with a few database clients, the following providers are built-
 Other providers require additional assemblies or dependencies, so they are shipped separately from the core Insight.Database install:
 
 * [[Oracle Provider]]
+* [[Oracle Managed Provider]]
 * [[MiniProfiler Provider]]
