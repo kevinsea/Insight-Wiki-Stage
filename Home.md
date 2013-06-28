@@ -2,7 +2,7 @@ Insight.Database is a fast, lightweight, (and dare we say awesome) micro-orm for
 
 Insight.Database lets you call your database with almost no code, and makes it easy to send objects to your database and get them back.
 
-v2.1 is now in NuGet! See the [[Change Log]] for what's new!
+**v3.0 is now in NuGet! Now with support for more database servers! See the [[Change Log]] for what's new!**
 
 Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updates on this library or [code.jonwagner.com](http://code.jonwagner.com) for more detailed writeups.
 
@@ -26,6 +26,7 @@ Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updat
 * [[Design Goals]] - why does this library work this way?
 * [[Installing Insight]] - just get it from NuGet.
 * [[What is New in v2.0]] - some WayCool(tm) stuff.
+* [[What is New in v3.0]] - providers, providers, providers.
 
 ## Executing Queries ##
 * [[Auto-Open]] - be done with `using` statements and lifetime management.
@@ -65,14 +66,19 @@ Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updat
 * [[Streaming Results Efficiently]] - how to minimize memory usage by operating on objects as they are streamed in
 * [[ReliableConnection and Cloud Databases]] - easy retry logic in one line of code.
 
+## Database Providers ##
+
+* [[SQL Server Provider]]
+* [[Oracle Provider]]
+* [[MiniProfiler Provider]]
+* [[ODBC Provider]]
+* [[OLEDB Provider]]
+
 ## Revision History ##
 * [[Change Log]]
-* [[TODO]]
 
 ## Other Stuff ##
 * [[Code Snippets]] - install these into Visual Studio to get instant repository code.
-* [[Insight and Data Providers]] - limitations for certain data providers not named SQL Server.
 * [[Stored Procedures vs SQL Text]] - discusses the differences between using Stored Procedures and SQL Text with Insight.
 * [[Creating Commands]] - how to create a command manually for reuse.
-* [[Design Considerations for Output Parameters]] - why Output Parameters are the way they are.
 * [[Insight v Dapper]] - Dapper was the inspiration for parts of Insight, but now they are totally different.

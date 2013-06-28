@@ -1,5 +1,15 @@
 # Change Log #
 
+## v3.0.0 ##
+
+* Implemented a new provider model to support the following databases:
+	* [[SQL Server Provider]]
+	* [[Oracle Provider]]
+	* [[ODBC Provider]]
+	* [[OLEDB Provider]]
+	* [[MiniProfiler Provider]]
+* Some parameters for [[Bulk Copy with Objects]] have changed to better support multiple providers.
+
 ## v2.3.1 ##
 
 * Fixed Issue #31 - support for table types in schemas with dotted names.

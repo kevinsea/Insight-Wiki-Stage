@@ -1,13 +1,14 @@
 # Insight and Data Providers #
 
-Most of the features in Insight work with the .NET System.Data interfaces and have no dependencies on the data provider.
+The big change in v3.0 is the implementation of a provider model for databases. Providers allow the core Insight.Database library to work without any dependencies on a particular database. Any database-specific code is implemented in a separate provider.
 
-However, there are a few features that only work with certain data providers.
+Since .NET ships with a few database clients, the following providers are built-in and work automatically:
 
-## SQL Server ##
-The following features require SQL Server as the data provider. We can probably implement them for other providers. Just need someone to ask.
+* [[SQL Server Provider]] - all features
+* [[ODBC Provider]] - common features, no TVPs or XML
+* [[OLEDB Provider]] - common features, no TVPs or XML 
 
-* Stored Procedure parameter detection (see [[Stored Procedures vs SQL Text]])
-* Dynamic Database Calls (see [[Dynamic Database Calls]])
-* ConnectionStringSettings extensions (see [[Opening Connections]])
-* Xml Parameters and Results (see [[Xml Parameters and Results]])
+Other providers require additional assemblies or dependencies, so they are shipped separately from the core Insight.Database install:
+
+* [[Oracle Provider]] - all features, a few known issues
+* [[MiniProfiler Provider]] - all features
