@@ -8,16 +8,18 @@ You can also use the Insight mapping engine to send objects to SQL Server bulk c
 
 	Database.Connection().BulkCopy("Beer", beer);
 
-The BulkCopy method will perform a SQL BULK INSERT to write the data to the table. Insight will automatically map the objects to the table's schema.
+The BulkCopy method will perform a BULK INSERT to write the data to the table. Insight will automatically map the objects to the table's schema.
 
 ## Configuring the Transfer ##
 
 You can also configure the data transfer options, such as the number of records in a batch:
 
 	Database.Connection().BulkCopy("Beer", beer, 
-		configure: o =>
+		configure: (InsightBulkCopy bulk) =>
 		{
-			// o could be a SqlBulkCopy or OracleBulkCopy. You need to determine the type.
-			SqlBulkCopy bulk = (SqlBulkCopy)o;
 			bulk.BatchSize = 50;
+
+			// InsightBulkCopy wraps the provider-specific BulkCopy object
+			// you can get the provider object by:
+			var sqlBulk = (SqlBulkCopy)bulk.InnerBulkCopy;
 		});
