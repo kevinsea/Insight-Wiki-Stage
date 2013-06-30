@@ -69,6 +69,7 @@ Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updat
 ## Database Providers ##
 
 * [[SQL Server Provider]]
+* [[MySql Provider]]
 * [[Oracle Provider]]
 * [[Oracle Managed Provider]]
 * [[MiniProfiler Provider]]
