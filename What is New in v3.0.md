@@ -13,4 +13,5 @@ Other providers require additional assemblies or dependencies, so they are shipp
 * [[MySql Provider]]
 * [[Oracle Provider]]
 * [[Oracle Managed Provider]]
+* [[PostgreSQL Provider]]
 * [[MiniProfiler Provider]]

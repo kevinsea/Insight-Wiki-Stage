@@ -72,6 +72,7 @@ Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updat
 * [[MySql Provider]]
 * [[Oracle Provider]]
 * [[Oracle Managed Provider]]
+* [[PostgreSQL Provider]]
 * [[MiniProfiler Provider]]
 * [[ODBC Provider]]
 * [[OLEDB Provider]]
