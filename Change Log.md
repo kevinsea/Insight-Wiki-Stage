@@ -9,6 +9,8 @@
 	* [[OLEDB Provider]]
 	* [[MiniProfiler Provider]]
 * Some parameters for [[Bulk Copy with Objects]] have changed to better support multiple providers.
+* Added QueryOnto extension methods. (See [[Identity Insersts]]).
+* NOTE: if you are using MiniProfiler, you will need to register the MiniProfiler provider starting with v3.0
 
 ## v2.3.1 ##
 

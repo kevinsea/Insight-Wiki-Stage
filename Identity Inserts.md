@@ -73,3 +73,25 @@ And the asynchronous versions are:
 * InsertSqlAsync
 * InsertListAsync
 * InsertListSqlAsync
+
+## Querying Onto Existing Objects ##
+
+You can use this same technique to take a query and put the results onto an existing object. The QueryOnto methods will execute a query and merge the results onto an object you provide.
+
+	CREATE PROC GetBeerInfo (@ID int) AS SELECT * FROM Beer
+
+	Beer beer = new Beer() { ID = 1};
+	connection.QueryOnto("GetBeerInfo", beer);
+
+The behavior for QueryOnto is exactly the same as Insert. It just performs a Query then uses Merge to merge the results onto an existing set of objects.
+
+The QueryOnto methods:
+
+* QueryOnto
+* QueryOntoSql
+* QueryOntoList
+* QueryIntoListSql
+* QueryOntoAsync
+* QueryOntoSqlAsync
+* QueryOntoListAsync
+* QueryIntoListSqlAsync
