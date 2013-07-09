@@ -1,6 +1,6 @@
 # Change Log #
 
-## v3.0.0 - alpha 1 ##
+## v3.0.0 - alpha 2 ##
 
 * Implemented a new provider model to support the following databases:
 	* [[SQL Server Provider]]
@@ -11,8 +11,9 @@
 * Some parameters for [[Bulk Copy with Objects]] have changed to better support multiple providers.
 * Added QueryOnto extension methods. (See [[Identity Insersts]]).
 * NOTE: if you are using MiniProfiler, you will need to register the MiniProfiler provider starting with v3.0
+* Implemented Issue #33 - Updated some extension methods to use T4 templates and support more generics (Phil Bolduc)
 
-## v2.3.2 (unreleased) ##
+## v2.3.2 ##
 
 * Fixed Issue #32 - now uses DbType.DateTime2 as the default datetime type for wider range of values.
 
