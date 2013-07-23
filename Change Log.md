@@ -1,6 +1,6 @@
 # Change Log #
 
-## v3.0.0 - alpha 2 ##
+## v3.0.0 ##
 
 * Implemented a new provider model to support the following databases:
 	* [[SQL Server Provider]]
@@ -12,6 +12,10 @@
 * Added QueryOnto extension methods. (See [[Identity Insersts]]).
 * NOTE: if you are using MiniProfiler, you will need to register the MiniProfiler provider starting with v3.0
 * Implemented Issue #33 - Updated some extension methods to use T4 templates and support more generics (Phil Bolduc)
+
+## v2.3.3 ##
+
+* Fixed Issue #36 - automatic conversion of guid to string in list parameters.
 
 ## v2.3.2 ##
 
