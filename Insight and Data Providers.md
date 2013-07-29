@@ -10,6 +10,7 @@ Since .NET ships with a few database clients, the following providers are built-
 
 Other providers require additional assemblies or dependencies, so they are shipped separately from the core Insight.Database install:
 
+* [[DB2 Provider]] - all features except TVPs
 * [[MySql Provider]] - common features, no BulkCopy, no TVPs, no XML
 * [[Oracle Provider]] - all features, a few known issues
 * [[Oracle Managed Provider]] - common features, no BulkCopy, no TVPs, no XML

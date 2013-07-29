@@ -1,9 +1,9 @@
 # Change Log #
 
-## v3.0.1 (unreleased) ##
+## v3.0.1 ##
 
 * Fixed issue where a missing execute permission on a UDT used as a parameter type was causing Insight to thro the wrong exception.
-
+* Added [[DB2 Provider]].
 
 ## v3.0.0 ##
 
