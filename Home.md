@@ -1,6 +1,6 @@
 Insight.Database is a fast, lightweight, (and dare we say awesome) micro-orm for .NET.
 
-Insight.Database lets you call your database with almost no code, and makes it easy to send objects to your database and get them back.
+Insight.Database lets you call your database with almost no code, and makes it easy to send objects to your database and get them back. It's available under MS Public License, but we prefer if you use the BuyAFriendABeerAndTellThemAboutInsight License.
 
 **v3.0 is now in NuGet! Now with support for more database servers! See the [[Change Log]] for what's new!**
 
@@ -74,9 +74,13 @@ Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updat
 * [[Oracle Provider]]
 * [[Oracle Managed Provider]]
 * [[PostgreSQL Provider]]
-* [[MiniProfiler Provider]]
 * [[ODBC Provider]]
 * [[OLEDB Provider]]
+
+## Test & Profiling Framework Providers ##
+
+* [[Glimpse Provider]]
+* [[MiniProfiler Provider]]
 
 ## Revision History ##
 * [[Change Log]]

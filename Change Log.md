@@ -1,5 +1,9 @@
 # Change Log #
 
+## v3.0.2 ##
+
+* Added [[Glimpse Provider]] for use with the Glimpse testing framework.
+
 ## v3.0.1 ##
 
 * Fixed issue where a missing execute permission on a UDT used as a parameter type was causing Insight to thro the wrong exception.
@@ -17,10 +21,6 @@
 * Added QueryOnto extension methods. (See [[Identity Insersts]]).
 * NOTE: if you are using MiniProfiler, you will need to register the MiniProfiler provider starting with v3.0
 * Implemented Issue #33 - Updated some extension methods to use T4 templates and support more generics (Phil Bolduc)
-
-## v2.3.4 (unreleased) ##
-
-* Fixed issue where a missing execute permission on a UDT used as a parameter type was causing Insight to thro the wrong exception.
 
 ## v2.3.3 ##
 

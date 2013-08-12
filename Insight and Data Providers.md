@@ -15,4 +15,9 @@ Other providers require additional assemblies or dependencies, so they are shipp
 * [[Oracle Provider]] - all features, a few known issues
 * [[Oracle Managed Provider]] - common features, no BulkCopy, no TVPs, no XML
 * [[PostgreSQL Provider]] - common features, no TVPs
-* [[MiniProfiler Provider]] - all features
+* [[Glimpse Provider]] - all features of the underlying database
+* [[MiniProfiler Provider]] - all features of the underlying database
+
+## (Possibly) Important Note ##
+
+Currently (v3.x), Insight assumes that you will only use one provider for a given CommandText or ProcName. If you issue the same command against different providers, Insight will reuse the cached plan from the first provider. This probably won't happen to you, but if it does, open an issue and we'll take the time to make a cache per provider.
