@@ -68,6 +68,7 @@ Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updat
 
 ## Database Providers ##
 
+* [[Insight and Data Providers]]
 * [[SQL Server Provider]]
 * [[DB2 Provider]]
 * [[MySql Provider]]
