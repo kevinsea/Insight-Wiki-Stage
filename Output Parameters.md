@@ -49,10 +49,14 @@ The simplest way to get back output parameters is to put them back in an output 
 
 You can use the same object for input and output parameters. Insight will overlay the output parameters on top of the object you pass in for the outputParameters.
 
-	var foo = new { inputs = 1, outputs = 1 };
+	class MyParameters
+	{
+		int inputs;
+		int outputs;
+	}
+	var foo = new MyParameters() { inputs = 1 }
 	connection.Execute("MyProc", parameters: foo, outputParameters: foo);
 	var p = foo.outputs;
-
 
 ## Accessing Output Parameters with QueryResults ##
 
@@ -62,6 +66,22 @@ If you use QueryResults/QueryResultsSql to execute your query, the results objec
 	var outputs = results.Outputs;
 	var p = outputs.P;
 
+If your procedure has no result recordset, you can still call QueryResults, note how we pass in Results for the generic type parameter:
+
+	var results = connection.QueryResults<Results>("MyProc", inputParameters);
+	var p = results.Outputs.p;
+
+In Insight.Database v3.0.3 and later, you can call QueryResults with no type parameter. this is the same as above:
+
+	var results = connection.QueryResults("MyProc", inputParameters);
+	var p = results.Outputs.p;
+
+## Accessing Stored Procedure Return Values ##
+
+SQL Server automatically adds an output parameter called "Return_Value" for the return value of a procedure. You can also get that from the results object:
+
+	var results = connection.QueryResults<Results>("MyProc", inputParameters);
+	var p = results.Outputs.Return_Value;
 
 ## Accessing Output Parameters on an IDbCommand ##
 

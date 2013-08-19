@@ -1,5 +1,9 @@
 # Change Log #
 
+## v3.0.3 (unreleased) ##
+
+* Added QueryResults overload with no type parameter for queries that return just output parameters.
+
 ## v3.0.2 ##
 
 * Added [[Glimpse Provider]] for use with the Glimpse testing framework.
