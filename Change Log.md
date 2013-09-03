@@ -4,6 +4,7 @@
 
 * Added QueryResults overload with no type parameter for queries that return just output parameters.
 * Fixed Issue #41 - non-sql exceptions causing provider lookup to fail in ReliableConnection
+* Fixed Issue #42 - string to guid conversion in stored proc parameters
 
 ## v3.0.2 ##
 
