@@ -1,6 +1,6 @@
 # Change Log #
 
-## v3.0.3 (unreleased) ##
+## v3.0.3 ##
 
 * Added QueryResults overload with no type parameter for queries that return just output parameters.
 * Fixed Issue #41 - non-sql exceptions causing provider lookup to fail in ReliableConnection
