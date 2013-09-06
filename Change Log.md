@@ -1,5 +1,9 @@
 # Change Log #
 
+## v3.0.4 (unreleased) ##
+
+* Fixed issue with sending SqlGeometry to SQL text calls. (part of Issue #43)
+
 ## v3.0.3 ##
 
 * Added QueryResults overload with no type parameter for queries that return just output parameters.
