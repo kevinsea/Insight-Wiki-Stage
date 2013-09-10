@@ -2,7 +2,8 @@
 
 ## v3.0.4 (unreleased) ##
 
-* Fixed issue with sending SqlGeometry to SQL text calls. (part of Issue #43)
+* Fixed issue with sending SqlGeometry to SQL Server calls. (Issue #43)
+* Also optimized some parameter cloning & made SqlServer UDTs work better with SQL Text.
 
 ## v3.0.3 ##
 
