@@ -1,5 +1,9 @@
 # Change Log #
 
+## v3.0.5 (unreleased) ##
+
+* Fixed issue #47 - bulk copy inside a transaction
+
 ## v3.0.4 ##
 
 * Fixed issue with sending SqlGeometry to SQL Server calls. (Issue #43)
