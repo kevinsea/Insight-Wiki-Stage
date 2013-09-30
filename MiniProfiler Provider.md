@@ -36,7 +36,7 @@ One technique to include SQL profiling is to add in the following extension
 
 Then you can change your code to look like:
 
-    // map a beer the stored procedure parameters
+    // map a beer the stored procedure parameters (and profile it)
     Database
       .Connection()
       .Profiled()
