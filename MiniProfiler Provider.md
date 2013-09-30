@@ -12,7 +12,7 @@ Before you can use Insight.Database with MiniProfiler, you must first install an
 2. Call MiniProfilerInsightDbProvider.RegisterProvider(). 
 3. Choose a technique to profile your connections (manual or injected)
 
-### Integration with MiniProfiler ###
+### Manual Integration with MiniProfiler ###
 
 One technique to include SQL profiling is to add in the following extension
 
@@ -43,4 +43,4 @@ Then you can change your code to look like:
       .Profiled()
       .Execute("InsertBeer", beer);
 
-Alternatively, you can have the profiled connection injected for you automagically. 
+Alternatively, you can have the profiled connection injected for you automagically. We definitely recommend injecting it rather than manually wrapping it.
