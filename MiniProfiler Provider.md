@@ -10,6 +10,7 @@ Before you can use Insight.Database with MiniProfiler, you must first install an
 
 1. Install the Insight.Database.Providers.MiniProfiler package from NuGet.
 2. Call MiniProfilerInsightDbProvider.RegisterProvider(). 
+3. Choose a technique to profile your connections (manual or injected)
 
 ### Integration with MiniProfiler ###
 
