@@ -1,8 +1,11 @@
 # Change Log #
 
-## v3.0.5 (unreleased) ##
+## v3.1 (unreleased) ##
 
-* Fixed issue #47 - bulk copy inside a transaction
+* Added support for .NET 3.5
+* Fixed Issue #48 - Auto-Interface Update Method Fails if First Parameter is atomic
+	*  NOTE: Auto-Interface Update methods no longer perform a merge on the results. Use Upsert if that is the desired behavior. See [documentation](https://github.com/jonwagner/Insight.Database/wiki/Auto-Interface-Implementation)
+* Fixed Issue #47 - bulk copy inside a transaction
 
 ## v3.0.4 ##
 

@@ -35,8 +35,8 @@ Insight implements the interface for you automatically, and you can just call th
 
 When generating the implementation of the interface, Insight uses the DbConnection extension methods. It maps the interface methods by the return type using the following rules:
 
-- `void`, method name starts with "Insert/Update/Upsert", first param is IEnumerable => InsertList
-- `void`, method name starts with "Insert/Update/Upsert", otherwise => Insert
+- `void`, method name starts with "Insert/Upsert", first param is IEnumerable => InsertList
+- `void`, method name starts with "Insert/Upsert", first param is updatable -> Insert
 - `void`, otherwise => Execute
 - `IList<T>` => Query
 - `Results<>` => QueryResults
@@ -51,6 +51,12 @@ For methods that return Task, Insight uses the same rules as above, but the meth
 - `Task<other type>` => same as other type
 
 For asynchronous methods, Insight will also automatically remove the word "Async" from the end of your method name when mapping to the name of the stored procedure.
+
+Note that when using Insert/Upsert, the result set will automatically be merged into the object that is the first parameter in the method call. This lets you do:
+
+	i.InsertBeer(b);
+
+and have the ID sent back into the object `b`.
 
 ## Parameter Mapping ##
 
