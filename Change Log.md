@@ -1,6 +1,6 @@
 # Change Log #
 
-## v3.1 (unreleased) ##
+## v3.1 ##
 
 * Added support for .NET 3.5
 * Fixed Issue #48 - Auto-Interface Update Method Fails if First Parameter is atomic
