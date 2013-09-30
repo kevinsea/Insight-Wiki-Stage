@@ -11,3 +11,35 @@ Before you can use Insight.Database with MiniProfiler, you must first install an
 1. Install the Insight.Database.Providers.MiniProfiler package from NuGet.
 2. Call MiniProfilerInsightDbProvider.RegisterProvider(). 
 
+### Integration with MiniProfiler ###
+
+One technique to include SQL profiling is to add in the following extension
+
+	/// <summary>
+	/// Syntax sugar for profiling using MiniProfiler.
+	/// </summary>
+	public static class SqlConnectionExtensions
+	{
+		/// <summary>
+		/// Returns a profiled connection.
+		/// </summary>
+		/// <param name="sqlConnection"></param>
+		/// <returns></returns>
+		public static IDbConnection Profiled(this SqlConnection sqlConnection)
+		{
+			if (MiniProfiler.Current != null)
+				return new ProfiledDbConnection(sqlConnection, MiniProfiler.Current);
+			else
+				return sqlConnection;
+		}
+	}
+
+Then you can change your code to look like:
+
+    // map a beer the stored procedure parameters
+    Database
+      .Connection()
+      .Profiled()
+      .Execute("InsertBeer", beer);
+
+Alternatively, you can have the profiled connection injected for you automagically. 
