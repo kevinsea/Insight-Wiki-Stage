@@ -1,5 +1,10 @@
 # Change Log #
 
+## v3.1.1 ##
+
+* Fixed build process to actually package NET35 and NET40 assemblies (whoops)
+* Another Auto-Interface fix for string parameters and generics.
+
 ## v3.1 ##
 
 * Added support for .NET 3.5
