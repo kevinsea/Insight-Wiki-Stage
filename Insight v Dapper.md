@@ -1,5 +1,7 @@
 # Insight vs. Dapper #
 
+NOTE: this comparison is pretty old, so some information may be incorrect.
+
 A lot of the core bits of Insight.Database were based upon the [Dapper ORM](https://github.com/SamSaffron/dapper-dot-net). The original goal of Insight was to create a set of wrapper methods that favored the use of stored procedures rather than SQL text. In fact, early internal versions of Insight used the Dapper core code to perform its mapping. Some of this functionality could easily be written as extensions on top of Dapper, other bits cannot.
 
 Below are some of the differences between the engines and some info about how the core engines are currently different.

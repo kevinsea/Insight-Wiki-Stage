@@ -14,6 +14,7 @@ Other providers require additional assemblies or dependencies, so they are shipp
 * [[MySql Provider]] - common features, no BulkCopy, no TVPs, no XML
 * [[Oracle Provider]] - all features, a few known issues
 * [[Oracle Managed Provider]] - common features, no BulkCopy, no TVPs, no XML
+* [[Sybase ASE Provider]] - all features except TVPs
 * [[PostgreSQL Provider]] - common features, no TVPs
 * [[Glimpse Provider]] - all features of the underlying database
 * [[MiniProfiler Provider]] - all features of the underlying database

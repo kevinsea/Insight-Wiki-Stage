@@ -1,5 +1,12 @@
 # Change Log #
 
+## v3.1.2 ##
+
+* Added [[Sybase ASE Provider]] (Issue #52)
+* Added XML Help files to nuget packages (Issue #51)
+* Fixed Issue #50 - DynamicConnection may bypass Reliable features
+* Fixed Issue #49 - When using ReliableConnection + Dynamic + Async OR OpenWithTransaction, Connections May Not Dispose Properly
+
 ## v3.1.1 ##
 
 * Fixed build process to actually package NET35 and NET40 assemblies (whoops)
