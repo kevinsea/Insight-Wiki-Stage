@@ -1,4 +1,11 @@
+
 # Change Log #
+
+## v3.1.3 ##
+
+* BulkCopy extension methods now return number of records inserted. (Issue #55, thanks eric-b)
+* Enabled streaming for SqlBulkCopy provider.
+* Added a BulkCopy extension that takes an IDataReader.
 
 ## v3.1.2 ##
 
