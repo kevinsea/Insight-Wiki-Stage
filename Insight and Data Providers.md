@@ -7,6 +7,7 @@ Since .NET ships with a few database clients, the following providers are built-
 * [[SQL Server Provider]] - all features
 * [[ODBC Provider]] - common features, no TVPs, no XML
 * [[OLEDB Provider]] - common features, no TVPs, no XML 
+* MS Access - use the ODBC or OLEDB Provider
 
 Other providers require additional assemblies or dependencies, so they are shipped separately from the core Insight.Database install:
 
