@@ -1,6 +1,11 @@
 
 # Change Log #
 
+## v3.1.4 (unreleased)
+
+* Postgres provider now supports .NET v3.5 (Issue #58). Note: if you want other providers to support .NET 3.5, please post a github issue. It shouldn't be that much work for most of them.
+* Fixed Issue #61 - when deserializing a sub-object, check to see if all of the sub-object's columns are dbnull. If so, return a null sub-object.
+
 ## v3.1.3 ##
 
 * BulkCopy extension methods now return number of records inserted. (Issue #55, thanks eric-b)
