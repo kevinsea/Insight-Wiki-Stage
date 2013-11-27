@@ -160,10 +160,12 @@ Simply call ExecuteAsync or QueryAsync and you will get a Task&lt;T&gt; represen
 
 Once you start running C# 4.5, it all becomes clear:
 
-	List<Beer> beerMenu = await Database1.QueryAsync<Beer>("FindBeer", new { Name = "Sly Fox" });
-	List<Food> foodMenu = await Database2.QueryAsync<Beer>("FindFood", new { Meal = "Lunch" });
+	var beerMenu = Database1.QueryAsync<Beer>("FindBeer", new { Name = "Sly Fox" });
+	var foodMenu = Database2.QueryAsync<Beer>("FindFood", new { Meal = "Lunch" });
 
-	await Order(beerMenu.First(), foodMenu.First());
+	await Task.WaitAll(beerMenu, foodMenu);
+
+	Order(beerMenu.Result.First(), foodMenu.Result.First());
 	
 Just try to do this with the built in SqlCommand class. We dare you.
 
