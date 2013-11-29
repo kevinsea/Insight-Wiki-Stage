@@ -49,6 +49,7 @@ Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updat
 * [[Manual Transformations]] - how to do your own transformations from data to objects.
 * [[Enums and Mapping]] - the rules for mapping enums to/from your database.
 * [[Date-Based Data Types]] - how date-based types are handled.
+* [[Object Serialization]] - how object fields are serialized to/from string values.
 
 ## Dynamic Objects and Queries ##
 * [[Dynamic Database Calls]] - make your SQL procs just look like methods on your Connection.

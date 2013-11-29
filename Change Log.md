@@ -1,10 +1,13 @@
 
 # Change Log #
 
-## v3.1.4 (unreleased)
+## v3.1.4
 
+* Added automatic JSON Serialization (Issue #60). See [[Object Serialization]].
 * Postgres provider now supports .NET v3.5 (Issue #58). Note: if you want other providers to support .NET 3.5, please post a github issue. It shouldn't be that much work for most of them.
 * Fixed Issue #61 - when deserializing a sub-object, check to see if all of the sub-object's columns are dbnull. If so, return a null sub-object.
+* Added project icon
+* Fixed issue where commandTimeout was not being passed to a dynamic proc call
 
 ## v3.1.3 ##
 
