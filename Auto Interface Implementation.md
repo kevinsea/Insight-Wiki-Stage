@@ -123,7 +123,8 @@ If you need to change the mapping between your interface method and the stored p
 
 	public interface IBeerRepository
 	{
-		[Sql("MyOtherInsertProc", CommandType.StoredProcedure)]
+		// since this is one word, Insight assumes this is a stored procedure
+		[Sql("MyOtherInsertProc")]
 		void InsertBeer(Beer beer);
 	}
 
@@ -131,7 +132,8 @@ And I guess *technically* if you don't want to bother with stored procedures at 
 
 	public interface IBeerRepository
 	{
-		[Sql("SELECT * FROM Beer WHERE type = @type", CommandType.Text)]
+		// since this is more than one word, Insight assumes this is a text call
+		[Sql("SELECT * FROM Beer WHERE type = @type")]
 		IList<Beer> GetBeerByType(string type);
 	}
 
@@ -146,6 +148,16 @@ Because, underneath it all, Insight is creating a class like this:
 	}
 
 But seriously, why should you have to write that code at all?
+
+If you are using SQL Schemas, you can also apply the Schema to the class:
+
+	[Sql(Schema="MySchema")]
+	public interface IBeerRepository
+	{
+		// this evaluates to MySchema.MyOtherInsertProc
+		[Sql("MyOtherInsertProc")]
+		void InsertBeer(Beer beer);
+	}
 
 ## Special Parameters ##
 

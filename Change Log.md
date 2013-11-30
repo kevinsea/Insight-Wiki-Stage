@@ -1,6 +1,11 @@
 
 # Change Log #
 
+## v3.1.5 (unreleased) ##
+
+* Added SqlAttribute.Schema to let you specify the schema for an entire set of procedures. (Issue #65)
+* Updated SqlAttribute.CommandType to assume StoredProcedure if the sql is a single word or Text otherwise.
+
 ## v3.1.4
 
 * Added automatic JSON Serialization (Issue #60). See [[Object Serialization]].
