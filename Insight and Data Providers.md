@@ -8,6 +8,7 @@ Since .NET ships with a few database clients, the following providers are built-
 * [[ODBC Provider]] - common features, no TVPs, no XML
 * [[OLEDB Provider]] - common features, no TVPs, no XML 
 * MS Access - use the ODBC or OLEDB Provider
+* [[SQLite Provider]] - common features work with the default provider
 
 Other providers require additional assemblies or dependencies, so they are shipped separately from the core Insight.Database install:
 
@@ -19,6 +20,8 @@ Other providers require additional assemblies or dependencies, so they are shipp
 * [[PostgreSQL Provider]] - common features, no TVPs
 * [[Glimpse Provider]] - all features of the underlying database
 * [[MiniProfiler Provider]] - all features of the underlying database
+
+If you don't install a provider for your database, Insight 3.1.4 and later will use a default provider that will give you some basic functionality.
 
 ## (Possibly) Important Note ##
 

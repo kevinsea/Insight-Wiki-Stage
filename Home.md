@@ -73,6 +73,7 @@ Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updat
 * [[SQL Server Provider]]
 * [[DB2 Provider]]
 * [[MySql Provider]]
+* [[SQLite Provider]]
 * [[Oracle Provider]]
 * [[Oracle Managed Provider]]
 * [[PostgreSQL Provider]]
