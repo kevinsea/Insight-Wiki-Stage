@@ -1,10 +1,13 @@
 
 # Change Log #
 
-## v3.1.5 (unreleased) ##
+## v3.1.5 ##
 
 * Added SqlAttribute.Schema to let you specify the schema for an entire set of procedures. (Issue #65)
 * Updated SqlAttribute.CommandType to assume StoredProcedure if the sql is a single word or Text otherwise.
+* Fixed Issue #67 - DateTime2 is now downshifted to DateTime when using SQL2005 or SQL CE.
+* Fixed Issue #69 - double dispose on DbDataReader causes some third-party libraries to fail.
+* Added basic SQLite tests.
 
 ## v3.1.4
 
