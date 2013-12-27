@@ -1,6 +1,10 @@
 
 # Change Log #
 
+## v3.1.6 ##
+
+* Fixed ISSUE #73 - exception when returning too few result sets with QueryResultsAsync
+
 ## v3.1.5 ##
 
 * Added SqlAttribute.Schema to let you specify the schema for an entire set of procedures. (Issue #65)
@@ -9,7 +13,7 @@
 * Fixed Issue #69 - double dispose on DbDataReader causes some third-party libraries to fail.
 * Added basic SQLite tests.
 
-## v3.1.4
+## v3.1.4 ##
 
 * Added automatic JSON Serialization (Issue #60). See [[Object Serialization]].
 * Postgres provider now supports .NET v3.5 (Issue #58). Note: if you want other providers to support .NET 3.5, please post a github issue. It shouldn't be that much work for most of them.
