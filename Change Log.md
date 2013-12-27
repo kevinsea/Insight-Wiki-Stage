@@ -4,6 +4,7 @@
 ## v3.1.6 ##
 
 * Fixed ISSUE #73 - exception when returning too few result sets with QueryResultsAsync
+* Fixed ISSUE #72 - default datetime is now DbType.DateTime, unless the provider supports DateTime2 (i.e. SQL)
 
 ## v3.1.5 ##
 
