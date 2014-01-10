@@ -93,3 +93,4 @@ Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updat
 * [[Stored Procedures vs SQL Text]] - discusses the differences between using Stored Procedures and SQL Text with Insight.
 * [[Creating Commands]] - how to create a command manually for reuse.
 * [[Insight v Dapper]] - Dapper was the inspiration for parts of Insight, but now they are totally different.
+* [[Strong Named Assemblies]] - some notes on the signed assemblies in v3.2 and later.

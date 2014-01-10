@@ -1,6 +1,15 @@
 
 # Change Log #
 
+## v3.3 ##
+
+* ISSUE #76 - support output parameters with async methods.
+* FIXED ISSUE #77 - auto-interface can now return `IEnumerable<T>`, IList<T>, `or List<T>`.
+
+## v3.2 ##
+
+* ISSUE #74 - strong-named assemblies. See [[Strong Named Assemblies]].
+
 ## v3.1.6 ##
 
 * Fixed ISSUE #73 - exception when returning too few result sets with QueryResultsAsync
