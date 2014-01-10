@@ -36,6 +36,18 @@ Note that since this is a dynamic method, the return type is of type `dynamic`. 
 
 There is a small overhead for this type of call, but it's not much. The parameter definitions are retrieved from the server and cached and there is only a little bit of mapping to do. Enjoy it.
 
+## Specifying a Schema ##
+
+You can also specify a schema for the procedure that gets called:
+
+	var beer = Database.Dynamic<Beer>().dbo.FindBeer("IPA");
+	// calls dbo.FindBeer
+
+Or...
+
+	var beer = Database.Dynamic<Beer>().bartender.FindBeer("IPA");
+	// calls bartender.FindBeer
+
 ## Async Dynamic Database Calls ##
 
 Whoops! Almost forgot. If you append "Async" to your method name, Insight will make an async call and return a Task. Like so:

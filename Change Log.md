@@ -5,6 +5,7 @@
 
 * ISSUE #76 - support output parameters with async methods.
 * FIXED ISSUE #77 - auto-interface can now return `IEnumerable<T>`, IList<T>, `or List<T>`.
+* ISSUE #75 - allow dynamic calls to specify a database schema.
 
 ## v3.2 ##
 
