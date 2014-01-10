@@ -38,6 +38,7 @@ Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updat
 * [[Lists of Objects as Parameters]] - sending a bunch of objects to a database has never been easier.
 * [[Identity Inserts]] - getting IDs and other data back from the database and merged into your object.
 * [[Transactions]] - executing more than one method in a transaction.
+* [[Optimistic Concurrency]] - being cautious about changes to records.
 
 ## Controlling Object Mapping ##
 * [[Query Parameter Mapping]] - how Insight maps objects to query parameters.
