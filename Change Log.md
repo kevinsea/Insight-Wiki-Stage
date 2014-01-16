@@ -1,14 +1,15 @@
 
 # Change Log #
 
-## v3.3 ##
+## v3.3.0 ##
 
 * ISSUE #76 - support output parameters with async methods.
 * FIXED ISSUE #77 - auto-interface can now return `IEnumerable<T>`, IList<T>, `or List<T>`.
 * ISSUE #75 - allow dynamic calls to specify a database schema.
 * Added [[Optimistic Concurrency]] support.
+* Added connection.AsParallel<T> to allow [[Auto Interface Implementation]] to generate thread-safe interfaces. 
 
-## v3.2 ##
+## v3.2.0 ##
 
 * ISSUE #74 - strong-named assemblies. See [[Strong Named Assemblies]].
 

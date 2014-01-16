@@ -109,6 +109,39 @@ Then you can use the object in your using statements like this:
 
 I don't think you can make transactional calls to the database with less code than this.
 
+## Parallel Programming ##
+
+By default, `As<T>` will generate a single-threaded implementation. If you make calls on the interface from multiple threads, crazy things could happen (You would likely see things where the connection is closed unexpectedly or complaints that the connection is busy.)
+
+Example:
+
+	public async Task Multithreaded()
+	{
+		var ifoo = connection.As<IFoo>();
+
+		var t1 = ifoo.FooAsync();
+		var t2 = ifoo.FooAsync();
+		Task.WaitAll(t1, t2);
+	}
+
+Here, we are starting two tasks calling methods on the same connection. There is nothing to prevent the system from trying to make both calls at the same time. This code will go *boom* at some point.
+
+To fix this, tell Insight to create a multi-threaded interface implementation by calling `AsParallel<T>` instead of `As<T>`:
+
+	public async Task Multithreaded()
+	{
+		// get a parallel-enabled interface
+		var ifoo = connection.AsParallel<IFoo>();
+
+		var t1 = ifoo.FooAsync();
+		var t2 = ifoo.FooAsync();
+		Task.WaitAll(t1, t2);
+	}
+
+A parallel interface will use a new connection for each method call. You don't have to worry about method calls conflicting anymore. The only difference is that parallel connections don't let you manage the connection lifetime with `Open` or use transactions with `OpenWithTransactionAs`.
+
+If you want to use parallel connections in a transaction, you would need to use `System.Transactions` to create a lightweight distributed transaction. But in that case, you probably should stick to single-threaded. 
+
 ## Private Interfaces ##
 
 If you want your interfaces and objects to be private, you will have to expose the types to the dynamic assembly that Insight creates. You can do that with the InternalsVisibleTo attribute. Add this to your assembly:
