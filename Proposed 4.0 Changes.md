@@ -6,6 +6,8 @@ To comment, edit this wiki page and put your comment in a quote box with your na
 
 > Jon - This is awesome!
 
+> lobetuf - definitely awesome!  
+
 For v4.0, I'm looking at one major goal: 
 
 	Making it easy to return arbitrary trees of objects from SQL results.
@@ -127,8 +129,10 @@ Sometimes when you return multiple recordsets, what you want to do is return a t
 	}
 
 **QUESTION: What types should this support? IEnumerable? IList? ICollection?**
+> lobetuf - I prefer ICollection<T>.  While most times, IEnumerable<T> would be sufficient to do read-only work and iterate over the result set, I utilize ICollection<T> in my POCOs to allow modifying my collections before iterating and persisting back
 
 **QUESTION: Who is responsible for allocating the collection? Your code or Insight? Or either?**
+> lobetuf - I'd say that when returning results, Insight should allocate it; when I'm submitting data to be persisted, I should allocate it.   
 
 You would probably return recordsets like this:
 
@@ -170,6 +174,8 @@ If Insight doesn't pick the right target field, you can specify it:
 					.ThenChild<Glass>(into: b => b.BarShelf));
 
 **QUESTION: for the one-to-many case, is there any reason why we can't assume the first column in a child recordset refers to the parent's ID?**
+
+> lobetuf - I think it's fair to impose such a constraint. 
 
 # Multiple One-to-Many Mappings #
 
