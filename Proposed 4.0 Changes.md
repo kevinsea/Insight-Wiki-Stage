@@ -92,6 +92,8 @@ You could also do this with:
 	Results<Beer, Glass> results = c.QueryResultsSql<Results<Beer, Glass>>(
 		"SELECT * FROM Beer; SELECT * FROM Glasses");
 
+> sirchristian - `c.QuerySql<Results<Beer, Glass>>` ?
+
 Or by using the returns parameter:
 
 	Results<Beer, Glass> results = c.QuerySql(
@@ -110,6 +112,14 @@ You can have more than two recordsets returned:
 				.Then<Napkin>());
 
 Now, `results.Set3` contains napkins.
+
+> sirchristian - Assuming 1-1 relationships get mapped in recordsets beyond the first as well
+> 
+>`Results<Beer, Glass> results = c.QuerySql(`  
+>`	"SELECT * FROM Beer; SELECT * FROM Napkins JOIN Glasses",`  
+>`	returns: () => Results`  
+>`			.Recordset<Beer>()`  
+>`			.Then<Glass, Napkin>());`  
 
 **CHANGE FROM v3: by replacing `returnType` and `withGraph` with the `returns` parameter, we will be able to support arbitrary structures.**
 
@@ -130,9 +140,13 @@ Sometimes when you return multiple recordsets, what you want to do is return a t
 
 **QUESTION: What types should this support? IEnumerable? IList? ICollection?**
 > lobetuf - I prefer ICollection<T>.  While most times, IEnumerable<T> would be sufficient to do read-only work and iterate over the result set, I utilize ICollection<T> in my POCOs to allow modifying my collections before iterating and persisting back
+>
+> sirchristian - Which ever way is most compatible with updating the DB.
 
 **QUESTION: Who is responsible for allocating the collection? Your code or Insight? Or either?**
-> lobetuf - I'd say that when returning results, Insight should allocate it; when I'm submitting data to be persisted, I should allocate it.   
+> lobetuf - I'd say that when returning results, Insight should allocate it; when I'm submitting data to be persisted, I should allocate it.
+>
+> sirchristian - Feels more natural to let Insight handle it.
 
 You would probably return recordsets like this:
 
@@ -151,6 +165,8 @@ Here, we're telling Insight to expect two recordsets. The first one contains Bee
 ## How Insight will handle the one-to-many mapping ##
 
 By default, Insight will look for the first field in the Beer class with "ID" at the end of the name. It will use that as the parent key field. It will also assume that the first field in the recordset is the reference to the parent. It will then automatically put the right glasses into the right beer.
+
+> sirchristian - Another reasonable default would be `<TableName>ID`
 
 If Insight doesn't pick the right ID field, you can specify it:
 
