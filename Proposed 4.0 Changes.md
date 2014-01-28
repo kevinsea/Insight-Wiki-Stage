@@ -8,6 +8,8 @@ To comment, edit this wiki page and put your comment in a quote box with your na
 
 > lobetuf - definitely awesome!  
 
+> Orcomp - Skim read through the page. Everything looks sensible. Will come back and comment when I get a bit more time.
+
 For v4.0, I'm looking at one major goal: 
 
 	Making it easy to return arbitrary trees of objects from SQL results.
