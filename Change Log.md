@@ -1,6 +1,10 @@
 
 # Change Log #
 
+## v3.3.1 ##
+
+* FIXED ISSUE #81 - inheriting schema attribute.
+
 ## v3.3.0 ##
 
 * ISSUE #76 - support output parameters with async methods.
