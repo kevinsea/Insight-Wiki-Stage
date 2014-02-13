@@ -1,16 +1,14 @@
-# Proposed v4.0 Changes #
+# Insight.Database 4.0.0-alpha1 is now on NuGet - 2/12/2014  #
 
-**THIS IS A DRAFT ACCEPTING COMMENTS**
+The code is also in the 4.0 branch if you want to look at it.
 
-**UPDATED 2/12/2014 - almost ready for 4.0-alpha1!**
+**THIS IS A DRAFT ACCEPTING COMMENTS - Feel free to add them.**
 
-To comment, edit this wiki page and put your comment in a quote box with your name/ID:
+To comment, edit this wiki page and put your comment in a quote box with your name/ID.
+
+(I've taken out the last round of comments. Feel free to put more in.)
 
 > Jon - This is awesome!
-
-> lobetuf - definitely awesome!  
-
-> Orcomp - Skim read through the page. Everything looks sensible. Will come back and comment when I get a bit more time.
 
 For v4.0, I'm looking at one major goal: 
 
@@ -23,24 +21,36 @@ As usual, the design goals are:
 * Be Simple - if it gets too icky, you'll pay for it later. 
 * Be Fast - high-performance is key. All of this will be runtime-compiled into fast code. I promise.
 
-Since this will be a major release, I'll be allowing breaking changes in order to make v4.0 "Be Natural". If things are going to break, my goals will be to: 
-
-* Have any breaking changes detected by compilation.
-* Have an easy upgrade path (e.g. rename a class or member).
-* Support a "Compatibility" assembly for deprecated methods that I'd like to get rid of, but you might not have time to update/test your code.
-
-Below is the proposed documentation for v4.0, as I expect it to end up. (I haven't written the code yet, so there will probably be changes.) Differences from v3.x will be noted.
+Since this is a major release, I've allowed some features to be removed/broken so that the 4.x API is nice and clean. The good news is that there will be a v3.x compatibility library that you can drop in to get almost all of the functionality back. 
 
 Reader Notes:
 
 * For clarity, much of the SQL below has been truncated.
-* All of the QuerySql methods have a corresponding Query method that takes a proc name rather than SQL.
+* All of the QuerySql methods have a corresponding Query method that takes a proc name rather than SQL. And Async, of course.
+
+## Changes from v3.x ##
+
+* DefaultGraphAttribute has been replaced by the RecordsetAttribute
+* Extension methods that used to take a withGraph(s) parameter now take a returns parameter.
+
+## Not Yet in v4.0-alpha1 ##
+
+* v3.x Compatibility Library - this will be in alpha2.
+* Fluent Configuration
+* More than two levels of children on an interface.
+
+## Upgrading from Previous Versions ##
+
+* If you didn't use the Graph class, v4.x should be a drop in replacement.
+* If you did use the Graph class, then you can make a few changes or wait for the 3.x Compatibility Library in 4.0.0-alpha2.
+
+**I'd like to know what things don't compile without changes on 4.x, so if you drop it in and things don't work, please let me know.**
 
 # Returning Objects #
 
 When you return data from a Query, Insight converts the results to a list of objects.
 
-By default, Query<T> will return a list of T.
+By default, `Query<T>` will return a list of T.
 
 	List<Beer> yum = c.QuerySql<Beer>("SELECT * FROM Beer");
 
@@ -59,28 +69,23 @@ If you are returning a 1-1 set of objects in a single recordset, you can add the
 
 You can also tell Insight that whenever you return a Beer, you will also generally return a Glass. Do this by adding a Recordset attribute.
 
-**[3.x COMPATIBILITY NOT YET IN 4.0-alpha1] CHANGE FROM v3: this used to be the DefaultGraph attribute.**
 
 	[Recordset(typeof(Beer), typeof(Glass))]
 	class Beer { ... }
 
+
 Now, whenever Insight reads a Beer, it will also look for a Glass unless you tell it otherwise. If there is no Glass in the recordset, then the Glass property will be null.
 
-The other option is to pass a recordset definition into the query. Below, we tell Insight that the recordset contains a Beer and a Glass.
+**CHANGE FROM v3: this used to be the DefaultGraph attribute.**
 
-**[3.x COMPATIBILITY NOT YET IN 4.0-alpha1] CHANGE FROM v3: this used to be the `returnType` or `withGraph` parameter and would take a `typeof(Graph<T>)`. The compatibility layer will still support these versions.**
+The other option is to pass a recordset definition into the query. Below, we tell Insight that the recordset contains a Beer and a Glass.
 
 	List<Beer> yum = c.QuerySql("SELECT * FROM Beer JOIN Glasses", parameters,
 		Query.Returns(OneToOne<Beer, Glass>.Records));
 
-Design Notes:
+The design of the `Query.Returns` extension methods automatically let the compiler determine the return type of QuerySql. 
 
-* Be Natural - `QuerySql<T...>` is the most natural expression of this concept. So it stays.
-* Be Natural - `returnType` and `withGraph` aren't as intuitive as `returns` and `Results.Recordset`, so I'm changing the names.
-* Be Fast - The returns parameter is a Function so that it is only called once when Insight does the initial mapping.
-* Be Productive - When using the returns parameter construct, the compiler will automatically detect the return type from the signature of this parameter.
-* Be Productive - The Query methods have a lot of optional parameters, so you generally will need to specify the `returns:` label. Most likely its position will replace `returnType` or `withGraph` so you won't need to change your code much.
-* Be Productive - The returns parameter is a great way to let you tell Insight how your data is structured. Let's build on that concept below. 
+**CHANGE FROM v3: this used to be the `returnType` or `withGraph` parameter and would take a `typeof(Graph<T>)`. The compatibility layer will still support these versions.**
 
 # Multiple Unrelated Recordsets #
 
@@ -96,10 +101,6 @@ You could also do this with:
 	Results<Beer, Glass> results = c.QueryResultsSql<Results<Beer, Glass>>(
 		"SELECT * FROM Beer; SELECT * FROM Glasses");
 
-> sirchristian - `c.QuerySql<Results<Beer, Glass>>` ?
-> 
-> jon - yes, otherwise it conflicts with the `Query<T1, T2>` method.
-
 Or by using the returns parameter:
 
 	Results<Beer, Glass> results = c.QuerySql(
@@ -107,7 +108,7 @@ Or by using the returns parameter:
 		Query.Returns(Some<Beer>.Records)
 			.Then(Some<Glass>.Records);
 
-You can have more than two recordsets returned:
+With any of the methods, You can have more than two recordsets returned:
 
 	Results<Beer, Glass, Napkin> results = c.QuerySql(
 		"SELECT * FROM Beer; SELECT * FROM Glasses; SELECT * FROM Napkins", parameters,
@@ -116,17 +117,6 @@ You can have more than two recordsets returned:
 			.Then(Some<Napkin>.Records);
 
 Now, `results.Set3` contains napkins.
-
-> sirchristian - Assuming 1-1 relationships get mapped in recordsets beyond the first as well
-
-> jon - stop getting ahead of ourselves...
-
-**CHANGE FROM v3: by replacing `returnType` and `withGraph` with the `returns` parameter, we will be able to support arbitrary structures.**
-
-Design Notes:
-
-* Be Natural - personally, I like the `QueryResultsSql<T...>` and the `returns:` methods the most.
-* Be Productive - The `returns:` method can also be extended to handle one-to-many relationships.
 
 # One-to-Many Mappings #
 
@@ -138,24 +128,12 @@ Sometimes when you return multiple recordsets, what you want to do is return a t
 		public ICollection<Glass> Glass; // multiple proper glass per beer
 	}
 
-**QUESTION: What types should this support? IEnumerable? IList? ICollection?**
-> lobetuf - I prefer ICollection<T>.  While most times, IEnumerable<T> would be sufficient to do read-only work and iterate over the result set, I utilize ICollection<T> in my POCOs to allow modifying my collections before iterating and persisting back
->
-> sirchristian - Which ever way is most compatible with updating the DB.
-> 
-> jon - currently it always creates the List, but you have to manually do the assignment. More to come on this.
-
-**QUESTION: Who is responsible for allocating the collection? Your code or Insight? Or either?**
-> lobetuf - I'd say that when returning results, Insight should allocate it; when I'm submitting data to be persisted, I should allocate it.
->
-> sirchristian - Feels more natural to let Insight handle it.
-
-> jon - yes, the list always gets assigned by insight.
-
 You would probably return recordsets like this:
 
 	SELECT * FROM Beer WHERE Type="IPA"
 	SELECT b.ID, g.* FROM Glasses g JOIN RightGlass(...) ...
+
+NOTE: when reading a set of child records, Insight will always assume the first column is the parent ID.
 
 Now, we want to roll up the glasses into the Glass collection on Beer:
 
@@ -163,43 +141,56 @@ Now, we want to roll up the glasses into the Glass collection on Beer:
 		Query.Returns(Some<Beer>.Records)
 			.ThenChildren(Some<Glass>.Records);
 
-**[4.0-alpha1 - Auto ID is not implemented. You'll have to specify it for now. See below.]**
+Here, we're telling Insight to expect two recordsets. The first one contains Beer. The second one is expected to be a set of Glasses. Insight will create a list of them and attempt to automatically add them to an `ICollection<Glass>` on Beer.
 
-Here, we're telling Insight to expect two recordsets. The first one contains Beer. The second one is expected to be a set of Glasses. Insight will attempt to automatically add them to an `ICollection<Glass>` on Beer.
+The field/property can be any of the following types:
+
+* IList<T>
+* IEnumerable<T>
+* ICollection<T>
+* List<T>
+
+Insight will assign a List<T> to the property.
 
 ## How Insight will handle the one-to-many mapping ##
 
-By default, Insight will look for the first field in the Beer class with "ID" at the end of the name. It will use that as the parent key field. It will also assume that the first field in the recordset is the reference to the parent. It will then automatically put the right glasses into the right beer.
+To determine the ID field, Insight uses the following order of precedence:
 
-**[4.0-alpha1 - Auto Assignment is not implemented. You'll have to specify it for now. See below.]**
-
-> sirchristian - Another reasonable default would be `<TableName>ID`
+1. The field explicitly requested in the structure definition.
+2. The field on the class marked with the `[RecordId]` attribute.
+3. A field called "ID".
+4. A field called "classID", where "class" is the short name of the class.
+5. A field ending in "ID".
 
 If Insight doesn't pick the right ID field, you can specify it:
 
 		Query.Returns(Some<Beer>.Records)
 			.ThenChildren(Some<Glass>.Records, b => b.MyIdentifier);
 
-Or to do it in one place, add it to the `Recordset` attribute on your class:
+Or to do it in one place, add the `RecordId` attribute on the ID property. It only needs a getter.
 
-	[Recordset(ID = "MyIdentifier")]
 	public class Beer
 	{
+		[RecordId]
 		public int MyIdentifier;
 		...
 	}
 
-**[4.0-alpha1 - ID attribute is implemented yet]**
+To determine the target list field, Insight uses the following order of precedence:
+
+1. The field explicitly requested in the structure definition.
+2. The field on the class marked with the `[ChildRecords]` attribute that matches the type of the list.
+3. Any field matching the type of the list.
 
 If Insight doesn't pick the right target field, you can specify it:
 
 		Query.Returns(Some<Beer>.Records)
-			.ThenChildren(Some<Glass>.Records, (b, g) => b.BarShelf = g.ToList());
+			.ThenChildren(Some<Glass>.Records, into: (b, g) => b.BarShelf = g.ToList);
 
 
-**QUESTION: for the one-to-many case, is there any reason why we can't assume the first column in a child recordset refers to the parent's ID?**
+Other Notes:
 
-> lobetuf - I think it's fair to impose such a constraint. 
+* The way it's coded, it's possible for more than one parent to have a given ID, so it's actually possible to return many-to-many mappings. Woot. 
 
 # Multiple One-to-Many Mappings #
 
@@ -216,27 +207,22 @@ Subsequent recordsets can have their own one-to-one relationships:
 
 You can also create multiple levels. Here we put the napkins under the glasses instead of the beer:
 
-**[4.0-alpha1 - need to add documentation for this]**
-//	Query.Returns(Some<Beer>.Records)
-//		.ThenChildren(Some<Glass>.Records)
-//		.ThenChildren(Some<Napkin>.Records);
+	Query.Returns(Some<Beer>.Records)
+		.ThenChildren(Some<Glass>.Records)
+		.ThenChildren(Some<Napkin>.Records, parents: beer => beer.Glasses);
 
-Note that if Glass has a funky ID field, you would specify it this way: 
+Note that if Glass has a funky ID field, or a weird list, you would specify it this way: 
 
-**[4.0-alpha1 - need to add documentation for this]**
-//	Query.Returns(Some<Beer>.Records)
-//		.ThenChildren(Some<Glass>.Records)
-//		.ThenChildren(Some<Napkin>.Records);
-
-Design Notes:
-
-* Be Natural - the fluent-style specification seems to feel right. Comments on the names are appreciated.
-* Be Productive - rather than strings, the `id` and `into` parameters are functions so you get compile-time checking of your mappings. Also refactor support.
-* Be Simple - when specifying the return structure, the configuration feels simple and also stable (meaning I don't expect a lot of additional feature requests).
+	Query.Returns(Some<Beer>.Records)
+		.ThenChildren(Some<Glass>.Records)
+		.ThenChildren(Some<Napkin>.Records, 
+			parents: beer => beer.Glasses,
+			id: glass => glass.StemNumber,
+			into: (glass, napkins) => glass.NapkinRing = napkins);
 
 # Mix and Match Your Mappings #
 
-Okay, so this is getting a little crazy, but it shouldn't be too icky. Returning 4 recordsets, with two parents and two children!
+Okay, so this is getting a little crazy, but it's not icky at all! Returning 4 recordsets, with two parents and two children!
 
 	Results<Beer, Wine> results = c.QuerySql(
 		@"	SELECT * FROM Beer WHERE Type="IPA"
@@ -251,14 +237,7 @@ Okay, so this is getting a little crazy, but it shouldn't be too icky. Returning
 
 Beer and Wine are the parents. Both of them have glasses as children.
 
-Design Notes:
-
-* Be Natural - the results definition matches the recordsets.
-* Be Productive - note that other than that, the column mappings are all automatic.
-
 # Fluent Configuration #
-
-**[4.0-alpha1 - fluent configuration isn't implemented yet]**
 
 Perhaps you don't want to put any SQL junk in your objects. You would rather do it in a single place. If you prefer, you can do fluent configuration:
 
@@ -279,11 +258,6 @@ Set the results of the "GetMenu" procedure:
 					.ThenChild<Glass>();
 
 NOTE: you wouldn't do this for inline SQL. If you're doing inline SQL, you should probably put the mapping there.
-
-Design Notes:
-
-* Be Natural - this uses the same code that you would write inline.
-* Be Fast - don't worry, it will be fast. 
 
 # Interface Configuration #
 
@@ -306,8 +280,6 @@ For one-to-one relationships, we can add a `Recordset` attribute to the method:
 		[Recordset(0, typeof(Beer), typeof(Glass))]
 		IList<Beer> GetBeerByType(string type);
 	}
-
-**[3.x COMPATIBILITY NOT YET IN 4.0-alpha1] CHANGE FROM V3: this used to be the `DefaultGraph` attribute**
 
 We want to be able to do the same recordset mapping for interfaces. Multiple results is pretty easy:
 
@@ -341,19 +313,18 @@ Let's try a one-to-many relationship:
 	interface IBarDatabase
 	{
 		[Sql("SELECT * FROM Beer; SELECT b.ID, g.* FROM Glasses g JOIN RightGlass(...) ...")]
-		[Recordset(0, typeof(Beer))]
 		[Recordset(1, typeof(Glass))]
 		IList<Beer> GetAllBeerAndGlasses();
 	}
 
-If you needed to override the `id` and `into` properties:
+Here, we didn't have to specify the types for Recordset 0. Insight knows that it contains Beer. (It can always find Beer...). So if you're not adding OneToOne mappings or children, you can skip the recordset.
 
-**[4.0-alpha1 - overrides aren't implemented yet]**
+If you needed to override the `id` and `into` properties:
 
 	interface IBarDatabase
 	{
 		[Sql("SELECT * FROM Beer; SELECT b.ID, g.* FROM Glasses g JOIN RightGlass(...) ...")]
-		[Recordset(0, typeof(Beer), ID="MyIdentifier")]
+		[Recordset(0, typeof(Beer), Id="MyIdentifier")]
 		[Recordset(1, typeof(Glass), Into="BarShelf")]
 		IList<Beer> GetAllBeerAndGlasses();
 	}
@@ -371,6 +342,8 @@ Three levels would be:
 
 Note that here we told Insight to put the Napkins inside the Glasses.
 
+**4.0-alpha1 - more than two child levels on an interface isn't implemented yet**
+
 Mixing up one-to-many and one-to-many (Beer can go in many glasses, Wine snobs only use one particular glass):
 
 	interface IBarDatabase
@@ -387,26 +360,11 @@ Mixing up unrelated and one-to-many:
 	{
 		[Sql("SELECT * FROM Beer; SELECT b.ID, g.* FROM Glasses g JOIN RightGlass(...) ...")]
 		[Recordset(0, typeof(Beer))]
-		[Recordset(1, typeof(Glass))]
+		[Recordset(1, typeof(Glass), IsChild=true)]
 		[Recordset(2, typeof(Wine))]
-		[Recordset(3, typeof(Glass))]
+		[Recordset(3, typeof(Glass), IsChild=true)]
 		Results<Beer, Wine> GetBeerAndWine();
 	}
-
-Because we returned `Results<Beer, Wine>`, Insight knows that recordsets 1 and 3 are top level, and 2 and 4 are children of the previous parents.
-
-But what if we want to have the same type as a parent and as a child. Well, we'll have to hint to Insight.
-
-	interface IBarDatabase
-	{
-		[Sql("SELECT * FROM Beer; SELECT b.ID, g.* FROM Glasses g JOIN RightGlass(...) ...")]
-		[Recordset(typeof(Beer))]
-		[Recordset(typeof(Glass), IsChild = true)]
-		[Recordset(typeof(Glass), IsParent = true)]
-		Results<Beer, Glass> GetBeerAndEvenWrongGlasses();
-	}
-
-If there is some confusion and you don't set IsChild or IsParent, Insight will politely throw an exception.
 
 Note that if you are using stored procedures, you don't have to use attributes. You can use the fluent configuration described above:
 
@@ -422,8 +380,4 @@ Note that if you are using stored procedures, you don't have to use attributes. 
 		.ThenChild<Wine>()
 		.ThenChild<Glass>();
 
-Design Goals:
-
-* Be Productive - encourage people to use auto-interfaces by making it just as easy to do multiple results.
-* Be Productive - let people code with attributes or configuration.
-* Be Simple - no I won't write something that reads XML files and configures things. I hate XML configuration.
+**4.0-alpha1 - fluent config not implemented yet.**
