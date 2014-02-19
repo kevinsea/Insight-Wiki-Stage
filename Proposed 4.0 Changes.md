@@ -185,8 +185,9 @@ To determine the target list field, Insight uses the following order of preceden
 If Insight doesn't pick the right target field, you can specify it:
 
 		Query.Returns(Some<Beer>.Records)
-			.ThenChildren(Some<Glass>.Records, into: (b, g) => b.BarShelf = g.ToList);
+			.ThenChildren(Some<Glass>.Records, into: (b, g) => b.BarShelf = g.ToList());
 
+> sirchristian - I changed g.ToList to g.ToList() above.
 
 Other Notes:
 
