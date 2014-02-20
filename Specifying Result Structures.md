@@ -136,4 +136,4 @@ This is getting a little crazy, but it's not icky at all! Returning 4 recordsets
 			.ThenChildren(Some<Glass>.Records)
 
 
-[[Mapping Results to Objects]] <BACK || NEXT> [[Record Readers]]
+[[Mapping Results to Objects]] - BACK || NEXT- [[Record Readers]]

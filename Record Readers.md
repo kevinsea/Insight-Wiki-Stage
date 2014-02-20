@@ -102,4 +102,4 @@ The callback is an Action, not a Function. The returned object is always the fir
 
 If this flexibility isn't enough for you, you can create your own implementation of `IRecordReader` to read data from the stream. You can pass it in anywhere Insight takes a `Some<T>` or `OneToOne<T...>`.
 
-[[Specifying Result Structures]] <BACK || NEXT> [[Query Readers]]
+[[Specifying Result Structures]] - BACK || NEXT- [[Query Readers]]

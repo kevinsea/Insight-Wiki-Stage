@@ -105,4 +105,4 @@ There are three versions of the OutputParameters extension method:
 * OutputParameters<T>(T o) - copies the output parameters into the fields/set properties on the given object. This performs the same types of conversions that ToList<T> does (string to XML, XML to object, etc.)
 * OutputParameters<T>() - returns a new instance of type T with the output parameters filled in.
 
-[[Optimistic Concurrency]] <BACK || NEXT> [[Query Parameter Mapping]]
+[[Optimistic Concurrency]] - BACK || NEXT- [[Query Parameter Mapping]]

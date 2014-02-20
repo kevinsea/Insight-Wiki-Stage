@@ -7,7 +7,7 @@ Notes:
 1. You probably will use the *Connection* methods much more than the *Open* methods, since Insight supports auto-open/close and does all of the hard work for you.
 1. If you are doing asynchronous programming, it's better to hold on to a ConnectionStringSettings or SqlConnectionStringBuilder, rather than an actual connection, so you don't accidentally send more than one query through one connection at a time.
 
-[[Getting A Connection]] <BACK || NEXT> [[Auto-Open]]
+[[Getting A Connection]] - BACK || NEXT- [[Auto-Open]]
 
 ## IDBConnection.OpenConnection ##
 Opens the connection and returns it so you can chain your methods.

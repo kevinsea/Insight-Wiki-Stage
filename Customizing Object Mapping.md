@@ -112,4 +112,4 @@ The ColumnMappingEventArgs provides information about the mapping operation and 
 * TargetType - the type of the object that is currently being mapped.
 
 
-[[Specifying Result Structures]] <BACK || NEXT> [[Custom Result Objects]]
+[[Specifying Result Structures]] - BACK || NEXT- [[Custom Result Objects]]

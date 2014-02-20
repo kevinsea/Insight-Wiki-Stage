@@ -84,4 +84,4 @@ For example:
 
 At runtime, Insight uses reflection to determine that the Beer field on the anonymous type is an IEnumerable<Beer>. It then tries to convert that parameter to a [BeerTable]. Note that it adds "Table" to the end of the table type name.
 
-[[Identity Inserts]] <BACK || NEXT> [[Transactions]]
+[[Identity Inserts]] - BACK || NEXT- [[Transactions]]

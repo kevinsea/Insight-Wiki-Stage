@@ -60,4 +60,4 @@ If you use Insight for [[Auto Interface Implementation]], you should make your i
 		}
 	}
 
-[[Lists of Objects as Parameters]] <BACK || NEXT> [[Optimistic Concurrency]]
+[[Lists of Objects as Parameters]] - BACK || NEXT- [[Optimistic Concurrency]]

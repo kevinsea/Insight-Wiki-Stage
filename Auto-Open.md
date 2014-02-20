@@ -24,4 +24,4 @@ The methods that **do not** support auto-open are:
 * CreateCommand
 * GetReader
 
-[[Opening Connections]] <BACK || NEXT> [[Executing SQL Commands]]
+[[Opening Connections]] - BACK || NEXT- [[Executing SQL Commands]]

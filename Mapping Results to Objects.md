@@ -23,4 +23,4 @@ Insight maps the database fields to object members using a case-insensitive exac
 
 The mapper can also handle special types (see [[Xml Parameters and Results]]) as well as object graphs (see [[Object Graphs]]).
 
-[[Query Parameter Mapping]] <BACK || NEXT> [[Customizing Object Mapping]]
+[[Query Parameter Mapping]] - BACK || NEXT- [[Customizing Object Mapping]]

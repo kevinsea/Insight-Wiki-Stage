@@ -38,4 +38,4 @@ Or AsEnumerable<T>:
 			}
 		}
 
-[[Executing SQL Commands]] <BACK || NEXT> [[Identity Inserts]]
+[[Executing SQL Commands]] - BACK || NEXT- [[Identity Inserts]]

@@ -94,4 +94,4 @@ The QueryOnto methods:
 * QueryOntoListAsync
 * QueryIntoListSqlAsync
 
-[[Querying for Objects]] <BACK || NEXT> [[Lists of Objects as Parameters]]
+[[Querying for Objects]] - BACK || NEXT- [[Lists of Objects as Parameters]]

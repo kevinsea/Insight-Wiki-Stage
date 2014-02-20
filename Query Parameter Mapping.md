@@ -31,4 +31,4 @@ If you pass an IEnumerable<T> in as the parameter object, Insight will assume th
 
 Insight uses dynamic IL method generation to efficiently access private properties and fields, and to provide the fastest performance.
 
-[[Output Parameters]] <BACK || NEXT> [[Mapping Results to Objects]]
+[[Output Parameters]] - BACK || NEXT- [[Mapping Results to Objects]]

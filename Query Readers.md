@@ -20,4 +20,4 @@ You can combine them into almost any structure you could need.
 
 If there is some other structure you would need, you could always implement IQueryReader yourself. The rest of Insight will still work for you.
 
-[[Record Readers]] <BACK || NEXT> [[Auto Interface Implementation]]
+[[Record Readers]] - BACK || NEXT- [[Auto Interface Implementation]]
