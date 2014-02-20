@@ -1,5 +1,3 @@
-# Object Serialization #
-
 Sometimes you want a sub-object to be serialized into a string column. Like this:
 
 	public class GiftPack

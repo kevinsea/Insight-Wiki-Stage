@@ -1,16 +1,6 @@
-# Dynamic Database Calls #
-
 For even better syntactic sugar, try using the `.Dynamic` extension method for connections. It lets you treat stored procedures as methods on your connection:
 
-	IList<Beer> beer = Database.Dynamic<Beer>().FindBeer("IPA");
-
-The type parameter on Dynamic is used to determine the type of object that is deserialized from the results of the query. But rather than using the generic type parameter on Dynamic, you can also use the returnType and withGraph parameters to control the types of objects returned. (Now, in Insight v2.0, you can now reuse the DynamicConnection for multiple calls and different return types.)
-
-	IList<Beer> beer = Database.Dynamic().FindBeer("IPA", returnType: typeof(Beer));
-
-Or
-
-	IList<Beer> beer = Database.Dynamic().FindBeer("IPA", withGraph: typeof(Graph<Beer, Glass, Serving>));
+	IList<Beer> beer = Database.Dynamic().FindBeer("IPA", Query.Returns(Some<Beer>.Records));
 
 ## Parameters ##
 
@@ -61,9 +51,8 @@ When calling a DynamicConnection method, Insight reserves the following named pa
 
 * cancellationToken
 * commandTimeout
+* returns
 * returnType
 * transaction
-* withGraph
-* withGraphs
 
 See [[Common Method Parameters]] for details on these parameters.

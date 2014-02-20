@@ -1,5 +1,3 @@
-# Dynamic Objects #
-
 Sometimes you just can't be bothered to make a class. Maybe it's a one-off query or a utility project. Insight supports dynamic objects for both parameters and query results. There is a little bit of overhead for using dynamic objects, but it's well worth it in the cases where you need the flexibility and readability of your code.
 
 When returning data to your application, Insight returns a FastExpando object that is a dictionary that supports all of the interfaces needed to work properly with the C# `dynamic` keyword. For more fun things to do with FastExpando, see [[FastExpando and the Borg Method]].

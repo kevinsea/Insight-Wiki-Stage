@@ -1,5 +1,3 @@
-# Manual Transformations #
-
 Sometimes you need to do your own data transformations from the result set to your objects. Maybe Insight doesn't map it right for you. Maybe you need to do calculations before returning the data. Maybe you just want to be cool.
 
 You probably won't need this often, but when you do, it's very handy.

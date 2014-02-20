@@ -1,5 +1,3 @@
-# Stored Procedures vs. SQL Text #
-
 Insight is happy to work with either Stored Procedures or SQL Text. The choice is up to you.
 
 We recommend using Stored Procedures for a few reasons:

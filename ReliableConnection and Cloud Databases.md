@@ -1,5 +1,3 @@
-# ReliableConnection and Cloud Databases #
-
 Cloud database providers such as SQL Azure introduce some additional complexity for database connections. SQL Azure connections can have temporary errors that can cause connections to fail. The SQL Azure team has recommended that retry operations be supported in order to handle transient connections.
 
 See [Best Practices for Handling Transient Conditions](http://windowsazurecat.com/2010/10/best-practices-for-handling-transient-conditions-in-sql-azure-client-applications/) for more information.

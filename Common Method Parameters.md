@@ -1,5 +1,3 @@
-# Common Method Parameters #
-
 The Insight extension methods all take a common set of method parameters, discussed below.
 
 ## action ##
@@ -36,6 +34,9 @@ This is the object to use to set the parameters on the query. See [[Query Parame
 ## read ##
 This defines a function that allows you to manually transform an IDataReader result to an object. If you have specialized deserialization needs, this can be helpful. See [[Manual Transformations]] for more information.
 
+## returns ##
+Specifies an `IQueryReader` that is used to read the recordset and build the return structure.
+
 ## returnType ##
 For Dynamic Database Calls, this allows you to specify the type of object you want returned from the method. This is equivalent to the generic type parameter on `Query<T>` methods. See [[Dynamic Database Calls]] for more information about the dynamic method syntax.
 
@@ -53,26 +54,3 @@ If you are executing commands within an IDbTransaction, pass in the transaction 
 			// without a commit this rolls back
 		}
 	}
-
-## withGraph / withGraphs ##
-For Query and QueryReader methods, allows you to specify the types of the subobjects to be returned from the query. For example:
-
-	var results = connection.Query<Beer, Glass, Serving>(
-		"SelectServing", 
-		new { servingID = 1 });
-
-Can also be written as:
-
-	var results = connection.Query<Beer>(
-		"SelectServing", 
-		new { servingID = 1 }, 
-		withGraph: typeof(Graph<Beer, Glass, Serving>));
-
-This is necessary for specifying the graphs for multiple recordsets when calling QueryResults.
-
-	var results = connection.QueryResults<Beer, Beer>(
-		"SelectTwoRecordsetsOfBeer", 
-		new { servingID = 1 }, 
-		withGraphs: new [] { typeof(Graph<Beer, Glass, Serving>), typeof(Graph<Beer, Glass>) });
-
-Note that with the new DefaultGraph Attribute, you may not need to ever manually specify the graph for your queries. See [[Object Graphs]] for more information about the DefaultGraph Attribute.

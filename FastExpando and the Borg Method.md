@@ -1,5 +1,3 @@
-# FastExpando and the Borg Method #
-
 Sometimes you need to send two objects as parameters to the database. Normally, you would need to combine the properties into a new anonymous object.
 
 	Beer beer = new Beer() { Name = "Sly Fox IPA" };

@@ -1,5 +1,3 @@
-# Optimistic Concurrency #
-
 In some systems, it is important to check whether someone else has changed your data while you aren't looking.
 
 For example:
@@ -48,3 +46,5 @@ If you are using Insight.Database.Schema and Autoprocs, you can enable Optimisti
 ## Your Own Exceptions ##
 
 If you want to raise the exceptions a different way, you can also derive your own class from OptimisticConnection and override IsConcurrencyException.
+
+[[Transactions]] <BACK || NEXT> [[Output Parameters]]

@@ -1,5 +1,3 @@
-# FastExpando and Mutations #
-
 The FastExpando supports two methods to help your code look nicer - Mutate and Transform. Both of them accept a map (a dictionary of string to string), and convert the field names into new field names. This is handy when you have icky column names coming back from the database, and you want to make them pretty before returning them to your object code.
 
 * `expando.Mutate(map)` - modifies the current `expando` in-place

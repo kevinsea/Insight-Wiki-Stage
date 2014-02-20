@@ -1,6 +1,10 @@
 
 # Change Log #
 
+## v4.0.0 ##
+
+* Added support for returning arbitrary object structures.
+
 ## v3.3.1 ##
 
 * FIXED ISSUE #81 - inheriting schema attribute.

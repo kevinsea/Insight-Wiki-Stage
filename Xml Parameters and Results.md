@@ -1,5 +1,3 @@
-# Xml Parameters and Results #
-
 For the SQL Server provider, you can use the `xml` data type as both input parameters and results. Insight automatically can convert various types to and from the `xml` type.
 
 Assume you have a stored procedure like this:

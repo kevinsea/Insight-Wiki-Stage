@@ -147,25 +147,22 @@ This is pretty much identical between Insight and Dapper. Insight has a handy "b
 
 ## Object Hierarchies ##
 
-The engines have similar strategies for returning [[Object Hierarchies]]. Let's say you have a Post class that has an Owner that is of type User.
+Insight supports returning arbitrary object structures with multiple result sets, one-to-one, one-to-many mappings, etc.
 
-By default, Insight makes some assumptions about the result set, the order of columns, and the relationship between objects, so you don't have to specify any additional information.
+As far as I know, nobody else does it as well as Insight.
 
-Insight Object Hierarchy
+Look, defining an interface that does strong-typed execution of SQL Text, returning 3 recordsets, the first is beer, the second is a one-to-many relationship of beer to glasses, and the third is a set of napkins.
 
-	var sql = @"select * from #Posts p left join #Users u on u.Id = p.OwnerId Order by p.Id";
-	var data = c.QuerySql<Post, User>(sql);
+	interface IBarDatabase
+	{
+		[Sql("SELECT * FROM Beer; SELECT b.ID, g.* FROM Glasses g JOIN RightGlass(...) ...")]
+		[Recordset(0, typeof(Beer))]
+		[Recordset(1, typeof(Glass), IsChild=true)]
+		[Recordset(2, typeof(Napkin))]
+		Results<Beer, Napkin> GetAllBeerAndGlassesAndNapkins();
+	}
 
-Dapper Object Hierarchy
-
-	var sql = @"select * from #Posts p left join #Users u on u.Id = p.OwnerId Order by p.Id";
-	var data = c.Query<Post, User, Post>(sql, (post, user) => { post.Owner = user; return post;});	
-
-Like Dapper, Insight also allows you to manually specify the relationship between the returned objects:
-
-	var data = c.QuerySql<Post, User>(sql, callback: (post, user) => { post.Owner = user; });
-
-Dapper could probably adopt these rules by default.
+See [[Specifying Result Structures]].
 
 ## Dynamic Queries ##
 

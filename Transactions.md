@@ -1,5 +1,3 @@
-# Using Transactions and Insight.Database #
-
 Sometimes you want to execute multiple statements in a transaction. We recommend using the transaction support in the DbConnection classes. You will need to manage the lifetime of your connection explicitly.
 
 You also need to pass the transaction into each database call.
@@ -14,7 +12,7 @@ You also need to pass the transaction into each database call.
 
 ## Using OpenWithTransaction ##
 
-I hate code, so when I saw this, I set out to eliminate the code. Calling OpenWithTransaction will open the connection AND start a transaction. It will also automatically pass the transaction to all of your database calls.
+I hate code, so when I saw this, I set out to eliminate the extra bits. Calling OpenWithTransaction will open the connection AND start a transaction. It will also automatically pass the transaction to all of your database calls.
 
 	using (var c = connectionString.OpenWithTransaction())
 	{
@@ -62,3 +60,4 @@ If you use Insight for [[Auto Interface Implementation]], you should make your i
 		}
 	}
 
+[[Lists of Objects as Parameters]] <BACK || NEXT> [[Optimistic Concurrency]]

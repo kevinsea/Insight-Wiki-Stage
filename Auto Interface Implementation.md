@@ -1,10 +1,8 @@
-# Auto Interface Implementation #
-
 (Why would you do this? Read: [Insight.Database: The Anti-Anti-ORM for .NET](http://code.jonwagner.com/2013/01/24/insight-database-the-anti-anti-orm-for-net/))
 
-A best practice for coding is to create interface boundaries between parts of your systems. One place to put an interface boundary is between your business logic and the database. We encourage you to use stored procedures to achieve this, but up until now, you would still write the code to call into the database. 
+A best practice for coding is to create interface boundaries between parts of your systems. One place to put an interface boundary is between your business logic and the database. We encourage you to use stored procedures to achieve this, but up until now, you would still have to write the code to call into the database. 
 
-Not any more! Insight will now generate the code to call the database for you. Write your procedures:
+Not any more! Insight will now generate the code to call the database for you. First, write your procedures:
 
 	CREATE PROC InsertBeer @type varchar(128), @description varchar(128) AS
 		INSERT INTO Beer (Type, Description) OUTPUT inserted.ID
@@ -66,7 +64,7 @@ See [[Query Parameter Mapping]] for details on parameter mapping.
 
 ## Output Parameters ##
 
-You can now get output parameters back from your Stored Procedure. Just use a ref or out parameter for your method:
+You can get output parameters back from your Stored Procedure. Just use a ref or out parameter for your method:
 
 	public interface IBeerRepository
 	{
@@ -75,17 +73,46 @@ You can now get output parameters back from your Stored Procedure. Just use a re
 
 Some limitations on Output Parameters:
 
-* ref and out parameters cannot be used on Asynchronous methods. There is no good way to get the output parameters without destroying the recordset before it can be read.
 * Methods can only use ref/out when the parameters can be easily mapped to parameters. This will mostly affect insert/update methods:
 	* InsertBeer(List<Beer> beers, out int count) is ok. 
 	* InsertBeer(Beer beer, out int count) is not, because you pass in beer and count as parameters, the beer object cannot be exploded into individual parameters.
 	* InsertBeer(int id, string beer, out int count) is ok, because Insight can map the function parameters to the proc parameters.
 
-## Result Mapping ##
+## Result Structures ##
 
-See [[Mapping Results To Objects]] for details on how results are mapped back to objects.
+By default, Insight can infer the structure of your recordset by the signature of your method.
 
-## Even More Convenient Interfaces ##
+* T - returns a Single<T>
+* IList<T>, etc. - returns a List<T>
+* Results<T1, T2> - returns two recordsets, containing T1, T2
+
+However, if your results contain one-to-one or one-to-many mappings, you have to give Insight a hint. You do this with the `RecordsetAttribute`.
+
+Here, we say that Recordset 0 (the first one) has a OneToOne<Beer, Glass> relationship:
+
+	[Recordset(0, typeof(Beer), typeof(Glass))]
+	List<Beer> GetBeer();
+
+Here, we say that the second recordset has a OneToOne<Beer, Glass> relationship. Note that we don't specify the format of Recordset 0, so Insight knows that it just contains wine.
+
+	[Recordset(1, typeof(Beer), typeof(Glass))]
+	Results<Wine, Beer> GetBeer();
+
+Here, we say that the second recordset has a one-to-many relationship. Insight will automatically read in the list of glasses and attempt to add them to the proper beer.
+
+	[Recordset(1, typeof(Glass), IsChild=true)]
+	List<Beer> GetBeer();
+
+If you need to override the ID or Into fields, you can do that on the attribute:
+
+	[Recordset(1, typeof(Glass), IsChild=true, ID="BeerNumber", Into="Container")]
+	List<Beer> GetBeer();
+
+In this case, the `Recordset` attribute corresponds to adding the proper `Query.Returns` statement to your call.
+
+See [[Specifying Result Structures]] for details on how results structures are created.
+
+## Interfaces and Transactions ##
 
 The class that Insight generates also supports IDbConnection and IDbTransaction, so you can add those interfaces to your interface like this:
 

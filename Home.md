@@ -1,70 +1,115 @@
-Insight.Database is a fast, lightweight, (and dare we say awesome) micro-orm for .NET.
+**Insight.Database** is a fast, lightweight, (and dare we say awesome) micro-orm for .NET.
 
-Insight.Database lets you call your database with almost no code, and makes it easy to send objects to your database and get them back. It's available under MS Public License, but we prefer if you use the BuyAFriendABeerAndTellThemAboutInsight License.
+It's available as a [NuGet Package](http://www.nuget.org/packages/Insight.Database/).
 
-Follow [@jonwagnerdotcom](http://twitter.com/#!jonwagnerdotcom) for latest updates on this library or [code.jonwagner.com](http://code.jonwagner.com) for more detailed writeups.
+## Why You Want Insight.Database ##
+It **just works**...
 
-# Proposed v4.0 Changes #
+- Without a lot of effort or configuration.
 
-Starting work on v4.0...This is going to be awesome!
+It's **fast**...
 
-Please chime in on the changes: [[Proposed 4.0 Changes]]
+- Mappers are generated IL code, not runtime reflection.
+- Mappings are cached.
+- Optimized for SequentialAccess.
+- Async operations are first-class operations.
 
-# Why You Want This #
-- It just works. 
-- Without a lot of effort or configuration. 
-- It's **fast**.
+It's **easy**...
+
+- Automatically maps fields/properties to parameters.
+- Automatically maps columns to fields/properties.
+- Automatic one-to-one, one-to-many, many-to-many, and multi-recordset support.
+- Wire up an interface definition right to database calls.
+- Generic extension methods automatically handle type safety for you.
+
+It's **flexible**...
+
+- It works with all of the common databases and tools.
 - It supports structured, production quality coding.
 - It **also** supports ad-hoc, one-off, typeless, get-it-done coding.
-- Put your database behind an interface with no effort.
-- Objects are mapped automatically, but still give you control if you need it.
-- Async queries are first-class operations.
-- Deserializing multiple recordsets are first-class operations.
-- ReliableConnection fully supports cloud providers such as SQL Azure.
+- Use stored procedures or inline SQL.
+- Use POCOs or dynamics.
+- Awesome type conversion support. Never worry about mismatches between property types and column types.
+- Override mappings through attributes or configuration. Or not.
+- Extend the system with your own readers if you need to. Or not.
+
+It's **advanced**...
+
+- Support for BulkCopy (most providers)
+- Support for cloud providers through ReliableConnection
+- Support for optimistic concurrency through OptimisticConnection
+
+It's **documented**...
+
+- Take that, most of you other open-source projects!
+
+## Before You Begin ##
+
+The documentation below is written so that you understand Insight from the ground up. Regardless of your coding style, If you read it in order, you will find ways to make your database code simpler and easier.
+
+Of course, what I **really** want you to do is to switch over to [[Auto Interface Implementation]]. So please read at least that far before you get too excited and start coding.
 
 ## A Quick Tour ##
 
 * [[A Quick Tour]] - see how easy it is!
 
 ## Getting Started ##
-* [[Design Goals]] - why does this library work this way?
+
 * [[Installing Insight]] - just get it from NuGet.
-* [[What is New in v2.0]] - some WayCool(tm) stuff.
-* [[What is New in v3.0]] - providers, providers, providers.
+* [[Upgrading from Older Versions]] - running 1.x, 2.x, 3.x code?
+* [[What is New in 4.0]] - one-to-many mappings and other structural goodness.
+* [[Design Goals]] - why does this library work this way?
 
 ## Executing Queries ##
+
+* [[Getting A Connection]] - start at the beginning.
+* [[Opening Connections]] - no, you won't really need this.
 * [[Auto-Open]] - be done with `using` statements and lifetime management.
-* [[Opening Connections]] - in case you want to manually open connections.
 * [[Executing SQL Commands]] - just the basics.
-* [[Auto Interface Implementation]] - just about the coolest thing ever.
 * [[Querying for Objects]] - getting objects back with no work.
-* [[Common Method Parameters]] - the parameters for most of the extension methods.
-* [[Lists of Objects as Parameters]] - sending a bunch of objects to a database has never been easier.
+
+## Common Query Scenarios ##
+
 * [[Identity Inserts]] - getting IDs and other data back from the database and merged into your object.
+* [[Lists of Objects as Parameters]] - sending a bunch of objects to a database has never been easier.
 * [[Transactions]] - executing more than one method in a transaction.
 * [[Optimistic Concurrency]] - being cautious about changes to records.
+* [[Output Parameters]] - how to access Output Parameters from a stored procedure.
 
-## Controlling Object Mapping ##
+## Object Mapping ##
+
 * [[Query Parameter Mapping]] - how Insight maps objects to query parameters.
 * [[Mapping Results To Objects]] - how Insight maps results to objects.
 * [[Customizing Object Mapping]] - how to override the default mapping rules.
-* [[Object Graphs]] - how to deserialize an object graph from a record set.
-* [[Multiple Result Sets]] - how to easily map queries with multiple result sets.
-* [[Output Parameters]] - how to access Output Parameters from a stored procedure.
+
+## Specifying Result Structures ##
+
+* [[Specifying Result Structures]] - convert recordsets into complex object structures.
+* [[Record Readers]] - how Insight reads individual records.
+* [[Query Readers]] - how Insight reads structures.
+
+## Doing it the Right Way ##
+
+* [[Auto Interface Implementation]] - define an interface to your database. Let Insight do the rest.
+
+## Nits and Gnats ##
+
+* [[Common Method Parameters]] - the parameters for most of the extension methods.
 * [[Manual Transformations]] - how to do your own transformations from data to objects.
-* [[Enums and Mapping]] - the rules for mapping enums to/from your database.
+* [[Custom Result Objects]] - some fancy tricks.
+
+## Data Types ##
 * [[Date-Based Data Types]] - how date-based types are handled.
+* [[Enums and Mapping]] - the rules for mapping enums to/from your database.
+* [[Linq Binary]] - equivalent to a byte array when sending in as a parameter.
 * [[Object Serialization]] - how object fields are serialized to/from string values.
+* [[Xml Parameters and Results]] - XmlDocument, xml columns, objects and strings all play nicely.
 
 ## Dynamic Objects and Queries ##
 * [[Dynamic Database Calls]] - make your SQL procs just look like methods on your Connection.
 * [[Dynamic Objects]] - for when you don't want to bother making a class just for one query.
 * [[FastExpando and the Borg Method]] - using FastExpando to assimilate objects and clean up some icky parameter code.
 * [[FastExpando and Mutations]] - using FastExpando to clean up mappings between icky database and clean code.
-
-## Data Types ##
-* [[Xml Parameters and Results]] - XmlDocument, xml columns, objects and strings all play nicely.
-* [[Linq Binary]] - equivalent to a byte array when sending in as a parameter.
 
 ## Performance & Speed ##
 * [[Async Commands and Queries]] - just add Async and you're done.
@@ -94,7 +139,6 @@ Please chime in on the changes: [[Proposed 4.0 Changes]]
 * [[Change Log]]
 
 ## Other Stuff ##
-* [[Code Snippets]] - install these into Visual Studio to get instant repository code.
 * [[Stored Procedures vs SQL Text]] - discusses the differences between using Stored Procedures and SQL Text with Insight.
 * [[Creating Commands]] - how to create a command manually for reuse.
 * [[Insight v Dapper]] - Dapper was the inspiration for parts of Insight, but now they are totally different.

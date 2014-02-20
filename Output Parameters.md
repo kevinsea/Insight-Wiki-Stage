@@ -1,5 +1,3 @@
-# Output Parameters and Return Values #
-
 Sometimes your stored procedure needs to output parameters or return values.
 
 ## Return Values in SQL ##
@@ -34,7 +32,10 @@ If you don't want to pass in the parameter as an input, you can declare the para
 
 	CREATE PROCEDURE AddOne_WithOutputParameter @p int = NULL OUTPUT
 
-## Putting Output Parameters back into an Object ##
+## Putting Output Parameters into a Different Object ##
+
+By default, Insight will attempt to overlay output parameters back onto the input parameters object.
+You can have Insight try to put the output parameters onto a different object by passing in `outputparameters`.
 
 The simplest way to get back output parameters is to put them back in an output parameters object:
 
@@ -46,17 +47,6 @@ The simplest way to get back output parameters is to put them back in an output 
 	var outputs = new OutputParameters();
 	connection.Execute("MyProc", outputParameters: outputs);
 	var p = outputs.P;
-
-You can use the same object for input and output parameters. Insight will overlay the output parameters on top of the object you pass in for the outputParameters.
-
-	class MyParameters
-	{
-		int inputs;
-		int outputs;
-	}
-	var foo = new MyParameters() { inputs = 1 }
-	connection.Execute("MyProc", parameters: foo, outputParameters: foo);
-	var p = foo.outputs;
 
 ## Accessing Output Parameters with QueryResults ##
 
@@ -71,7 +61,7 @@ If your procedure has no result recordset, you can still call QueryResults, note
 	var results = connection.QueryResults<Results>("MyProc", inputParameters);
 	var p = results.Outputs.p;
 
-In Insight.Database v3.0.3 and later, you can call QueryResults with no type parameter. this is the same as above:
+You can also call QueryResults with no type parameter. this is the same as above:
 
 	var results = connection.QueryResults("MyProc", inputParameters);
 	var p = results.Outputs.p;
@@ -114,3 +104,5 @@ There are three versions of the OutputParameters extension method:
 * OutputParameters() - returns a dynamic object that you can use to access the parameters with a dot syntax.
 * OutputParameters<T>(T o) - copies the output parameters into the fields/set properties on the given object. This performs the same types of conversions that ToList<T> does (string to XML, XML to object, etc.)
 * OutputParameters<T>() - returns a new instance of type T with the output parameters filled in.
+
+[[Optimistic Concurrency]] <BACK || NEXT> [[Query Parameter Mapping]]

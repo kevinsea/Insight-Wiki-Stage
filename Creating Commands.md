@@ -1,5 +1,3 @@
-# Creating Commands #
-
 Insight provides automatic mapping of objects to command parameters. You can use the CreateCommand extension methods to quickly convert your objects into DbCommands.
 
 You probably won't use this directly unless you need to reuse the command for multiple calls to the database.

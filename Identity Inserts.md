@@ -1,5 +1,3 @@
-# Identity Inserts #
-
 The insert with identity is a very common database access pattern. Assume you have the following SQL:
 
 	CREATE TABLE Beer ([ID] [int] IDENTITY, [Name] [varchar](128)
@@ -95,3 +93,5 @@ The QueryOnto methods:
 * QueryOntoSqlAsync
 * QueryOntoListAsync
 * QueryIntoListSqlAsync
+
+[[Querying for Objects]] <BACK || NEXT> [[Lists of Objects as Parameters]]

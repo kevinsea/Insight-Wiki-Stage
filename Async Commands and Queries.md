@@ -1,5 +1,3 @@
-# Async Commands and Queries #
-
 If you want to write a scalable and responsive application, you need to stop blocking your threads. Asynchronous programming lets you write code that waits for nobody. Fortunately, with the Task Parallel Library in the .NET Framework, this is now a **lot** easier. Unfortunately, async programming with the SQL library isn't so easy yet. Insight wraps all of the async logic for you.
 
 Insight allows you to call the following methods in asynchronous mode:
@@ -51,4 +49,4 @@ In .NET 4.5, Insight performs record reads (`ReadAsync`) and recordset advances 
 * Make sure you do not pass the same database connection to multiple AsyncXXX calls. You have no guarantee about the order and they may attempt to open and close the connections at the same time. (Hint: use ConnectionSettings or SqlConnectionStringBuilder as your starting class and create the connections just like in the code above.)
 * .NET 4.5 now supports OpenAsync. Insight will use this in async mode when it is available. If OpenAsync is not available on the given type of connection, it falls back to a task that blocks on the open call.
 * Insight does not use Async mode for deriving the stored procedure parameters. Parameter derivation only should occur once per query, so it's a blocking operation.
-* Although Insight will compile with .NET 3.5, it uses a stub implementation of the Task class. In .NET 3.4, Insight Async methods are actually synchronous and should not be used. The stub class was a lot easier than commenting out all of the async code.
+* Although Insight will compile with .NET 3.5, it uses a stub implementation of the Task class. In .NET 3.5, Insight Async methods are actually synchronous and should not be used. The stub class was a lot easier than commenting out all of the async code.

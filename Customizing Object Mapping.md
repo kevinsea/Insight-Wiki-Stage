@@ -1,5 +1,3 @@
-# Customizing Object Mapping #
-
 Sometimes you have an ugly database that you aren't allowed to modify. It may be ugly, AND you aren't allowed to create new views or stored procedures to make it look nice. But you want your code to look nice, right?
 
 You have four choices:
@@ -112,3 +110,6 @@ The ColumnMappingEventArgs provides information about the mapping operation and 
 * Reader - The IDataReader that is currently being mapped. You can use this to query the result set for more information about the current mapping operation. For example, if the IDataReader is a SqlDataReader, you can use GetSchemaTable to get information about the underlying table that was queried. This will be null when mapping parameters.
 * Parameters - the list of parameters that is currently being mapped.
 * TargetType - the type of the object that is currently being mapped.
+
+
+[[Specifying Result Structures]] <BACK || NEXT> [[Custom Result Objects]]

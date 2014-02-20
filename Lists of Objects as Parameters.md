@@ -1,8 +1,7 @@
-# Lists of Objects as Parameters #
-
 Lists of objects and SQL have never gone well together. To query for a set of objects, you would have to encode your ID list into a string or XML and decode it in your stored procedure. To insert a list of objects, you would have to do individual inserts. Not anymore.
 
 ## Sending a List of ValueType to SQL Text ##
+
 This is a common case. You want to query for a list of objects by ID. When using SQL text commands, Insight can transform an `IEnumerable<ValueType>` to an IN(...) portion of a WHERE clause:
 
 	IEnumerable<String> names = new List<String>() { "Sly Fox IPA", "Hoppapotamus" };
@@ -20,7 +19,8 @@ This also works with arrays:
 	var beer = Database.Connection().QuerySql("SELECT * FROM Beer WHERE Name IN (@Name)", new { Name = names });
 
 ## Sending a List of ValueType to a Stored Procedure ##
-Stored procedures don't allow for a dynamic parameter list, so we can't use the same technique as above. However, SQL Server supports table types and SQL Server is nice enough to let us query a stored procedure to get those table types. So let's say we have a proc like this:
+
+Stored procedures don't allow for a dynamic parameter list, so we can't use the same technique as above. However, some databases support table types and are is nice enough to let us query a stored procedure to get those table types. So let's say we have a proc like this:
 
 	CREATE TYPE BeerNameTable AS TABLE (Name [nvarchar](128))
 	GO
@@ -43,6 +43,7 @@ Or like this...Insight assumes that if you pass an enumerable as the parameter, 
 Insight will automatically convert `IEnumerable<ValueType>` to the first column of a table-valued parameter.
 
 ## Sending a List of Objects to a Stored Procedure ##
+
 But what if you have a list of *objects* to send to the database? No problem. 
 
 First, you need a user-defined table type and a stored procedure that accepts the table type:
@@ -68,9 +69,10 @@ Now you can send in a lot of updates in a batch:
 
 The list of objects is automatically mapped to the table-valued-parameter.
 
-This works because SQL server is kind enough to tell us the number and type of the parameters for the stored procedure. Are ya diggin' stored procedures yet?
+This works because the database is kind enough to tell us the number and type of the parameters for the stored procedure. Are ya diggin' stored procedures yet?
 
 ## Sending a List of Objects to SQL Text ##
+
 If you don't have a stored procedure, you can still use table-valued parameters.
 
 Since we don't have any meta-data on your query, Insight will look for a table type with the same name as the contents of the list.
@@ -81,3 +83,5 @@ For example:
 	Database.Connection().ExecuteSql("INSERT INTO Beer SELECT * FROM @Beer", new { Beer = beer });
 
 At runtime, Insight uses reflection to determine that the Beer field on the anonymous type is an IEnumerable<Beer>. It then tries to convert that parameter to a [BeerTable]. Note that it adds "Table" to the end of the table type name.
+
+[[Identity Inserts]] <BACK || NEXT> [[Transactions]]

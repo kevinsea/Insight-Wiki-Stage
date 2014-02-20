@@ -1,28 +1,23 @@
-# A Quick Tour #
-
 # Some Examples #
 
 You can read these to get a flavor for the beer/code.
 
 ## Getting Started ##
+
 1. Get the nuGet package: [http://www.nuget.org/packages/Insight.Database](http://www.nuget.org/packages/Insight.Database)
 1. Add a reference to `Insight.Database;` to your code. Insight.Database is wired up using extension methods.
 1. Relax and enjoy.
 
 ## Executing a Stored Procedure ##
+
 Executing a stored procedure is pretty easy. Just call Execute with the name of the procedure. Pass in an object for the parameters. Insight figures out the rest. Use an anonymous type if you like.
 
-	using (SqlConnection conn = new SqlConnection(connectionString))
-	{
-		conn.Open();
-		conn.Execute("AddBeer", new { Name = "IPA", Flavor = "Bitter"});
-	}
+	var conn = new SqlConnection(connectionString);
+	conn.Execute("AddBeer", new { Name = "IPA", Flavor = "Bitter"});
 
 ## Auto-Open/Close ##
-If you are too lazy to open and close your connection, Insight will do it for you. If you give it a closed connection, most methods will automatically open and close the connection for you at the right time. Many times, you are just making individual one-shot calls to the database, so why should you have to manage that lifetime?
 
-	SqlConnection conn = new SqlConnection(connectionString);
-	conn.Execute("AddBeer", new { Name = "IPA", Flavor = "Bitter"});
+Note that we are too lazy to open and close the connection. Insight does it for you. Many times, you are just making individual one-shot calls to the database, so why should you have to manage that lifetime?
 
 If you combine this with an DI tool like [Ninject](http://www.ninject.org/), your code can be very clean.
 
@@ -38,6 +33,7 @@ If you combine this with an DI tool like [Ninject](http://www.ninject.org/), you
 	}
 
 ## Query for Objects ##
+
 You can use the Query and QuerySql methods to get objects back from your database. No mapping required.
 
 	class Beer
@@ -48,17 +44,22 @@ You can use the Query and QuerySql methods to get objects back from your databas
 	...
 	List<Beer> beers = Database.Query<Beer>("FindBeer", new { Name = "IPA" });
 
-Don't forget that you can *send* objects to the database. Insight will map the object fields to the stored procedure parameters.
+Insight will automatically map the results to a list of Beer objects. By default, it maps the properties by name.
+
+You can also *send* objects to the database. Insight will map the object fields to the stored procedure parameters.
 
 	Database.Execute("UpdateBeer", beer);
 	
-## Convenience ##
-Don't like stored procedures? Use the ExecuteSql and QuerySql methods to execute SQL text. Insight will map the parameters into the @parameters in the SQL.
+## Executing SQL Text ##
+
+Don't like stored procedures? Almost all of the Insight methods have a `XxxSql` version. Just add `Sql` and put in your SQL text. Insight will map the parameters into the @parameters in the SQL.
 
 	Database.ExecuteSql("UPDATE Beer SET Flavor = @Flavor WHERE Name = @Name", beer);
 	List<Beer> beers = Database.QuerySql<Beer>("SELECT * FROM Beer WHERE Name = @Name", new { Name = "IPA" });
 
-Don't like classes? Use dynamic objects! This is great for those "utility projects", or one-off queries that don't deserve their own class. Just omit the generic &lt;Type&gt; from the Query methods, and Insight will hand you untyped dynamic objects. (Technically a FastExpando, but it can quack like a duck if you like.)
+## Using dynamic objects ##
+
+Don't like classes? Use dynamic objects! This is great for those "utility projects", or one-off queries that don't deserve their own class. Just omit the generic `<Type>` from the Query methods, and Insight will hand you untyped dynamic objects. (Technically a FastExpando, but it can quack like a duck if you like.)
 
 	dynamic beer = Database.Query("FindBeer", new Name = "IPA").First();
 	beer.Flavor = "Yummy";
@@ -66,10 +67,10 @@ Don't like classes? Use dynamic objects! This is great for those "utility projec
 
 Your dynamic objects can also go round trip.
 
-## Even More Convenience for Stored Procs ##
+## Dynamic Calls to Stored Procs ##
 Use dynamic invocation of stored procedures! MMM. Syntactic sugar...
 
-	IList<Beer> beer = Database.Dynamic().FindBeer(name: "IPA", returnType: typeof(Beer));
+	IList<Beer> beer = Database.Dynamic().FindBeer(name: "IPA", Query.Returns(Some<Beer>.Records));
 
 Or...
 
@@ -110,12 +111,12 @@ Call the database through your interface with type safety and the performance of
 	ConnectionStringBuilder builder = "blah blah";
 
 	// insight will connect your interface to the stored proc automatically
-	var repo = builder.OpenAs<IBeerRepository>();
+	var repo = builder.As<IBeerRepository>();
 	repo.Insert(new Beer() { Type = "ipa", Description = "Sly Fox 113" });
 	IList<Beer> beer = repo.GetBeerByType("ipa");
 
+## One-to-One Relationships ##
 
-## Multi-Class Result Sets ##
 Returning a hierarchy of objects? Got that too. Simply pass a list of types into the Query method and we will figure out the rest.
 
 	class Car
@@ -134,7 +135,7 @@ Returning a hierarchy of objects? Got that too. Simply pass a list of types into
 
 Insight assumes the order of the columns and the order of the generic class parameters are the same. It detects the boundary between them as the first field that DOES NOT map to the first class but DOES map to the second class.
 
-This supports up to 5 types, and there are ways to manually handle the mapping, or the object graph.
+There are ways to manually handle the mapping, or the object graph.
 
 ## Multiple Result Sets ##
 Sometimes a query returns multiple result sets. That's automatic too.
@@ -143,6 +144,21 @@ Sometimes a query returns multiple result sets. That's automatic too.
 
 	IList<Beer> beer = results.Set1;
 	IList<Chip> chips = results.Set2;
+
+## Child Relationships ##
+
+You can also do one-to-many and many-to-many relationships:
+
+	SELECT * FROM Beer
+	SELECT beer.ID, glass.* FROM ....
+
+	var results = c.Query("GetBeerAndGlass", parameters,
+		Query.Returns(Some<Beer>.Records)
+			.ThenChildren(Some<Glass>.Records));
+
+Insight will assume that the first column in the child recordset is the parent ID, and will automatically map the children into a `List<T>` compatible property of the parent objects.
+
+You also have options to configure how the mapping occurs,
 
 ## Just add Async ##
 If you want to do anything with any amount of load and you don't want the .NET ThreadPool to bite you (trust me, it will), then you need to write your code asynchronously. In general, it's pretty ugly, but Insight will take care of it for you. It even knows when to open and close the connection for you.
@@ -189,7 +205,7 @@ It's a bit ugly having two database connections, particularly if you are using t
 	}
 
 ## Sending Lists of Values to a SQL Statement ##
-If you are using SQL statements, rather than stored procedures, you can send lists of values as parameters. This works with any IEnumerable&lt;ValueType&gt;.
+If you are using SQL statements, rather than stored procedures, you can send lists of values as parameters. This works with any `IEnumerable<ValueType>`.
 
 	int[] ids = new int[] { 1, 6, 8 };
 	Database.ExecuteSql("DELETE FROM Beer WHERE ID in (@ids)", new { ids = ids });
@@ -212,7 +228,7 @@ If you send a list of *objects* to a SQL statement, Insight will look for a user
 Insight takes care of the mapping.
 
 ## Sending Lists of Objects to the Database ##
-If you send a list of objects to a *Stored Procedure*, Insight looks at the parameters on the Stored Procedure to determine which table type to use.
+If you send a list of objects to a *Stored Procedure*, Insight looks at the parameters on the Stored Procedure to determine which table type to use. Then it automatically sends the objects in a table.
 
 	CREATE TYPE BeerTable (Name [nvarchar](256), Flavor [nvarchar](256))
 	CREATE PROCEDURE InsertBeer (@Beer [BeerTable])

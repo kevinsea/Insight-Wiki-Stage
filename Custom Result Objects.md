@@ -1,24 +1,3 @@
-# Multiple Result Sets #
-
-Insight supports returning multiple result sets through the QueryResults extension methods. QueryResults parses multiple result sets and returns a `Results<T1, T2...>` object.
-
-Suppose you have the following stored procedure:
-
-	CREATE PROC MultipleResults AS
-		SELECT TOP 10 * FROM Ales
-		SELECT TOP 10 * FROM Lagers
-
-You can get the results into one object with QueryResults:
-
-	var results = Database.Connection().QueryResults<Ale, Lager>("MultipleResults", Parameters.Empty);
-
-	IList<Ale> ales = results.Set1;
-	IList<Later> lager = results.Set2;
-
-QueryResults currently supports up to 5 result sets in the QueryResults overrides.
-
-## Custom Result Objects ##
-
 You can also use QueryResults with your own result classes, as long as they derive from `Results<T>`. Just pass your custom class in as the first and only generic parameter.
 
 A handy use case for this is when you have a standard pattern for returning data, such as totals or record counts. Suppose you have the following stored procedure:

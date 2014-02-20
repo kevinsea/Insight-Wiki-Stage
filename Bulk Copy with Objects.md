@@ -1,5 +1,3 @@
-# Bulk Copy with Objects #
-
 You can also use the Insight mapping engine to send objects to SQL Server bulk copy. Just use the BulkCopy method:
 
 	List<Beer> beer = new List<Beer>();
