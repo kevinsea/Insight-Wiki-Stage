@@ -1,11 +1,12 @@
 Sometimes you have an ugly database that you aren't allowed to modify. It may be ugly, AND you aren't allowed to create new views or stored procedures to make it look nice. But you want your code to look nice, right?
 
-You have four choices:
+You have six choices:
 
 1. Make a class, bind the data to private members and expose pretty properties.
 1. Use ColumnAttribute on your classes to override the mapping.
 1. Set up some mapping rules.
 1. Install a custom mapping handler.
+1. Add an override to a record reader.
 1. Use [[FastExpando and Mutations]].
 
 For the example below, let's assume we are running the following SQL Query and we want property names without prefixes:
@@ -110,6 +111,23 @@ The ColumnMappingEventArgs provides information about the mapping operation and 
 * Reader - The IDataReader that is currently being mapped. You can use this to query the result set for more information about the current mapping operation. For example, if the IDataReader is a SqlDataReader, you can use GetSchemaTable to get information about the underlying table that was queried. This will be null when mapping parameters.
 * Parameters - the list of parameters that is currently being mapped.
 * TargetType - the type of the object that is currently being mapped.
+
+## Column Overrides ##
+
+If you need to override columns for individual queries, the best way to do it is to create a new record reader:
+
+	// the structure object is immutable, so you should cache it
+	var structure = new OneToOne<MyObject>(
+		// if you don't override a column, the default rules are used 
+		new ColumnOverride<MyObject>("Foo", "ID")
+	);
+
+	var result = Connection().QuerySql(
+		"SELECT Foo=1, ID=2",
+		null,
+		Query.Returns(structure));
+
+By default, the `OneToOne` class does an automatic mapping from the recordset to your object. Here, we created a new `OneToOne` that reads `MyObject`, but puts the `Foo` column into the `ID` property. Then we can pass that into any method that has a `returns` parameter. You can also use it to build multiple results, parent/child, etc.
 
 
 [[Specifying Result Structures]] - BACK || NEXT- [[Custom Result Objects]]
