@@ -11,8 +11,7 @@ Before you can use Insight.Database with Glimpse, you must first install and reg
 ## Using Insight and Glimpse ##
 
 1. Install Insight.Database.Providers.Glimpse and Glimpse.Ado.
-2. In your startup code, call GlimpseInsightDbProvider.RegisterProvider so Insight can unwrap the Glimpse connections.
-3. Wrap your DbConnection in a GlimpseDbConnection. Several options to do this:
+2. Wrap your DbConnection in a GlimpseDbConnection. Several options to do this:
 	1. Glimpse automatically does it when you create a connection by providerName.
 	2. Wrap it manually at runtime.
 	3. Use your dependency injection to wrap it.

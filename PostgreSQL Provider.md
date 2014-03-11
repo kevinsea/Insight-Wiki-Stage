@@ -7,7 +7,6 @@ The PostgreSQL Provider allows Insight.Database to work with your PostgreSQL dat
 Before you can use Insight.Database with PostgreSQL, you must first install and register the provider in your application. The provider allows Insight to handle some of the connection-specific database issues.
 
 1. Install the Insight.Database.Providers.PostgreSQL package from NuGet.
-2. Call PostgreSQLInsightDbProvider.RegisterProvider().
 
 ## Returning Recordsets as Refcursors ##
 

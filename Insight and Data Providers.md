@@ -23,6 +23,8 @@ Other providers require additional assemblies or dependencies, so they are shipp
 
 If you don't install a provider for your database, Insight 3.1.4 and later will use a default provider that will give you some basic functionality.
 
+With v4.1 and later, you no longer have to call RegisterProvider. Just install the proper NuGet package.
+
 ## (Possibly) Important Note ##
 
 Currently (v3.x), Insight assumes that you will only use one provider for a given CommandText or ProcName. If you issue the same command against different providers, Insight will reuse the cached plan from the first provider. This probably won't happen to you, but if it does, open an issue and we'll take the time to make a cache per provider.

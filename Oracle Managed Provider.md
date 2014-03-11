@@ -13,7 +13,6 @@ To install the ODP.NET managed driver:
 Before you can use Insight.Database with Oracle, you must first install and register the provider in your application. The provider allows Insight to handle some of the wacky things needed to get ODP.NET to work.
 
 1. Install the Insight.Database.Providers.OracleManaged package from NuGet.
-2. Call OracleInsightDbProvider.RegisterProvider(). 
 
 ## Limitations of the ODP.NET Managed Driver ##
 

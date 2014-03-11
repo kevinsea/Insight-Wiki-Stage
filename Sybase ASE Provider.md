@@ -10,7 +10,6 @@ Before you can use Insight.Database with Sybase, you must first install and regi
 
 1. Install the Insight.Database.Providers.SybaseAse package from NuGet.
 2. Add a reference to Sybase.AdoNet4.AseClient to your project.
-3. Call SybaseAseInsightDbProvider.RegisterProvider(). 
 
 ## Known Issues ##
 
