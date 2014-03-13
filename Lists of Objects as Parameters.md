@@ -84,4 +84,17 @@ For example:
 
 At runtime, Insight uses reflection to determine that the Beer field on the anonymous type is an IEnumerable<Beer>. It then tries to convert that parameter to a [BeerTable]. Note that it adds "Table" to the end of the table type name.
 
+## Empty Lists ##
+
+Unlike most types of parameters, SQL server doesn't let you have NULL table-valued parameters. If you omit a TVP, SQL will use an empty table. This makes it really easy to forget a TVP when calling a procedure.
+
+To help you remember, Insight will throw an exception if you pass a NULL list to a TVP. You should always specify at least an empty list. There is a handy method to get an empty list of a given type:
+
+	Parameters.EmptyListOf<T>();
+
+Example:
+
+	connection.ExecuteSql("INSERT INTO Beer SELECT * FROM @Beer", Parameters.EmptyListOf<Beer>());
+
+
 [[Identity Inserts]] - BACK || NEXT- [[Transactions]]

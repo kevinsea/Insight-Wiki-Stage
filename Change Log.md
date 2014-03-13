@@ -7,6 +7,10 @@
 * New NuGet package Insight.Database.Core that omits the default providers. Handy for running on a platform that doesn't support the default providers.
 * Insight will now auto-register any provider that is installed in the application folder.
 
+## v4.0.1 ##
+
+* ISSUE #87 - optimization - when sending an empty list to a TVP, omit the parameter value.
+
 ## v4.0.0 ##
 
 * Added support for returning arbitrary object structures.
