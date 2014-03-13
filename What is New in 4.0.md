@@ -25,4 +25,4 @@ And of course:
 
 Now you can do all of this.
 
-See [[Object Graphs]] to learn how. 
+See [[Specifying Result Structures]] to learn how. 

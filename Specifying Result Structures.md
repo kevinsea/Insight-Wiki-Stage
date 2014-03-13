@@ -43,7 +43,7 @@ This is equivalent to:
 	connection.Query("GetABeerAndProperGlass", Parameters.Empty,
 		Query.Returns(OneToOne<Beer, Glass>.Records);
 
-Insight will automatically split each record into Beer objects and Glass objects, then assemble them properly. You can get more details by reading [[Object Graphs]].
+Insight will automatically split each record into Beer objects and Glass objects, then assemble them properly.
 
 If you almost always return two objects together, you can put a `RecordsetAttribute` on the class, so Insight will always try to read in the subobject. It's ok if the subobject isn't there.
 
@@ -135,5 +135,42 @@ This is getting a little crazy, but it's not icky at all! Returning 4 recordsets
 			.Then(Some<Wine>.Records);
 			.ThenChildren(Some<Glass>.Records)
 
+## Three or more Levels ##
+
+You can also handle hierarchies that have more than two levels. In this case, you'll have to use the `parents` hint on the ThenChildren method.
+
+	class Order
+	{
+		public int OrderID { get; set; }
+		public string Waitress { get; set; }
+		public int TableNumber { get; set; }
+		public List<Sampler> Samplers { get; set; }
+	}
+	class Sampler
+	{
+		public int SamplerID { get; set; }
+		public string Name { get; set; }
+		public List<Beer> Beers { get; set; }
+	}
+	class Beer
+	{
+		...
+	}
+
+This can be handled with three recordsets:
+
+	SELECT Order.*
+	SELECT OrderID, Sampler.*
+	SELECT SamplerID, Beer.*
+
+And now we tell Insight that the last two recordsets are children, and we tell it that the Beer goes into Samplers.
+	
+	var results = c.Query(proc, params, Query.Returns(Some<Order>.Records)
+	    .ThenChildren(Some<Sampler>Records)
+	    .ThenChildren(Some<Beer>.Records,
+	                parents: o => o.Samplers,
+	                id: s => s.SamplerID);
+
+With this extension method, after reading all of the Orders and Samplers, Insight will gather up all of the Samplers and attempt to assign the Beers into the Samplers. 
 
 [[Mapping Results to Objects]] - BACK || NEXT- [[Record Readers]]
