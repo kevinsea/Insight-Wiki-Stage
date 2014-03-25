@@ -3,6 +3,7 @@
 
 ## v4.1.0 ##
 
+* **Now supports MonoAndroid.**
 * The built-in providers have been split out into Insight.Database.Providers.Default.
 * New NuGet package Insight.Database.Core that omits the default providers. Handy for running on a platform that doesn't support the default providers.
 * Insight will now auto-register any provider that is installed in the application folder.
