@@ -233,3 +233,22 @@ NOTE: both the name *and* the type must match:
 		// cancellationToken is passed to the framework
 		Task GetBeerByType(string type, CancellationToken? cancellationToken);
 	}
+
+## Abstract Class Implementation ##
+
+Insight can also implement an abstract class for you. That way, you can create a repository object with some of your code, and still leave the boilerplate for Insight. If you pass an abstract class as the type for `.As` or `.AsParallel`, Insight will implement any unimplemented methods.
+
+	public abstract class BeerRepository
+	{
+		// this is implemented by insight
+		public abstract void InsertBeer(Beer beer);
+
+		public Beer MakeBeer(string name)
+		{
+			var beer = new Beer(name);
+			InsertBeer(beer);
+			return beer;
+		}
+	}
+
+	var repo = connection.AsParallel<BeerRepository>();

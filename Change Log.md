@@ -1,12 +1,22 @@
 
 # Change Log #
 
+## v4.1.1 ##
+
+* Updated provider packages to only depend on core library.
+* Fixed issue where auto-registration did not work while running under IIS.
+* ISSUE #94 - FastExpandos no longer convert properties to uppercase. They now do a case-insensitive key lookup.
+* Better type support for dynamic parameters (e.g. using GUIDs with dynamic and SQL text.
+* Fixed auto-implementing derived interfaces
+* Auto-implementation now can auto-implement abstract classes.
+* Optimized execution of AsParallel interfaces.
+
+
 ## v4.1.0 ##
 
-* **Now supports MonoAndroid.**
 * The built-in providers have been split out into Insight.Database.Providers.Default.
 * New NuGet package Insight.Database.Core that omits the default providers. Handy for running on a platform that doesn't support the default providers.
-* Insight will now auto-register any provider that is installed in the application folder.
+* Insight will now auto-register any provider that is installed in the application folder. **Note: there is an issue with auto-registration under IIS, so using v4.1.0 is not recommended. This is fixed in v4.1.1**
 
 ## v4.0.1 ##
 
