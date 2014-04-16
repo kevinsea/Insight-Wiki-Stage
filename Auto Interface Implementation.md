@@ -252,3 +252,42 @@ Insight can also implement an abstract class for you. That way, you can create a
 	}
 
 	var repo = connection.AsParallel<BeerRepository>();
+
+If your code needs access to the connection, simply define a GetConnection method. Insight will fill it in:
+
+	public abstract class BeerRepository
+	{
+		// this is implemented by insight
+		public abstract IDbConnection GetConnection();
+
+		public Beer MakeBeer(string name)
+		{
+			return GetConnection().Query<Beer>("beerify", name);
+		}
+	}
+
+	var repo = connection.AsParallel<BeerRepository>();
+
+Note that in single-threaded mode, GetConnection will always return the same connection. In multi-threaded mode (AsParallel), it will return a new connection for each invocation. If you need to make multiple or transactional calls in your repository method, it's best to get the connection once:
+
+	public abstract class BeerRepository
+	{
+		// this is implemented by insight
+		public abstract IDbConnection GetConnection();
+
+		public Beer MakeBeer(string name)
+		{
+			var connection = GetConnection();
+			using (var tx = connection.BeginTransaction())
+			{
+				connection.Execute("somethingelse");
+				var beer = connection.Query<Beer>("beerify", name);
+				tx.Commit();
+				return beer;
+			}
+		}
+	}
+
+	var repo = connection.AsParallel<BeerRepository>();
+
+You may also want to derive your class from `DbConnectionWrapper`. Then you get the benefit of all of the DbConnection methods, but you lose support for `AsParallel`, and you might just be messing up encapsulation.

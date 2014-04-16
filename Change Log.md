@@ -1,5 +1,14 @@
-
 # Change Log #
+
+## v4.1.2 ##
+
+* Fixed provider auto-registration in more scenarios.
+* Fixed issue where column mapping was dependent upon the order of members in the class.
+* Query identities now differentiate between provider types.
+* Fixed Issue #98 - computed columns in BulkCopy.
+* Fixed Issue #97 - NullReference when calling ForEach with no results structure. 
+* Can now auto-implement abstract classes derived from DbConnectionWrapper.
+* Auto-implement now fills in a IDbConnection GetConnection() method if one exists on the class.
 
 ## v4.1.1 ##
 
