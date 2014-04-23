@@ -171,6 +171,21 @@ And now we tell Insight that the last two recordsets are children, and we tell i
 	                parents: o => o.Samplers,
 	                id: s => s.SamplerID);
 
-With this extension method, after reading all of the Orders and Samplers, Insight will gather up all of the Samplers and attempt to assign the Beers into the Samplers. 
+With this extension method, after reading all of the Orders and Samplers, Insight will gather up all of the Samplers and attempt to assign the Beers into the Samplers.
+
+## Single Parent, Multiple Children ##
+
+This is a special case where you have a single parent record, and you want to put the next recordset as children all into the parent.
+
+This can be handled with the query below. Note that we do NOT return the parent ID in the second recordset. Insight assumes that all of the children go into the parent.
+
+	SELECT Order.* FROM Order WHERE ID=1
+	SELECT Sampler.* FROM Sampler...
+
+Now we use the `SingleReader` to get a single record, and the `ThenChildren` extension method to put the children in it:
+
+ 	var results = c.Query(proc, params,
+		Query.ReturnsSingle<Order>()
+	    	.ThenChildren(Some<Sampler>Records);
 
 [[Mapping Results to Objects]] - BACK || NEXT- [[Record Readers]]

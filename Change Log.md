@@ -1,5 +1,20 @@
 # Change Log #
 
+## v4.1.4 ##
+
+* Missing provider exceptions are now more informative.
+* `RegisterProvider` forces registration again so Insight can be used in add-in and other scenarios.
+* Fixed schema identity caching issue when a table UDT matches a bulk copy table and their readonly properties do not match. 
+
+## v4.1.3 ##
+
+* Implmented Issue #101 - SingleReader.ThenChildren now ignores ID field and maps all children to parent (unless ID field or accessor is specified).
+* Exposed RegisterProvider on all provider types so assembly references can be forced. See Issue #95.
+* Fixed bulk copy operations for wrapped connections, and KeepIdentity options.
+* Fixed Issue #102 - updated nuget packages and projects to not add a dependency on Microsoft.CSharp when building for NET35.
+* Fixed issue where a read-only or identity field would make subsequent column mappings invalid.
+* Abstract class implementation can now call a protected base class constructor.
+
 ## v4.1.2 ##
 
 * Fixed provider auto-registration in more scenarios.
