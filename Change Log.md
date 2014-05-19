@@ -1,5 +1,11 @@
 # Change Log #
 
+## v4.1.5 ##
+
+* Fixed Issue #107 - VerificationException when accessing readonly field.
+* Implemented Issue #106 - more methods for As and AsParallel.
+* Fixes for TVPs in SQLText.
+
 ## v4.1.4 ##
 
 * Missing provider exceptions are now more informative.
