@@ -9,8 +9,6 @@ You can just create your connection the way you always have:
 
 Insight also provides extensions for getting connections from your configuration objects.
 
-NEXT: [[Opening Connections]]
-
 ## ConnectionStringSettings.Connection ##
 
 Converts a ConnectionStringSettings object to a SqlConnection.
@@ -30,3 +28,4 @@ Converts a DbConnectionStringBuilder to a DbConnection. The type of connection i
 	// run a query right off the connection (this performs an auto-open/close)
 	database.Connection().QuerySql("SELECT * FROM Beer");
 
+NEXT: [[Opening Connections]]
