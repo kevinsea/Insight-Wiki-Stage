@@ -98,8 +98,51 @@ AsEnumerable<T> also accepts a callback Action. The Action gets one parameter pe
 
 The callback is an Action, not a Function. The returned object is always the first object. You just have a chance to resolve the references in the method. Note that any objects not linked to the main object will be thrown away.
 
+## Reading Different Classes Per Record ##
+
+Let's say you have a switch field and you want to return a different class depending on the field. You can use the `MultiReader` class to tell Insight how to deserialize individual records.
+
+	var mr = new MultiReader<MyClass>(
+		reader =>
+		{
+			switch ((string)reader["Type"])
+			{
+				default:
+				case "a":
+					return OneToOne<MyClassA>.Records;
+				case "b":
+					return OneToOne<MyClassB>.Records;
+			}
+		});
+
+	var results = Connection().QuerySql(
+		"SELECT [Type]='a', A=1, B=NULL UNION SELECT [Type]='b', A=NULL, B=2", Parameters.Empty, Query.Returns(mr));
+
+## PostProcessing Records ##
+
+Similarly, you can use the `PostProcessRecordReader` to make additional changes to each record as its read.
+ 
+		[Test]
+		public void PostProcessCanReadFieldsInAnyOrder()
+		{
+			var pr = new PostProcessRecordReader<MyClassA>(
+				(reader, a) =>
+				{
+					// after A is read, look at the reader and make more changes
+					if (reader["Type"].ToString() == "a")
+						a.A = 9;
+					return a;
+				});
+
+			var results = Connection().QuerySql("SELECT [Type]='a', A=1, B=NULL", Parameters.Empty, Query.Returns(pr));
+
+			Assert.AreEqual(1, results.Count);
+			Assert.IsTrue(results[0] is MyClassA);
+			Assert.AreEqual(9, ((MyClassA)results[0]).A);
+		}
+
 ## Custom IRecordReaders ##
 
-If this flexibility isn't enough for you, you can create your own implementation of `IRecordReader` to read data from the stream. You can pass it in anywhere Insight takes a `Some<T>` or `OneToOne<T...>`.
+All of this is implemented through record readers. If this flexibility isn't enough for you, you can create your own implementation of `IRecordReader` to read data from the stream. You can pass it in anywhere Insight takes a `Some<T>` or `OneToOne<T...>`.
 
 [[Specifying Result Structures]] - BACK || NEXT- [[Query Readers]]

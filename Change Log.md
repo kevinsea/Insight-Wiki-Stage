@@ -1,5 +1,14 @@
 # Change Log #
 
+## v4.2.0 ##
+
+* Fixed Issue #111 - Xml Output Parameters
+* Fixed Issue #109 - field objects can now be created with string constructors and converters
+* Implemented Issue #112 - Added MergeOutput Attribute for interface methods
+* Implemented Issue #109 - Added MultiReader class that allows different classes to be returned for each record in a stream
+* Implemented Issue #110 - added CachedDbDataReader and PostProcessRecordReader
+
+
 ## v4.1.5 ##
 
 * Fixed Issue #107 - VerificationException when accessing readonly field.
