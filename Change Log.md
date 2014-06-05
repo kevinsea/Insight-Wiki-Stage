@@ -1,5 +1,11 @@
 # Change Log #
 
+## v4.2.1 ##
+
+* Fixed nuget package dependencies so providers depend on the latest version of the core library.
+* Column overrides in OneToOne now work in child records.
+* Private properties on parent classes can now be set.
+
 ## v4.2.0 ##
 
 * Fixed Issue #111 - Xml Output Parameters
