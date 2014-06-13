@@ -1,5 +1,11 @@
 # Change Log #
 
+## v4.2.2 ##
+
+* Updated library dependencies to latest versions.
+* Fixed Issue #114 - wrapped connections throw during cloning in AsParallel implementations.
+* Improved error message for empty result sets in calls to ExecuteScalar that return non-nullable values.
+
 ## v4.2.1 ##
 
 * Fixed nuget package dependencies so providers depend on the latest version of the core library.
