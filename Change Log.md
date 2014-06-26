@@ -1,5 +1,10 @@
 # Change Log #
 
+## v4.2.3 ##
+
+* Fixed Issue #117 - Oracle providers now set BindByName on commands
+* Fixed Issue #118 - DB2 and Oracle providers are now available for .NET 4.0
+
 ## v4.2.2 ##
 
 * Updated library dependencies to latest versions.
