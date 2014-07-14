@@ -31,6 +31,19 @@ Insight will automatically take care of refcursor parameters for you. The record
 
 (Also, you can't just do SELECT 1 AS p. You always have to select from a table. Fortunately, Oracle has a built in table called "dual" that always has one record.)
 
+## Returning Multiple Recordsets from SQL Text ##
+
+If you're not using stored procedures, you can still return multiple recordsets. If you use `OPEN :var FOR` Insight will automatically detect that you are returning refcursors and handle them appropriately. So the above query could be:
+
+	var results = connection.QueryResultsSql<decimal, decimal>(@"
+		BEGIN
+			-- open two recordsets
+			OPEN :rs1 FOR SELECT 1 AS p from dual;
+			OPEN :rs2 FOR SELECT 'x' AS title from dual;
+		END;
+	");
+
+Here, Insight detects that rs1 and rs2 are parameters. Since they are used in an OPEN...FOR statement, Insight will automatically bind output refcursors to them.
 
 ## Table-Valued Parameters ##
 

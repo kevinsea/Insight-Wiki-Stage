@@ -1,5 +1,11 @@
 # Change Log #
 
+## v4.2.4 ##
+
+* Fixed issue #123 - OpenWithTransaction now closes inner connection rather than disposing it, so the connection can be reused.
+* Implemented Issue #124 - Oracle providers can now auto-detect output refcursors in SQLText, so you can now easily return multiple result sets.
+* Removed call to System.Activator in cloning of wrapped connections
+
 ## v4.2.3 ##
 
 * Fixed Issue #117 - Oracle providers now set BindByName on commands
