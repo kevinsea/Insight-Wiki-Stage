@@ -1,5 +1,11 @@
 # Change Log #
 
+## v4.2.5 ##
+
+* Fixed Issue #126 - Update methods now automatically merge outputs.
+* Fixed Issue #129 - null subobjects didn't work due to sequential access on data reader
+* Fixed Issue #130 - virtual id/list accessors for child relationships throws VerificationException
+
 ## v4.2.4 ##
 
 * Fixed issue #123 - OpenWithTransaction now closes inner connection rather than disposing it, so the connection can be reused.
