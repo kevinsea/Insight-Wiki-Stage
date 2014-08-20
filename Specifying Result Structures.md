@@ -57,7 +57,7 @@ Here's where we start to get tricky. For anything advanced, we need to specify t
 
 	CREATE PROC GetBeerAndPossibleGlasses AS
 		SELECT * FROM Beer
-		SELECT b.BeerID, g.8 FROM Beer JOIN Glasses ON (...)
+		SELECT b.BeerID, g.* FROM Beer JOIN Glasses ON (...)
 
 	class Beer
 	{
