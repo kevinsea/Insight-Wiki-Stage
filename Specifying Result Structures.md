@@ -186,6 +186,6 @@ Now we use the `SingleReader` to get a single record, and the `ThenChildren` ext
 
  	var results = c.Query(proc, params,
 		Query.ReturnsSingle<Order>()
-	    	.ThenChildren(Some<Sampler>Records);
+	    	.ThenChildren(Some<Sampler>.Records);
 
 [[Mapping Results to Objects]] - BACK || NEXT- [[Record Readers]]
