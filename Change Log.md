@@ -1,5 +1,12 @@
 # Change Log #
 
+## v4.2.6 ##
+
+* Fixed Issue #133 - allow custom deserialiers to deserialize any type, including strings
+* Fixed Issue #132 - added more oracle transient error codes
+* Made wrapped provider pass more calls to inner provider
+* Added option to disable MergeOutput for interface methods
+
 ## v4.2.5 ##
 
 * Fixed Issue #126 - Update methods now automatically merge outputs.
