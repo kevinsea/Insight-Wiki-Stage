@@ -57,7 +57,7 @@ Here's where we start to get tricky. For anything advanced, we need to specify t
 
 	CREATE PROC GetBeerAndPossibleGlasses AS
 		SELECT * FROM Beer
-		SELECT b.BeerID, g.8 FROM Beer JOIN Glasses ON (...)
+		SELECT b.BeerID, g.* FROM Beer JOIN Glasses ON (...)
 
 	class Beer
 	{
@@ -186,6 +186,6 @@ Now we use the `SingleReader` to get a single record, and the `ThenChildren` ext
 
  	var results = c.Query(proc, params,
 		Query.ReturnsSingle<Order>()
-	    	.ThenChildren(Some<Sampler>Records);
+	    	.ThenChildren(Some<Sampler>.Records);
 
 [[Mapping Results to Objects]] - BACK || NEXT- [[Record Readers]]
