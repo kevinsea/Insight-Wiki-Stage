@@ -1,5 +1,20 @@
 # Change Log #
 
+## v4.2.8 ##
+
+* Optimized IL for parameter generation.
+* Implemented Issue #141 - easier custom record readers.
+
+## v4.2.7 ##
+
+* Fixed json package for NET35.
+* Updated DynamicConnection to allow providers to fixup commands.
+* Added friendlier error message when attempting to implement a private interface.
+* Fixed Issue #136 - exception thrown when interface returns List and has child records.
+* Added better exceptions when id/list fields not found on class.
+* Implemented Issued #137 - BulkCopyAsync
+* Fixed Issue #139 - support nullable return values in ExecuteScalar.
+
 ## v4.2.6 ##
 
 * Fixed Issue #133 - allow custom deserialiers to deserialize any type, including strings

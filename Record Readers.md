@@ -145,4 +145,27 @@ Similarly, you can use the `PostProcessRecordReader` to make additional changes 
 
 All of this is implemented through record readers. If this flexibility isn't enough for you, you can create your own implementation of `IRecordReader` to read data from the stream. You can pass it in anywhere Insight takes a `Some<T>` or `OneToOne<T...>`.
 
+The most common use for this is when you don't have a default constructor for your class. Unfortunately, if you don't have a default constructor, Insight can't create your object for you, so you'll have to do the reads manually.
+
+The easiest way to do this is to use the `CustomRecordReader<T>` class:
+
+	// create a reader that manually reads the record
+	private static CustomRecordReader<TestChild> _reader = new CustomRecordReader<TestChild>(
+		r => new TestChild((int)r["ChildA"], (int)r["ChildB"])
+	);
+
+	// pass the reader into any of the query definition methods
+	var results = Connection().QuerySql("SELECT ID=1; SELECT ParentID=1, ChildA=2, ChildB=3", null,
+		Query.Returns(Some<TestParent>.Records)
+			.ThenChildren(reader);
+
+You can also use an inline reader if you want:
+
+	// pass the reader into any of the query definition methods
+	var results = Connection().QuerySql("SELECT ID=1; SELECT ParentID=1, ChildA=2, ChildB=3", null,
+		Query.Returns(Some<TestParent>.Records)
+			.ThenChildren(CustomRecordReader<TestChild>.Read(r => new TestChild((int)r["ChildA"], (int)r["ChildB"]));
+
+NOTE: Insight turns on sequential reads, so you have to read the fields in order or use the `CachedDbDataReader` class.
+
 [[Specifying Result Structures]] - BACK || NEXT- [[Query Readers]]
