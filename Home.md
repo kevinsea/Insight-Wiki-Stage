@@ -56,7 +56,7 @@ Of course, what I **really** want you to do is to switch over to [[Auto Interfac
 ## Getting Started ##
 
 * [[Installing Insight]] - just get it from NuGet.
-* [[Upgrading from Older Versions]] - running 1.x, 2.x, 3.x code?
+* [[What is New in 5.0]] - composite keys, deep parameter binding.
 * [[What is New in 4.0]] - one-to-many mappings and other structural goodness.
 * [[Design Goals]] - why does this library work this way?
 
@@ -141,5 +141,4 @@ Of course, what I **really** want you to do is to switch over to [[Auto Interfac
 ## Other Stuff ##
 * [[Stored Procedures vs SQL Text]] - discusses the differences between using Stored Procedures and SQL Text with Insight.
 * [[Creating Commands]] - how to create a command manually for reuse.
-* [[Insight v Dapper]] - Dapper was the inspiration for parts of Insight, but now they are totally different.
 * [[Strong Named Assemblies]] - some notes on the signed assemblies in v3.2 and later.

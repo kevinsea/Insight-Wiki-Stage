@@ -5,8 +5,9 @@ You can read these to get a flavor for the beer/code.
 ## Getting Started ##
 
 1. Get the nuGet package: [http://www.nuget.org/packages/Insight.Database](http://www.nuget.org/packages/Insight.Database)
-1. Add a reference to `Insight.Database;` to your code. Insight.Database is wired up using extension methods.
-1. Relax and enjoy.
+2. Add a reference to `Insight.Database;` to your code. Insight.Database is wired up using extension methods.
+3. Register your database with `SqlInsightDbProvider.RegisterProvider();` (or another database) 
+4. Relax and enjoy.
 
 ## Executing a Stored Procedure ##
 
@@ -135,7 +136,7 @@ Returning a hierarchy of objects? Got that too. Simply pass a list of types into
 
 Insight assumes the order of the columns and the order of the generic class parameters are the same. It detects the boundary between them as the first field that DOES NOT map to the first class but DOES map to the second class.
 
-There are ways to manually handle the mapping, or the object graph.
+There are also ways to manually handle the mapping, or the object graph.
 
 ## Multiple Result Sets ##
 Sometimes a query returns multiple result sets. That's automatic too.
@@ -144,6 +145,16 @@ Sometimes a query returns multiple result sets. That's automatic too.
 
 	IList<Beer> beer = results.Set1;
 	IList<Chip> chips = results.Set2;
+
+Or...
+
+	var results = Database.QuerySql("GetBeerAndChips", new { Pub = "Fergie's" },
+		Query.Returns(Some<Beer>.Records)
+			.Then(Some<Chip>.Records)));
+
+	IList<Beer> beer = results.Set1;
+	IList<Chip> chips = results.Set2;
+
 
 ## Child Relationships ##
 
@@ -158,7 +169,9 @@ You can also do one-to-many and many-to-many relationships:
 
 Insight will assume that the first column in the child recordset is the parent ID, and will automatically map the children into a `List<T>` compatible property of the parent objects.
 
-You also have options to configure how the mapping occurs,
+You also have options to configure how the mapping occurs.
+
+**New in v5.0: Now supporting composite keys!**
 
 ## Just add Async ##
 If you want to do anything with any amount of load and you don't want the .NET ThreadPool to bite you (trust me, it will), then you need to write your code asynchronously. In general, it's pretty ugly, but Insight will take care of it for you. It even knows when to open and close the connection for you.
@@ -174,7 +187,7 @@ Simply call ExecuteAsync or QueryAsync and you will get a Task&lt;T&gt; represen
 	// go do other things. really. we'll be fine.
 	List<Beer> beerMenu = getMeABeerMenu.Result;
 
-Once you start running C# 4.5, it all becomes clear:
+Once you start running C# 5.0 (.NET 4.5), it all becomes clear:
 
 	var beerMenu = Database1.QueryAsync<Beer>("FindBeer", new { Name = "Sly Fox" });
 	var foodMenu = Database2.QueryAsync<Beer>("FindFood", new { Meal = "Lunch" });

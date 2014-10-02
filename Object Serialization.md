@@ -44,15 +44,13 @@ Note that object serialization only occurs when a field is matched to a string c
 If you don't like adding attributes to your objects, you can also set up mapping rules to control the serialization formats:
 
 	// specify serialization by type and field name
-	ColumnMapping.All.SerializeAs(typeof(GiftPack), "Glass", SerializationMode.Xml);
+	DbSerializationRule.Serialize<GiftPack>("Glass", SerializationMode.Xml);
 
 	// specify serialization by type and field type (applies to all fields of the type)
-	ColumnMapping.All.SerializeAs(typeof(GiftPack), typeof(Glass), SerializationMode.Xml);
+	DbSerializationRule.Serialize<GiftPack>(typeof(Glass), SerializationMode.Xml);
 
 	// specify serialization by field type (applies across all types/tables) 
-	ColumnMapping.All.SerializeAs(typeof(Glass), SerializationMode.Xml);
-
-Be sure to specify these *after* you specify any rules that rename fields.
+	DbSerializationRule.Serialize<Glass>(SerializationMode.Xml);
 
 ## Using JSON.NET for JSON Serialization ###
 
@@ -65,20 +63,22 @@ Then Insight will use the JSON.NET serializer for JSON conversions.
 
 ## Custom Serializers ##
 
-If you have a need for custom serialization, you can create your own object serializer. An object serializer is a static class with Serialize and Deserialize methods that match the following signatures:
+If you have a need for custom serialization, you can create your own object serializer:
 
-	public static class MyObjectSerializer
+	public class MyDbObjectSerializer : DbObjectSerializer
 	{
-		public static string Serialize(object value, Type type)
+		public abstract object SerializeObject(Type type, object o)
 		{
+			return object.ConvertToString();
 		}
 
-		public static object Deserialize(string encoded, Type type)
+		public abstract object DeserializeObject(Type type, object encoded)
 		{
+			return encoded.ConvertToObject();
 		}
 	}
 
-(It's a static class because it's very difficult to get an instance into the part of the code that needed this. We may possibly fix this in a future version.)
+It's also possible to do a binary serializer by overriding additional methods.
 
 Now, you can just add a Column attribute to your field: 
 
@@ -86,8 +86,20 @@ Now, you can just add a Column attribute to your field:
 	{
 		public int ID;
 
-		[Column(SerializationMode=SerializationMode.Custom, Serializer=typeof(MyObjectSerializer))]
+		[Column(SerializationMode=SerializationMode.Custom, Serializer=typeof(MyDbObjectSerializer))]
 		public Glass Glass;
 	}
 
-If you have a need to by able to do this with mapping rules, let me know.
+## Custom Serializer Rules ##
+
+If you want to override the way Insight picks serializers:
+
+	public class MyDbSerializationRule : IDbSerializationRule
+	{
+		public IDbObjectSerializer GetSerializer(Type recordType, Type memberType, string memberName)
+		{
+			return MyDbObjectSerializer;
+		}
+	}
+
+	DbSerializationRule.AddRule(new MyDbSerializationRule());

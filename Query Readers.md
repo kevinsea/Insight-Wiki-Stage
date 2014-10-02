@@ -2,7 +2,7 @@ When Insight goes to translate a bunch of recordsets into query results, it uses
 
 There are several implementations:
 
-* `Single<T>` - reads a single record from the recordset.
+* `SingleReader<T>` - reads a single record from the recordset.
 * `ListReader<T>` - reads a list of records from the recordset.
 * `ResultsReader<T1, T2...>` - reads multiple records from the recordset.
 

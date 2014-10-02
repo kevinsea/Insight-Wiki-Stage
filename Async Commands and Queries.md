@@ -16,7 +16,7 @@ First, make sure you are using a data provider that supports asynchronous calls.
 
 	Asynchronous Processing=true
 
-NOTE: In .NET 4.0, only the SQL Server Provider supports async. In .NET 4.5, most of the built-in providers have an async mode, but only the SQL Server Provider currently uses async all the way through the API.
+NOTE: In .NET 4.0, only the SQL Server Provider supports async.
 
 ## Async Extension Methods ##
 Most of the Insight extension methods have an asynchronous version that ends in `Async`. These methods are the same as the synchronous methods, but they return a `Task<T>` rather than the basic return type.

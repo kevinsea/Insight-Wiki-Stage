@@ -1,5 +1,23 @@
 # Change Log #
 
+## v5.0.0 ##
+
+* Allow parameters & values to map into subobjects.
+* Interface methods automatically can map values into fields of objects passed in. See Issue #125.
+* Updated configuration system for custom serialization and mapping.
+* Support for composite keys in parent/child relationships. See issue #147.
+* Support for parent IDs to be part of child objects instead of just outside of them. See issue #145.
+* Optimized code generation by combining assemblies for static fields.
+
+## v4.2.10 ##
+
+* Fixed Issue #148 - generated interfaces are now in a single dynamic assembly.
+
+## v4.2.9 ##
+
+* Fixed Issue #142 - child record is atomic/value type.
+* Fixed Issue #146 - SingleChildMapper throws when no parent record is returned.
+
 ## v4.2.8 ##
 
 * Optimized IL for parameter generation.

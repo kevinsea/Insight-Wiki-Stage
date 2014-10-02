@@ -60,7 +60,31 @@ and have the ID sent back into the object `b`.
 
 Parameters are mapped the same way that they would be sent to the appropriate extension method. In general, object members are mapped to parameters by name, and lists of objects are sent to the database as Table-Valued parameters.
 
-See [[Query Parameter Mapping]] for details on parameter mapping.
+Here's one way to map an interface method to a procedure:
+
+	CREATE PROC MyProc(@a int, @b varchar(50), @c varchar(50)) AS SELECT * FROM Beer...
+
+	IList<Beer> MyProc(int a, string b, string c);
+
+When binding parameters, Insight will automatically peek inside any class you pass to it:
+
+	CREATE PROC MyProc(@a int, @b varchar(50), @c varchar(50)) AS SELECT * FROM Beer...
+
+	class Selector {
+		public int a;
+		public string b; 
+	}
+
+	// here, s.a and s.b are mapped to @a and @b, respectively, and c is mapped to @c 
+	IList<Beer> MyProc(Selector s, string c);
+	
+You can disable this feature with the `BindChildrenFor` attribute.
+
+	// @a and @b are not bound!
+	[BindChildrenFor(BindFor.None)]
+	IList<Beer> MyProc(Selector s, string c);
+
+See [[Query Parameter Mapping]] for more details on parameter mapping.
 
 ## Output Parameters ##
 
@@ -70,13 +94,6 @@ You can get output parameters back from your Stored Procedure. Just use a ref or
 	{
 		void UpdateBeer(string type, decimal price, out int recordsAffected);
 	}
-
-Some limitations on Output Parameters:
-
-* Methods can only use ref/out when the parameters can be easily mapped to parameters. This will mostly affect insert/update methods:
-	* InsertBeer(List<Beer> beers, out int count) is ok. 
-	* InsertBeer(Beer beer, out int count) is not, because you pass in beer and count as parameters, the beer object cannot be exploded into individual parameters.
-	* InsertBeer(int id, string beer, out int count) is ok, because Insight can map the function parameters to the proc parameters.
 
 ## Result Structures ##
 
@@ -110,7 +127,12 @@ If you need to override the ID or Into fields, you can do that on the attribute:
 
 In this case, the `Recordset` attribute corresponds to adding the proper `Query.Returns` statement to your call.
 
-See [[Specifying Result Structures]] for details on how results structures are created.
+For composite keys, use the ID parameter for the parent keys, and GroupBy for the child keys. In many cases, this can also be auto-detected. 
+
+	[Recordset(1, typeof(Glass), IsChild=true, ID="BeerNumber,PourSize", GroupBy="BeerNumber,PourSize" Into="Container")]
+	List<Beer> GetBeer();
+
+See [[Specifying Result Structures]] for details on how results structures are specified.
 
 ## Interfaces and Transactions ##
 

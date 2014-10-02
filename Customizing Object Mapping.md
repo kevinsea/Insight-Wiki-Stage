@@ -39,7 +39,7 @@ You can also tell Insight the column name for a property by using the ColumnAttr
 		public string Name { get; set; }
 	}
 
-## Setting Up Mapping Rules ##
+## Setting Up Transformation Rules ##
 
 If your databases use some form of a naming convention, you can add some mapping rules. Insight exposes the ColumnMapping class to let you add rules to table mappings or parameter mappings in your startup code.
 
@@ -89,32 +89,61 @@ If these rules aren't enough for you, you can install a custom mapping handler. 
 
 	public void OnApplicationStartup()
 	{
-		// add a custom mapping handler
-		ColumnMapping.Tables.AddHandler(new MyCustomMappingHandler());
+		// add custom mappers
+		ColumnMapping.Tables.AddMapper(new MyColumnMapper());
+		ColumnMapping.Parameters.AddMapper(new MyParameterMapper());
+		ColumnMapping.All.AddTransform(new MyMappingTransform();
 	}
 
-	class MyCustomMappingHandler : ICustomMappingHandler
+	class MyMappingTransform : IMappingTransform
 	{
-		void ICustomMappingHandler.HandleColumnMapping(object sender, ColumnMappingEventArgs e)
+		string TransformDatabaseName(Type type, string databaseName)
 		{
-			e.TargetFieldName = "_" + e.TargetFieldName;
+			// someone always gets this wrong... 
+			return databaseName.Replace("there", "their");
 		}
 	}
 
-The ColumnMappingEventArgs provides information about the mapping operation and allows you to customize the mapping.
+	class MyColumnMapper : IColumnMapper
+	{
+		string MapColumn(Type type, IDataReader reader, int column)
+		{
+			if (type != typeof(Beer))
+				return null;			// null allows another handler to try
 
-* TargetFieldName - set this to the name of the field that you want to map to. When you receive it, it will contain the result of any previous mappings that have been applied.
-* Cancelled - set this to true to skip the given column.
-* CommandText - the current command text that is being mapped. This will be null when mapping tables.
-* CommandType - the current Command Type that is being mapped. This will be null when mapping tables.
-* FieldIndex - the index into the reader's columns or the parameter list.
-* Reader - The IDataReader that is currently being mapped. You can use this to query the result set for more information about the current mapping operation. For example, if the IDataReader is a SqlDataReader, you can use GetSchemaTable to get information about the underlying table that was queried. This will be null when mapping parameters.
-* Parameters - the list of parameters that is currently being mapped.
-* TargetType - the type of the object that is currently being mapped.
+			if (reader.GetName(column) == "Glass")
+				return "Stein";			// a string value specifies the name of the field/property
+
+			return "__unmapped__";		// returning an invalid string value prevents other handlers from mapping 
+		}
+	}
+
+	class MyParameterMapper : IParameterMapper
+	{
+		string MapParameter(Type type, IDbCommand command, IDataParameter parameter)
+		{
+			if (command.CommandText != "MyProc")
+				return null;			// null allows another handler to try
+
+			if (parameter.ParameterName == "Glass")
+				return "Stein";			// a string value specifies the name of the field/property
+
+			return "__unmapped__";		// returning an invalid string value prevents other handlers from mapping 
+		}
+	}
+
+Notes on mapping:
+
+* The mapping methods are called once when the binding code is generated.
+* Transforms are applied before mapping occurs.
+* All transforms are run in sequence, so you can chain multiple transforms.
+* The mappers are called in order until one of them returns a non-null value.
+* If the field is not found on the given type, the column/parameter is unbound.
+* For parameters and TVPs, you can specify subobjects by mapping to "field.childfield". Insight will split on the dots and drill into child objects.
 
 ## Column Overrides ##
 
-If you need to override columns for individual queries, the best way to do it is to create a new record reader:
+If you need to override columns for individual queries, the easiest way to do it is to create a new record reader:
 
 	// the structure object is immutable, so you should cache it
 	var structure = new OneToOne<MyObject>(
@@ -129,5 +158,33 @@ If you need to override columns for individual queries, the best way to do it is
 
 By default, the `OneToOne` class does an automatic mapping from the recordset to your object. Here, we created a new `OneToOne` that reads `MyObject`, but puts the `Foo` column into the `ID` property. Then we can pass that into any method that has a `returns` parameter. You can also use it to build multiple results, parent/child, etc.
 
+## Binding Into Children ##
+
+Sometimes you want Insight to be able to automatically peek into an object to extract parameters. You can tag classes with the `BindChildrenFor` attribute, and Insight can then look inside for you.
+
+	[BindChildrenFor(BindFor.All)]
+	class Beer
+	{
+		public int ID;
+		public Glass Glass;
+	}
+
+	class Glass
+	{
+		public int GlassID;
+	}
+
+	CREATE PROC MyProc(@ID int, @GlassID int)
+
+	// GlassID is not found on Beer, so it looks in Glass
+	Connection().Execute("MyProc", beer);
+
+If you don't want to do this with attributes, you can enable it through configuration:
+
+	ColumnMapping.All.EnableChildBinding<Beer>();	// insight can peek into beer anytime
+	ColumnMapping.Parameters.EnableChildBinding<Glass>(); // peek into glasses when parameter binding
+	ColumnMapping.All.EnableChildBinding<object>();	// always use this handy feature
+
+Unfortunately, this has to be done at the class level, and can't be turned on/off at the query/statement level at this time without using a custom mapper.
 
 [[Specifying Result Structures]] - BACK || NEXT- [[Custom Result Objects]]

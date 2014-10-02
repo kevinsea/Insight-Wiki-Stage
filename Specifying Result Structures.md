@@ -75,13 +75,20 @@ Now Insight knows that you want a list of beer records, each with a list of glas
 
 Insight will assume that the `Beer` class has an ID field, and that the first column in the glasses query is the Beer ID. Then it will break up the glasses into lists and assign them into your Beer objects.
 
-To determine the ID field, Insight uses the following order of precedence:
+To determine the Parent ID field, Insight uses the following order of precedence:
 
-1. The field explicitly requested in the structure definition.
-2. The field on the class marked with the `[RecordId]` attribute.
+1. The field(s) explicitly requested in the structure definition's id parameter.
+2. The field(s) on the parent class marked with the `[RecordId]` attribute.
 3. A field called "ID".
 4. A field called "classID", where "class" is the short name of the class.
 5. A field ending in "ID".
+
+To determine a child ID field, Insight uses the following order of precedence:
+
+1. The field(s) explicitly requested in the structure definition's GroupBy clause.
+2. The field(s) on the child class marked with the `[ParentRecordId]` attribute.
+3. A field called "ParentID".
+4. If none of the above, assume the fields are not in the child class, and grab enough fields to match the number of fields in the Parent class's ID field. 
 
 To determine the target list field, Insight uses the following order of precedence:
 
@@ -98,10 +105,27 @@ The list field/property can be any of the following types:
 
 If Insight doesn't guess the ID field or list field right, you can tell it with attributes.
 
+Here, we use Beer.ID as the parent key, an anonymous column for the Glass key, and put the glasses into Glasses:
+
 	class Beer
 	{
 		[RecordId] public int ID;
 		[ChildRecords] public IList<Glass> Glasses;
+	}
+
+Here, we auto-detect Beer.ID as the parent key, use Glass.BeerID the Glass key, and put the glasses into Glasses:
+
+	class Beer
+	{
+		public int ID;
+		public IList<Glass> Glasses;
+	}
+
+	class Glass
+	{
+		[ParentRecordId]
+		public int BeerID;
+		public IList<Glass> Glasses;
 	}
 
 Or you can tell it with hints on the query:
@@ -114,9 +138,77 @@ Or you can tell it with hints on the query:
 				id: beer => beer.ID,
 				into: (beer, glass) => beer.Glasses = glass);
 
+For interfaces, you can add hints on the Recordset attribute:
+
+	public interface IHaveStructure
+	{
+		[Recordset(1, typeof(Glass), ID="ID", GroupBy="BeerID", Into="Glasses")]
+		IList<Beer>GetBeerAndChildren();
+	}
+
+Here:
+
+	* ID = parent id fields.
+	* GroupBy = child id fields.
+	* Into = the list field.
+
 Other Notes:
 
 * The way it's coded, it's possible for more than one parent to have a given ID, so it's actually possible to return many-to-many mappings. Woot. 
+
+## Composite Keys ##
+
+You can also match objects that have composite keys:
+
+Here, we use attributes to specify Beer.ID1/ID2 as the parent key, use Glass.ID1/ID2 the Glass key, and put the glasses into Glasses:
+
+	class Beer
+	{
+		[RecordId(0)] public int ID1;
+		[RecordId(1)] public int ID2;
+		public IList<Glass> Glasses;
+	}
+
+	class Glass
+	{
+		[ParentRecordId(0)] public int BeerID1;
+		[ParentRecordId(1)]	public int BeerID2;
+
+		public IList<Glass> Glasses;
+	}
+
+Or you can tell it with hints on the query:
+
+
+	var results = connection.Query("GetBeerAndPossibleGlasses", Parameters.Empty,
+		Query.Returns(Some<Beer>.Records)
+			.ThenChildren(
+				Some<Glasses>.Records.GroupBy(g => Tuple.Create(g.ID1, g.ID2)),
+				id: beer => Tuple.Create(beer.BeerID1, beer.BeerID2),
+				into: (beer, glass) => beer.Glasses = glass);
+
+For interfaces, you can add the hints on the Recordset attribute:
+
+	public interface IHaveStructure
+	{
+		[Recordset(1, typeof(Glass), ID="ID1,ID2", GroupBy="BeerID1,BeerID2", Into="Glasses")]
+		IList<Beer>GetBeerAndChildren();
+	}
+
+Here:
+
+	* ID = parent id fields.
+	* GroupBy = child id fields.
+	* Into = the list field.
+
+If you omit GroupBy or id, Insight will try to guess at the columns to use for matching.
+
+Some notes:
+
+* Hints on the query have the highest precedence.
+* For hints on the query, you can use any comparable object for the composite key, but it's generally easiest to use Tuple.
+* If you don't specify a hint or attribute for the child class, Insight will assume that the number and type of key columns match the parent class, but will store them outside the child class when grouping the objects. In this case, the key fields need to be the first columns in the child recordset.
+* If you want to use the members of the child class, use the ParentRecordId hint or the GroupBy construct. In this case, the key columns can be in any position in the child recordset. 
 
 ## Mixing and Matching ##
 
