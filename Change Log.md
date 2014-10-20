@@ -1,5 +1,9 @@
 # Change Log #
 
+## v5.0.1 ##
+
+* Fixed Issue #152 - string output variables were sending the incorrect length to the server.
+
 ## v5.0.0 ##
 
 * Allow parameters & values to map into subobjects.
