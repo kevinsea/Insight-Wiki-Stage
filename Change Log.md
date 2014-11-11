@@ -1,5 +1,9 @@
 # Change Log #
 
+## v5.1 ##
+
+* Support for non-default constructors
+
 ## v5.0.3 ##
 
 * Fixed Issue #156 - Derived classes could not override column name.

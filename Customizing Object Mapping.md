@@ -187,4 +187,63 @@ If you don't want to do this with attributes, you can enable it through configur
 
 Unfortunately, this has to be done at the class level, and can't be turned on/off at the query/statement level at this time without using a custom mapper.
 
+## Constructors ##
+
+Insight will use the following rules for selecting a constructor:
+
+1. If a constructor is marked with `[SqlConstructor]`, then Insight will use that constructor.
+2. Otherwise, if there is *exactly* one constructor, then Insight will use that.
+3. Otherwise, Insight will use the default constructor. If there is no default constructor, an exception is thrown.
+
+When mapping each constructor parameter:
+
+* Insight will assume that the parameter name matches a field/property.
+* Constructor parameters will inherit any column mappings and custom serializers of the field/property with the same name.
+* Finally, after the constructor is called, Insight will map any remaining fields/properties that were not passed to the constructor.
+
+Example:
+
+       public class ConstructorTest
+       {
+            // this column mapping is also applied to the parameter
+            // also note that this has a readonly field
+            [Column("foo")]
+            public readonly int A;
+
+			public int B;
+
+            // also, the name 'a' needs to match the field/property A (case-insensitive)
+            public ConstructorTest(int a)
+            {
+                A = a;
+            }
+        }
+
+        [Test]
+        public void TestConstructorTest()
+        {
+            var a = Connection().QuerySql<ConstructorTest>("SELECT Foo=3, B=4").First();
+            Assert.AreEqual(3, a.A);
+            Assert.AreEqual(4, a.B);
+        }
+
+       public class TwoConstructors
+       {
+            public int A;
+			public int B;
+
+			public TwoConstructors()
+			{
+			}
+
+			// tell Insight that this is the constructor you want to use
+			[SqlConstructor]
+            public TwoConstructors(int a, int b)
+            {
+                if (a == b) throw new ArgumentException("must not equal");
+            }
+        }
+
+ 
+
 [[Specifying Result Structures]] - BACK || NEXT- [[Custom Result Objects]]
