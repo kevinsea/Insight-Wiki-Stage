@@ -1,5 +1,17 @@
 # Change Log #
 
+## v5.0.3 ##
+
+* Fixed Issue #156 - Derived classes could not override column name.
+* Added WithoutNulls methods to FastExpando (see Issue #157).
+* Fixed Issue #158 - BulkCopy fails when connection is wrapped with Glimpse.
+* Fixed Issue #159 - SingleReader fails when no records are returned. 
+
+## v5.0.2 ##
+
+* Fixed Issue #154 - `ExecuteScalar<string>` fails when no records are returned.
+* Added ArgumentNull checks for As extension methods.
+
 ## v5.0.1 ##
 
 * Fixed Issue #152 - string output variables were sending the incorrect length to the server.
