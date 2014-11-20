@@ -3,6 +3,7 @@
 ## v5.1 ##
 
 * Support for non-default constructors
+* Fixed #162/163 - bulk copy when a middle column is computed or readonly
 
 ## v5.0.3 ##
 
