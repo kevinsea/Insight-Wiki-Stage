@@ -80,7 +80,7 @@ To determine the Parent ID field, Insight uses the following order of precedence
 1. The field(s) explicitly requested in the structure definition's id parameter.
 2. The field(s) on the parent class marked with the `[RecordId]` attribute.
 3. A field called "ID".
-4. A field called "classID", where "class" is the short name of the class.
+4. A field ending in "_ID".
 5. A field ending in "ID".
 
 To determine a child ID field, Insight uses the following order of precedence:
@@ -88,13 +88,16 @@ To determine a child ID field, Insight uses the following order of precedence:
 1. The field(s) explicitly requested in the structure definition's GroupBy clause.
 2. The field(s) on the child class marked with the `[ParentRecordId]` attribute.
 3. A field called "ParentID".
-4. If none of the above, assume the fields are not in the child class, and grab enough fields to match the number of fields in the Parent class's ID field. 
+4. A field ending in  "_ParentID".
+5. A field ending in  "ParentID".
+6. If none of the above, assume the fields are not in the child class, and grab enough fields to match the number of fields in the Parent class's ID field. 
 
 To determine the target list field, Insight uses the following order of precedence:
 
 1. The field explicitly requested in the structure definition.
 2. The field on the class marked with the `[ChildRecords]` attribute that matches the type of the list.
 3. Any field matching the type of the list.
+4. Any field matching the type of the child object. In this case, only a single record is read from the child recordset.
 
 The list field/property can be any of the following types:
 
@@ -102,6 +105,7 @@ The list field/property can be any of the following types:
 * IEnumerable<T>
 * ICollection<T>
 * List<T>
+* T - in this case, only a single record is read from the child recordset.
 
 If Insight doesn't guess the ID field or list field right, you can tell it with attributes.
 
