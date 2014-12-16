@@ -1,5 +1,16 @@
 # Change Log #
 
+## v5.1.1 ##
+
+* Fixed Issue #168 - support for detecting ID fields ending in _id
+* Fixed Issue #167 - dynamic parameters can now contain enumerables for TVPs
+* Implemented Issue #164 - child recordsets can now map to single records
+* Fixed Issue #171 - wrapped providerr did not unwrap bulkcopyasync calls
+* Added missing RegisterProvider method for Postgres
+* Fixed Issue #174 - sql parameters should be case-insensitive in sql text
+* Implemented Issue #173 - new ExecuteXml methods for SqlConnections
+* Implemented Issue #175 - added an automatic schema-changing wrapper for postgres
+
 ## v5.1 ##
 
 * Support for non-default constructors
