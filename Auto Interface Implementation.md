@@ -189,7 +189,16 @@ To fix this, tell Insight to create a multi-threaded interface implementation by
 
 A parallel interface will use a new connection for each method call. You don't have to worry about method calls conflicting anymore. The only difference is that parallel connections don't let you manage the connection lifetime with `Open` or use transactions with `OpenWithTransactionAs`.
 
-If you want to use parallel connections in a transaction, you would need to use `System.Transactions` to create a lightweight distributed transaction. But in that case, you probably should stick to single-threaded. 
+If you want to use parallel connections in a transaction, you would need to use `System.Transactions` to create a lightweight distributed transaction. But in that case, you probably should stick to single-threaded.
+
+**IMPORTANT NOTE** - if you are using Password-based security with AsParallel see below:
+
+When using password-based security, .NET will erase the password from your connection string when the connection is opened. Insight implements AsParallel by cloning the database connection from the connection string. If you pass an connection to AsParallel, then open it outside of the AsParallel method, the connection will not have a password to connect to the database. To correct this, do one of the following:
+
+* Use `AsParallel` only directly with connection strings, not with DbConnections.
+* Add `Persist Security Info=true;` to your connection string.
+* Use `Integrated Security=true;` for your connections.
+  
 
 ## Private Interfaces ##
 

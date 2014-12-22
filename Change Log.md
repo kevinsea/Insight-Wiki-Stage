@@ -1,5 +1,13 @@
 # Change Log #
 
+## v5.2.0 ##
+
+* Implemented #178 - BooleanSerializers (see [[Object Serialization]]) and allow atomic fields to have custom serializers.
+* Fixed Issue #177 - Using Passwords with AsParallel could fail if connection is opened directly.
+* Fixed Issue #177 - some test cases fail with password authorization.
+* Fixed Issue #127 - support for multiple database/providers in the same process.
+* Updated readme.md to link to my novel so you can support Insight.Database by buying it and leaving a positive review. In case you missed it: [UNDO! The True Legend of Eugene the Misconceived](http://www.amazon.com/Undo-True-Legend-Eugene-Misconceived-ebook/dp/B00PQWJWSI)
+
 ## v5.1.1 ##
 
 * Fixed Issue #168 - support for detecting ID fields ending in _id

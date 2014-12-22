@@ -61,6 +61,32 @@ If you think DataContractJsonSerializer is slow, and you would rather use Newton
 
 Then Insight will use the JSON.NET serializer for JSON conversions.
 
+## Boolean Serializers ##
+
+Since a lot of databases don't have a bit type (e.g. Oracle), you might need to convert boolean values to things like "T" and "F". Starting in v5.2, you get a few built-in boolean serializers:
+
+* BooleanYNSerializer
+* BooleanTFSerializer
+* BooleanTrueFalseSerializer
+* Boolean10Serializer
+* BooleanSerializer - roll your own like new `BooleanSerializer(DbType.String, "Foo", "Bar")` 
+
+You can install them with any of the methods, including globally like this:
+
+	DbSerializationRule.Serialize<bool>(new BooleanYNSerializer());
+
+Or for a specific field:
+
+	DbSerializationRule.Serialize<MyClass>("MyField", new BooleanYNSerializer());
+
+Or with an attribute:
+
+	public class MyClass
+	{
+		[Column(SerializationMode=SerializationMode.Custom, Serializer=typeof(Boolean10Serializer))]
+		public bool MyField;
+	}
+
 ## Custom Serializers ##
 
 If you have a need for custom serialization, you can create your own object serializer:
