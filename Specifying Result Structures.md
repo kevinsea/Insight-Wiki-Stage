@@ -284,4 +284,4 @@ Now we use the `SingleReader` to get a single record, and the `ThenChildren` ext
 		Query.ReturnsSingle<Order>()
 	    	.ThenChildren(Some<Sampler>.Records);
 
-[[Mapping Results to Objects]] - BACK || NEXT- [[Record Readers]]
+[[Customizing Object Mapping]] - BACK || NEXT- [[Record Readers]]
