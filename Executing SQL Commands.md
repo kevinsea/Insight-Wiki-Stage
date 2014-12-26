@@ -34,4 +34,4 @@ Insight also supports ExecuteScalar and ExecuteScalarSql. These methods return t
 
 Note how these methods automatically convert the return type to a type you specify.
 
-[[Auto-Open]] - BACK || NEXT- [[Executing SQL Commands]]
+[[Auto-Open]] - BACK || NEXT- [[Querying for Objects]]
