@@ -246,4 +246,4 @@ Example:
 
  
 
-[[Specifying Result Structures]] - BACK || NEXT- [[Custom Result Objects]]
+[[Mapping Results To Objects]] - BACK || NEXT- [[Specifying Result Structures]]
