@@ -2,7 +2,9 @@
 
 ## v5.2.0 ##
 
+* Implemented #169 - Updated rules for detecting parent IDs when automatically calculating group by.
 * Implemented #178 - BooleanSerializers (see [[Object Serialization]]) and allow atomic fields to have custom serializers.
+	* **Minor Breaking Change** - The signatures for some DbObjectSerializer methods have changed. If you have created a custom object serializer, it may no longer be compatible. If this is a big issue for you, let me know and I'll put in a method to maintain compatibility. 
 * Fixed Issue #177 - Using Passwords with AsParallel could fail if connection is opened directly.
 * Fixed Issue #177 - some test cases fail with password authorization.
 * Fixed Issue #127 - support for multiple database/providers in the same process.

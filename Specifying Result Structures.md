@@ -75,22 +75,23 @@ Now Insight knows that you want a list of beer records, each with a list of glas
 
 Insight will assume that the `Beer` class has an ID field, and that the first column in the glasses query is the Beer ID. Then it will break up the glasses into lists and assign them into your Beer objects.
 
-To determine the Parent ID field, Insight uses the following order of precedence:
+To determine the ID field of a parent object, Insight uses the following order of precedence:
 
 1. The field(s) explicitly requested in the structure definition's id parameter.
-2. The field(s) on the parent class marked with the `[RecordId]` attribute.
+2. The field(s) on the class marked with the `[RecordId]` attribute.
 3. A field called "ID".
 4. A field ending in "_ID".
 5. A field ending in "ID".
 
-To determine a child ID field, Insight uses the following order of precedence:
+To determine the parent's ID field in a child object, Insight uses the following order of precedence:
 
 1. The field(s) explicitly requested in the structure definition's GroupBy clause.
-2. The field(s) on the child class marked with the `[ParentRecordId]` attribute.
+2. The field(s) on the class marked with the `[ParentRecordId]` attribute.
 3. A field called "ParentID".
 4. A field ending in  "_ParentID".
 5. A field ending in  "ParentID".
-6. If none of the above, assume the fields are not in the child class, and grab enough fields to match the number of fields in the Parent class's ID field. 
+6. A set of field(s) that have the same name(s) as the ID fields in the parent class.
+7. If none of the above, assume the fields are not in the child class, and grab enough fields to match the number of fields in the Parent class's ID field. 
 
 To determine the target list field, Insight uses the following order of precedence:
 

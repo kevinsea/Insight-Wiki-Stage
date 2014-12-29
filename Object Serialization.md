@@ -93,12 +93,12 @@ If you have a need for custom serialization, you can create your own object seri
 
 	public class MyDbObjectSerializer : DbObjectSerializer
 	{
-		public abstract object SerializeObject(Type type, object o)
+		public override object SerializeObject(Type type, object o)
 		{
 			return object.ConvertToString();
 		}
 
-		public abstract object DeserializeObject(Type type, object encoded)
+		public override object DeserializeObject(Type type, object encoded)
 		{
 			return encoded.ConvertToObject();
 		}
