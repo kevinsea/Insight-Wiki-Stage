@@ -78,10 +78,12 @@ Insight will assume that the `Beer` class has an ID field, and that the first co
 To determine the ID field of a parent object, Insight uses the following order of precedence:
 
 1. The field(s) explicitly requested in the structure definition's id parameter.
-2. The field(s) on the class marked with the `[RecordId]` attribute.
+2. The field(s) on the parent class marked with the [RecordId] attribute.
 3. A field called "ID".
-4. A field ending in "_ID".
-5. A field ending in "ID".
+4. A field called "_ID", e.g. Beer_ID for class Beer. (v5.2+)
+5. A field called "ID", e.g. BeerID for class Beer. (v5.2+)
+6. A field ending in "_ID", e.g. Brewski_ID for class Beer. (v5.1.1+)
+7. A field ending in "ID", e.g. BrewskiID. for class Beer.
 
 To determine the parent's ID field in a child object, Insight uses the following order of precedence:
 
@@ -91,7 +93,7 @@ To determine the parent's ID field in a child object, Insight uses the following
 4. A field ending in  "_ParentID".
 5. A field ending in  "ParentID".
 6. A set of field(s) that have the same name(s) as the ID fields in the parent class.
-7. If none of the above, assume the fields are not in the child class, and grab enough fields to match the number of fields in the Parent class's ID field. 
+7. If none of the above, assume the fields are not in the child class, and grab enough *hidden* fields to match the number of fields in the Parent class's ID field. 
 
 To determine the target list field, Insight uses the following order of precedence:
 
