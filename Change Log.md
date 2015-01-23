@@ -1,5 +1,11 @@
 # Change Log #
 
+## v5.2.1 ##
+
+* Fixed Issue #180 -ReliableConnection was not compatible with OpenWithTransaction
+* Fixed Issue #185 - ODBC provider can now use named parameters for SQL Text commands
+* ColumnAttribute can now be applied to interface parameters for renaming and other cool stuff.
+
 ## v5.2.0 ##
 
 * Implemented #169 - Updated rules for detecting parent IDs when automatically calculating group by.
