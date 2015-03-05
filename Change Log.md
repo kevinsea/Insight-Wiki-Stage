@@ -1,5 +1,20 @@
 # Change Log #
 
+## v5.2.3 ##
+
+* Fixed InvalidOperationException if entity has a lot of properties.
+* Fixed multiple issues with converting Guids to/from strings. (I hate Guids.)
+* Cleaned up lingering CodeAnalysis issues because I was running VS Express and now I'm back to VS Community. (Apologies if this broke something unexpected.)
+* Fixed a nagging build issue.
+* Temporarily disabled Sybase ASE tests because my server isn't working.
+* Started work on vagrant support for the test box.
+
+## v5.2.2 ##
+
+* Fixed Issue #188 - JSON build with NET40
+* Fixed Issue #189 - allow .Then.Then to continue with .ThenChildren
+* Fixed a minor issue with Compatibility3x
+
 ## v5.2.1 ##
 
 * Fixed Issue #180 -ReliableConnection was not compatible with OpenWithTransaction
