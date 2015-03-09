@@ -1,5 +1,8 @@
 # Change Log #
 
+* Fixed Issue #194 - Issue with dynamic parameters and TVPs.
+* Added a vagrant box that includes all of the test servers other than SQL Server. Requires about 10GB of space.
+
 ## v5.2.3 ##
 
 * Fixed InvalidOperationException if entity has a lot of properties.
