@@ -56,6 +56,63 @@ Output Parameters are not supported in PostgreSQL. Instead, all output parameter
 
 Bulkcopy is supported. It is implemented by converting your objects to a CSV stream and sending them to the server. It's probably not the most efficient way to do it but it works.
 
+## Support for JSON/JSONB Types ##
+
+JSON fields work pretty well with PostgreSQL.
+
+Let's say you have a table with a JSON data field:
+
+	CREATE TABLE Users (Id integer NOT NULL, JsonData json)
+
+You can automatically convert subobjects into/out of the JSON field, **as long as you set the serialization mode to JSON.**
+ 
+	public class User
+	{
+		public long Id { get; set; }
+
+		[Column(SerializationMode=SerializationMode.Json)]
+		public TestData JsonData { get; set; }
+	}
+
+	var testData = new TestData() { X = 1, Z = 2 };
+	var user = new User() { Id = 1, JsonData = input };
+
+	// round-trip the object into JSON
+	_connection.ExecuteSql("INSERT INTO Users (Id, JsonData) VALUES (@Id, @JsonData)", user);
+	var result = _connection.QuerySql<User>(@"SELECT Users.* FROM Users").First();
+
+This even works with stored procs.
+
+	CREATE TYPE PostgreSQLTestType AS (Id integer, JsonData jsonb)
+	CREATE OR REPLACE FUNCTION PostgreSQLTestExecute (Id integer, JsonData jsonb) 
+	RETURNS SETOF PostgreSQLTestType
+	AS $$
+	BEGIN 
+		RETURN QUERY SELECT id as id, JsonData as JsonData;
+	END;
+	$$ LANGUAGE plpgsql;
+
+	var result = _connection.Query<User>("PostgreSQLTestExecute", user).First();
+
+The only gotcha is if you want to post a **JSON string** into a JSON field using raw sql (not a stored proc). With raw SQL, there's no way for Insight to know that a particular parameter is JSON data. (We could make a special JsonString data type, but you really don't want us to do that.) 
+
+The workaround is pretty simple: convert the string to JSON on the server side. See the example below, where we just add `::JSON` to the `@JsonData` parameter. You're already doing raw SQL, so this shouldn't be that bad.
+
+	public class UserWithJsonString
+	{
+		public long Id { get; set; }
+		public string JsonData { get; set; }	// you're serializing this manually? why, when we make it so easy for you!
+	}
+	
+	var users = new UserWithJsonString()
+	{
+		Id = 1,
+		JsonData = (string)JsonObjectSerializer.Serializer.SerializeObject(typeof (TestData), new TestData() { X = 1, Z = 2 })
+	};
+ 
+	_connection.ExecuteSql("INSERT INTO Users (Id, JsonData) VALUES (@Id, @JsonData::JSON)", users);
+
+
 ## Known Issues ##
 
 * Table-Valued Parameters are not currently supported by the Npgsql driver.
