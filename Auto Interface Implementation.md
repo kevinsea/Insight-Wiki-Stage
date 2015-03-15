@@ -41,6 +41,17 @@ When generating the implementation of the interface, Insight uses the DbConnecti
 - other type, primitive type => ExecuteScalar
 - other type, otherwise => Single
 
+**IMPORTANT NOTE: If your Insert/Upsert method does not return void, any IDs that you return will not be mapped onto your objects, since the IDs are returned as the result of the method**
+
+Example:
+
+	CREATE PROC InsertBeer(...) AS INSERT INTO Beer () OUTPUT Inserted.ID ...
+
+	void InsertBeer(Beer b); // this returns void, so the inserted id is merged onto your object
+
+    int InsertBeer(Beer b); // this returns int, so the inserted id is returned from the function
+
+
 For methods that return Task, Insight uses the same rules as above, but the methods are called asynchronously:
 
 - `Task` => same as `void`
