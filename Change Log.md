@@ -1,7 +1,11 @@
 # Change Log #
 
+## v5.2.4 ##
+
 * Fixed Issue #194 - Issue with dynamic parameters and TVPs.
 * Added a vagrant box that includes all of the test servers other than SQL Server. Requires about 10GB of space.
+* Fixed an issue converting Nullable Guids to varchar
+* Implemented Issue #194 - JSON/B data types in PostgreSQL
 
 ## v5.2.3 ##
 
