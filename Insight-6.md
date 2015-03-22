@@ -177,3 +177,5 @@ These features feel neat, and I think I could do them without trashing the codeb
 Do you think you would use any/all of these features? Has anything else been nagging you?
 
 Add your notes here.
+
+* JB : One thing that would be helpful would be support for sorting. I'm not sure how it could work, but it's fairly common to want to arbitrarily change the sort order of a query.
