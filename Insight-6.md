@@ -41,7 +41,7 @@ I'm thinking that Insight6 could generate the SQL (i.e. not require a proc) for 
 
 These are pretty simple to implement. Insight should be able to detect the columns and Primary Keys and make this happen.
 
-JB: I like this ^^^^
+* JB: I like this ^^^^
 
 **What about XXXMany on other databases?** - currently InsertMany requires TVPs, which isn't supported on all databases.
 
@@ -55,7 +55,7 @@ It should also be able to handle a few more operations by key fields:
 	conn.Delete<Beer>(object key);
 	conn.Delete<Beer>(new { Id = 4 });
 
-JB: Definitely to this ^^^^
+* JB: Definitely to this ^^^^
 
 This begs the question of whether we want to allow for arbitrary WHERE clauses in SelectMany or DeleteMany:
 
@@ -65,7 +65,7 @@ This begs the question of whether we want to allow for arbitrary WHERE clauses i
 	// delete all of the beers with an OG of 1
 	conn.DeleteMany<Beer>(new { Gravity = 1 });
 
-JB: If it's not too hard, yes. I'm not sure how many people will know to use this.
+* JB: If it's not too hard, yes. I'm not sure how many people will know to use this.
 
 An alternate version of this could use Expressions. This is nice, because then we can use **operators**.
 
@@ -76,7 +76,7 @@ An alternate version of this could use Expressions. This is nice, because then w
 
 Let me repeat here that I **don't** want this to turn into another way of writing SQL. I also don't want to rewrite Entity Framework. I just want to eliminate the repetitive SQL that you write.
 
-JB: **IF** this can be done so that it works in all cases (i.e. if I have a pretty complex expression), then okay. Again, I'm not sure how much it will be used. I'd rather you expand times on the Insight Schema management for other databases instead of this. If I had an alternative to migrations for PG and mySql **AND** I could use Insight end-to-end, that'd be a pretty huge win for me.
+* JB: **IF** this can be done so that it works in all cases (i.e. if I have a pretty complex expression), then okay. Again, I'm not sure how much it will be used. I'd rather you expand times on the Insight Schema management for other databases instead of this. If I had an alternative to migrations for PG and mySql **AND** I could use Insight end-to-end, that'd be a pretty huge win for me.
 
 ## A Question ##
 
@@ -124,7 +124,7 @@ Or a templated repository:
 
 Either one could automatically generate the SQL.
 
-JB: Probably not a feature I'd use all that often. But that doesn't mean you shouldn't do it. I'd like to hear what others say.
+* JB: Probably not a feature I'd use all that often. But that doesn't mean you shouldn't do it. I'd like to hear what others say.
 
 ## Performance ##
 
@@ -163,7 +163,7 @@ If we can reasonably generate the SQL because of the other things above, we woul
 
 At this point, we're not too far from having a fully-featured ORM, so it's tempting to attempt. At the same time, it can add a LOT of complexity and overhead.
 
-JB: Nonononono
+* JB: Nonononono
 
 ## Squishy Feelings ##
 
