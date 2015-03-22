@@ -2,6 +2,10 @@
 
 It's available as a [NuGet Package](http://www.nuget.org/packages/Insight.Database/).
 
+
+**Please comment on [[Insight 6]] Proposed Features & Design.**
+
+
 ## Why You Want Insight.Database ##
 It **just works**...
 
