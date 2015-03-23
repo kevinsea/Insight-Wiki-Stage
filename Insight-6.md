@@ -179,3 +179,5 @@ Do you think you would use any/all of these features? Has anything else been nag
 Add your notes here.
 
 * JB : One thing that would be helpful would be support for sorting. I'm not sure how it could work, but it's fairly common to want to arbitrarily change the sort order of a query.
+
+* RP : I get where you are going with this, but I think Insight will cease to be a micro-ORM. What Insight does now is powerful and simplistic for the developer who uses it, but the risk here is that it becomes another SharePoint (does a lot of stuff, but none of it particularly well, or not as good as it once was). I also think that introducing a LinqProvider would be a wonderful challenge but it might just be a black-hole for your time. If you do go ahead with these features (which would be cool, don't get me wrong), I would prefer to see it packaged in isolation from the existing Insight packages.
