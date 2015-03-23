@@ -66,6 +66,7 @@ This begs the question of whether we want to allow for arbitrary WHERE clauses i
 	conn.DeleteMany<Beer>(new { Gravity = 1 });
 
 * JB: If it's not too hard, yes. I'm not sure how many people will know to use this.
+* CH: Writing a WHERE clause as an object strikes me as a bit weird. 
 
 An alternate version of this could use Expressions. This is nice, because then we can use **operators**.
 
@@ -77,6 +78,7 @@ An alternate version of this could use Expressions. This is nice, because then w
 Let me repeat here that I **don't** want this to turn into another way of writing SQL. I also don't want to rewrite Entity Framework. I just want to eliminate the repetitive SQL that you write.
 
 * JB: **IF** this can be done so that it works in all cases (i.e. if I have a pretty complex expression), then okay. Again, I'm not sure how much it will be used. I'd rather you expand times on the Insight Schema management for other databases instead of this. If I had an alternative to migrations for PG and mySql **AND** I could use Insight end-to-end, that'd be a pretty huge win for me.
+* CH: Expressions are less weird to write WHERE clauses. It would feel more natural to write it as `IList<Beer> beer = conn.SelectMany<Beer>().Where(b => b.Gravity > 1);` but that make is feel a lot like rewriting Entity Framework/Linq... Maybe expressions are a slippery slope. I can see the benefit of having simple WHERE clauses being represented in C#, I'm just not sure where the cut off point is where the WHERE clause is too complex and SQL should just be used.
 
 ## A Question ##
 
@@ -102,6 +104,8 @@ Or:
 	var results = conn.Select(b => b.ID = 4, customer => customer.ID = 5,
 		Query.Returns(Some<Beer>.Records)
 			.Then(Some<Customer>.Records));
+
+* CH: It would be cool if it all hooked in and worked nicely with the QueryReader system
 
 ## Interfaces ##
 
@@ -164,6 +168,7 @@ If we can reasonably generate the SQL because of the other things above, we woul
 At this point, we're not too far from having a fully-featured ORM, so it's tempting to attempt. At the same time, it can add a LOT of complexity and overhead.
 
 * JB: Nonononono
+* CH: I don't think I'd want a DbContext object. It would be neat if Insight did the right things automatically for me in terms of performance. 
 
 ## Squishy Feelings ##
 
@@ -181,3 +186,5 @@ Add your notes here.
 * JB : One thing that would be helpful would be support for sorting. I'm not sure how it could work, but it's fairly common to want to arbitrarily change the sort order of a query.
 
 * RP : I get where you are going with this, but I think Insight will cease to be a micro-ORM. What Insight does now is powerful and simplistic for the developer who uses it, but the risk here is that it becomes another SharePoint (does a lot of stuff, but none of it particularly well, or not as good as it once was). I also think that introducing a LinqProvider would be a wonderful challenge but it might just be a black-hole for your time. If you do go ahead with these features (which would be cool, don't get me wrong), I would prefer to see it packaged in isolation from the existing Insight packages.
+
+* CH: I'd use the simple Select/Update. I'm not sure I'd really use more complex expressions, I'd rather write some of that SQL myself. 
