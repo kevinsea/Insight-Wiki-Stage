@@ -1,5 +1,10 @@
 # Change Log #
 
+## v5.2.5 ##
+
+* Added more meaningful error messages when providers are not found.
+* Fixed Issue #199 - different column name overrides in related classes.
+
 ## v5.2.4 ##
 
 * Fixed Issue #194 - Issue with dynamic parameters and TVPs.
