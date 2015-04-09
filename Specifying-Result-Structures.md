@@ -179,9 +179,7 @@ Here, we use attributes to specify Beer.ID1/ID2 as the parent key, use Glass.ID1
 	class Glass
 	{
 		[ParentRecordId(0)] public int BeerID1;
-		[ParentRecordId(1)]	public int BeerID2;
-
-		public IList<Glass> Glasses;
+		[ParentRecordId(1)] public int BeerID2;
 	}
 
 Or you can tell it with hints on the query:
@@ -190,8 +188,8 @@ Or you can tell it with hints on the query:
 	var results = connection.Query("GetBeerAndPossibleGlasses", Parameters.Empty,
 		Query.Returns(Some<Beer>.Records)
 			.ThenChildren(
-				Some<Glasses>.Records.GroupBy(g => Tuple.Create(g.ID1, g.ID2)),
-				id: beer => Tuple.Create(beer.BeerID1, beer.BeerID2),
+				Some<Glasses>.Records.GroupBy(g => Tuple.Create(g.BeerID1, g.BeerID2)),
+				id: beer => Tuple.Create(beer.ID1, beer.ID2),
 				into: (beer, glass) => beer.Glasses = glass);
 
 For interfaces, you can add the hints on the Recordset attribute:
