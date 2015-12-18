@@ -155,7 +155,6 @@ Or...
 	IList<Beer> beer = results.Set1;
 	IList<Chip> chips = results.Set2;
 
-
 ## Child Relationships ##
 
 You can also do one-to-many and many-to-many relationships:
@@ -171,7 +170,7 @@ Insight will assume that the first column in the child recordset is the parent I
 
 You also have options to configure how the mapping occurs.
 
-**New in v5.0: Now supporting composite keys!**
+Read more about [[Specifying Result Structures]]
 
 ## Just add Async ##
 If you want to do anything with any amount of load and you don't want the .NET ThreadPool to bite you (trust me, it will), then you need to write your code asynchronously. In general, it's pretty ugly, but Insight will take care of it for you. It even knows when to open and close the connection for you.
