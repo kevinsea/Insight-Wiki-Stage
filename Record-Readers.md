@@ -60,9 +60,9 @@ Note that you can repeat types if you return multiple objects of a given type. S
 
 If you don't like the way Insight divides up the columns, you can override it. Create your own instance of `OneToOne<>`, and specify the idColumns:
 
-	var mapping = new OneToOne<Serving, Beer>(idColumns: new Dictionary<Type, string<()
+	var mapping = new OneToOne<Serving, Beer>(splitColumns: new Dictionary<Type, string>()
 	{
-		{ typeof(Serving), "ServingID", }
+		{ typeof(Serving), "ServingID"},
 		{ typeof(Beer), "BeerID" }
 	});
 
