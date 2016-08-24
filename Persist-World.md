@@ -18,7 +18,7 @@ Let's extend the [[Hello World]] example to do a save:
 
 	AS 
 	BEGIN
-		INSERT INTO [Scratch].[dbo].[StoredProcedure]
+		INSERT INTO [StoredProcedure]
 				   ([Procedure_Name], [Procedure_Owner], [Procedure_Qualifier])
 			 VALUES (@procedure_name, @procedure_owner, @procedure_qualifier)
 	END
