@@ -1,24 +1,19 @@
+Insight is a set of extension methods that make working with database connections a little easier.
+
 # Some Examples #
 
 You can read these to get a flavor for the beer/code.
 
-## Getting Started ##
-
-1. Get the nuGet package: [http://www.nuget.org/packages/Insight.Database](http://www.nuget.org/packages/Insight.Database)
-2. Add a reference to `Insight.Database;` to your code. Insight.Database is wired up using extension methods.
-3. Register your database with `SqlInsightDbProvider.RegisterProvider();` (or another database) 
-4. Relax and enjoy.
-
 ## Executing a Stored Procedure ##
 
-Executing a stored procedure is pretty easy. Just call Execute with the name of the procedure. Pass in an object for the parameters. Insight figures out the rest. Use an anonymous type if you like.
+Executing a stored procedure is pretty easy.  Pass in the name of the procedure and an object for the parameters (create a class or use an anonymous type if you like). Insight figures out the rest.
 
 	var conn = new SqlConnection(connectionString);
 	conn.Execute("AddBeer", new { Name = "IPA", Flavor = "Bitter"});
 
 ## Auto-Open/Close ##
 
-Note that we are too lazy to open and close the connection. Insight does it for you. Many times, you are just making individual one-shot calls to the database, so why should you have to manage that lifetime?
+Note that we are too lazy to open and close the connection. If the connection is closed, Insight will open it for you and close it when its done. Many times, you are just making individual one-shot calls to the database, so why should you have to manage that lifetime?
 
 If you combine this with an DI tool like [Ninject](http://www.ninject.org/), your code can be very clean.
 
