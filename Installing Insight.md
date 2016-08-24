@@ -1,6 +1,9 @@
 It's easy to get started with Insight.Database.
 
-1. Download Insight.Database from [http://www.nuget.org/packages/Insight.Database](http://www.nuget.org/packages/Insight.Database).
+1. Add Insight.Database [Nuget Package](http://www.nuget.org/packages/Insight.Database) to your project.  From the Package Manager Console its:
+
+    `PM> Install-Package Insight.Database`
+
 2. If you're using a database other than SQL Server, get the proper provider package (e.g. Insight.Database.Providers.MySql.
 3. Import the extensions into your code by adding `using Insight.Database;`
 4. Register the provider for your database (see below). 
