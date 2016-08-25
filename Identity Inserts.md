@@ -29,7 +29,7 @@ Then you can use the InsertXXX methods to automatically map the results back to 
 	}
 	...
 	Beer beer = new Beer() { Name = "113 IPA" };
-	Connection.Insert("InsertBeer", beer);
+	connection.Insert("InsertBeer", beer);
 	
 	// beer.ID will automatically have the new identity assigned to it
 
@@ -52,7 +52,7 @@ Now you can send up a whole list of beer at once via the InsertListXXX methods:
 		new Beer() { "Newcastle Brown Ale" }
 	};
 
-	Connection.InsertList("InsertCaseOfBeer", case);
+	connection.InsertList("InsertCaseOfBeer", case);
 
 	// case[0].ID and case[1].ID will be assigned with the new identities
 

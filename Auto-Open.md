@@ -2,7 +2,7 @@ Most of the Insight extension methods support auto-open/auto-close semantics. If
 
 This call will automatically open and close the connection (note the lack of `using` statement):
 
-	var beer = Database.Connection().Query<Beer>("FindBeer", new { Name = "IPA" });
+	var beer = database.Connection().Query<Beer>("FindBeer", new { Name = "IPA" });
 
 This call will leave the connection open between statements:
 
