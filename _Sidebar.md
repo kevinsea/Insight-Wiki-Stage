@@ -9,7 +9,6 @@
     * [[A Quick Tour]]
     * [[Installing Insight]]
     * [[Hello World]]
-    * [[Persist World]]
 * Connections
     * [[Getting A Connection]]
     * [[Auto-Open]]
@@ -19,7 +18,6 @@
     * [[Executing SQL Commands]]
     * [[FastExpando and the Borg Method]]
     * [[Passing Lists to Stored Procedures|Lists of Objects as Parameters]]
-    * [[How Parameter Mapping Works|Query Parameter Mapping]]
     * [[Creating Commands]]
 * Getting Results
     * [[Querying for Objects]]
@@ -32,7 +30,8 @@
     * [[Manual Transformations]]
     * [[Query Readers]]
     * [[Record-Readers]]
-    * [[How Mapping Works|Mapping-Results-to-Objects]]
+    * [[Parameter Mapping in Depth|Query Parameter Mapping]]
+    * [[Result Mapping in Depth|Mapping-Results-to-Objects]]
 * Insert/Update Considerations
     * [[Identity Inserts]]
     * [[Optimistic Concurrency]]
