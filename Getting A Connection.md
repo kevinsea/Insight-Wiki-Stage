@@ -2,10 +2,10 @@ Insight is a set of extension methods that make working with database connection
 
 You can just create your connection the way you always have:
 
-	var database = new SqlConnection(connectionString);
+	var connection= new SqlConnection(connectionString);
 
 	// run a query right off the connection (this performs an auto-open/close)
-	database.Connection().QuerySql("SELECT * FROM Beer");
+	connection.QuerySql("SELECT * FROM Beer");
 
 Insight also provides extensions for getting connections from your configuration objects.
 

@@ -1,4 +1,32 @@
-Let's create a very simple example that puts all of the code together and works right out of the box.  We'll use a stored procedure that's in every MSSQL database since SQL 2008, [sp_stored_procedures](https://msdn.microsoft.com/en-us/library/ms190504.aspx).
+Note this example never sets Beer.ID for new rocords. **Jon what am I doing wrong?**
+
+Let's create a very simple example that puts all of the code together and works right out of the box. 
+
+First, let's create a table and some stored procedures and some test data:
+
+```SQL
+CREATE TABLE Beer (
+	  [ID] int IDENTITY(1,1) PRIMARY KEY
+	, [Type] varchar(128)
+	, [Description] varchar(128)) 
+GO
+
+CREATE PROC InsertBeer @type varchar(128), @description varchar(128) 
+AS
+	INSERT INTO Beer ([Type], [Description]) OUTPUT inserted.ID
+		VALUES (@type, @description)
+GO
+        
+CREATE PROC GetBeerByType @type varchar(128) 
+AS 
+	SELECT * FROM Beer WHERE Type = @type 
+GO
+
+-- Add some data
+EXEC InsertBeer 'IPA', 'Harpoon IPA';
+EXEC InsertBeer 'IPA', 'Heady Topper';
+EXEC InsertBeer 'Swill', 'Pabst Blue Ribbon';
+```
 
 1. Create a Console Application project called 'Insight_HelloWorld' 
 
@@ -6,69 +34,61 @@ Let's create a very simple example that puts all of the code together and works 
 
 1. Paste this code into program.cs:
 
-    ``` C#
-    using System.Collections.Generic;
-    using System.Data.SqlClient;
-    using Insight.Database;
+``` C#
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using Insight.Database;
 
-    namespace Insight_HelloWorld
-    {
-        class Program
-        {
-            static void Main(string[] args)
-            {
-                var repo = new DatabaseInfoRepo();
+namespace Insight_HelloWorld
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			var repo = new BeerRepository();
+			IList<Beer> ipas = repo.GetBeersByType("IPA");
 
-                IList<SpStoredProcResult> procs = repo.GetStoredProcedures("dbo");
+			var newBeer = new Beer() { Type = "Pale Ale", Description = "Test" };
 
-                // foreach (SpStoredProcResult proc in procs)
-                //    repo.SaveStoredProcedure(proc);
-            }
-        }
+			repo.InsertBeer(newBeer);
+			IList<Beer> paleAles = repo.GetBeersByType("Pale Ale");
+		}
+	}
 
-        class DatabaseInfoRepo
-        {
-            string _connectionString = @"YourConnectionString";
+	class BeerRepository
+	{
+		private string _connectionString = Stuff.GetConnectionStr(); //return @"server=...";
 
-            public IList<SpStoredProcResult> GetStoredProcedures(string schema)
-            {
-                var parms = new SpStoredProcParms() { sp_owner = schema };
+		public IList<Beer> GetBeersByType(string type)
+		{
+			var parms = new GetBeersByTypeParams() { Type = type };
+			var connection = new SqlConnection(_connectionString);
+			IList<Beer> result = connection.Query<Beer>("GetBeerByType", parms);
+			return result;
+		}
 
-                var conn = new SqlConnection(_connectionString);
+		public void InsertBeer(Beer beer)
+		{
+			var connection = new SqlConnection(_connectionString);
+			var res = connection.Execute("[InsertBeer]", beer);
+		}
 
-                IList<SpStoredProcResult> result = conn.Query<SpStoredProcResult>("sp_stored_procedures", parms);
+	}
 
-                return result;
-            }
+	internal class GetBeersByTypeParams { internal string Type; }
 
-            //public void SaveStoredProcedure(SpStoredProcResult storeProcData)
-            //{
-            //    var conn = new SqlConnection(_connectionString);
-
-            //    conn.Execute("[sp_StoredProcedureInsert]", storeProcData);
-            //}
-
-        }
-
-        internal class SpStoredProcParms
-        {
-            internal string sp_name;
-            internal string sp_owner;
-            internal string sp_qualifier;
-        }
-
-        internal class SpStoredProcResult
-        {
-            internal string Procedure_Qualifier;
-            internal string Procedure_Owner;
-            internal string Procedure_Name;
-        }
-
-    }
-   ```
-1. Set your connection string in the DatabaseInfoRepo class
+	public class Beer
+	{
+		public int ID { get; set; }
+		public string Type { get; set; }
+		public string Description { get; set; }
+	}
+}
+```
+1. Set your connection string in the BeerRepository class
 1. That's it!  Set a breakpoint at the end of main and run the code
 
 Not sure how it all works?  The Connections, Execute, and Getting Results sections explain it all.
 
-Want to add the ability to save this data to a table?  Continue to [[Persist World]].
+Want to do this with even less code,  read [[https://github.com/kevinsea/wiki-test/wiki/Auto-Interface-Implementation]]
